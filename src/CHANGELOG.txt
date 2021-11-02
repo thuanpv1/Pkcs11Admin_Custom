@@ -1,0 +1,70 @@
+Pkcs11Admin 0.5.0 (2019-10-30)
+- Fixed attribute duplication bug in key generation dialog
+- #12 - RO sessions won't be opened after SO login
+- #15 - PIN code can be entered as HEX string
+- #21 - Fixed value of PKCS#1 DigestInfo algorihtm params
+  (Patch from Paulo Cunha)
+- #22 - Updated to Pkcs11Interop 5.0.0
+- Updated to Portable.BouncyCastle 1.8.5
+
+Pkcs11Admin 0.4.0 (2017-10-16)
+- Added ROCA (CVE-2017-15361) vulnerability testing
+- Updated to Pkcs11Interop 4.0.0
+- Updated to Portable.BouncyCastle 1.8.1.3
+- Added button for built-in windows cert dialog
+- Fixed CSR DN sorting and encoding
+
+Pkcs11Admin 0.3.0 (2016-08-07)
+- Added starting shell scripts for non-windows platforms
+- New application icon contributed by Tomas Haluska
+- Removed welcome screen
+- Library loading dialog is automatically opened when application is started
+- Added DefaultPkcs11Library and AutoLoadDefaultPkcs11Library app.config settings which can instruct application to automatically load predefined PKCS#11 library at startup
+- Added AES and RSA key generation
+- Added PKCS#10 CSR generation for RSA keys
+- Added certificate and data object viewers
+- Certificates can be imported and exported
+- Action combobox replaced by Object and Tools submenus and context menus
+- Items in ListViews can be sorted
+- Selected items can be copied into clipboard
+- Selected items can be exported to CSV
+- Added ASN.1 viewer for object attributes
+- Object attributes can be loaded from and saved to file
+- Updated support for final PKCS#11 URI scheme defined in RFC 7512
+- Updated to Pkcs11Interop 3.2.0 and dropped dependency on Pkcs11Interop.URI
+- Updated to PKCS11-LOGGER 2.2.0
+- Added dependency on BouncyCastle 1.8.1
+- Added dependency on Asn1Net.Reader 1.1.0
+- Added dependency on Asn1Net.Forms.TreeView 1.1.0
+- Many other smaller bug fixes and improvements
+
+Pkcs11Admin 0.2.0 (2015-01-19)
+- Fixed library loading dialog to be more foolproof and user friendly
+- Added support for PKCS#11 libraries that do not support native OS locking
+- Added support for PKCS#11 Spy logging library from OpenSC project
+- Added new application menu item for library reloading
+- Added shortcuts to application menu items
+- Fixed library unloading on application exit
+- Fixed layout of about dialog on non-windows platforms
+- Fixed layout of wait dialog on non-windows platforms
+- Fixed token access when there is no token present
+- Notice in status bar is shown when there is no slot present
+- Only first token is searched for objects when library is loaded
+- Slot and token is considered unusable when C_GetSlotInfo, C_GetTokenInfo or C_SessionInfo fails
+- CKO_OTP_KEYs are not searched for with libraries supporting older standard than PKCS#11 v2.20
+- Fixed exception handling during protected authentication
+- Changed default log path to more accessible directory
+- Added logging of selected exceptions
+- Added option to export mechanisms to CSV file
+- Added support for data object import and export
+- Multiple objects can be destroyed in a single operation
+- User confirmation is required before the objects are destroyed
+- User confirmation is required before token initialization
+- Added "Check for updates" feature
+- Updated to Pkcs11Interop 2.0.2
+- Added Pkcs11Interop.dll.config to the release bundle so dll mapping can be used on non-windows platforms
+- Merged x86 and x64 releases into a single multiplatform binary release
+- Many other smaller bug fixes and improvements
+
+Pkcs11Admin 0.1.1 (2015-01-01)
+ - Initial technology preview release
