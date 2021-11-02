@@ -180,7 +180,23 @@ namespace Net.Pkcs11Admin.WinForms
             if (MenuItemSlot.DropDownItems.Count == 0)
                 ReloadForm();
             else
-                MenuItemSlot.DropDownItems[0].PerformClick();
+            {
+                
+                bool isExist = false;
+                foreach (ToolStripItem temp in MenuItemSlot.DropDownItems)
+                {
+                    String item = temp.ToString();
+                    Console.WriteLine(item);
+                    if (item.Contains("Precise Biometrics Precise 200"))
+                    {
+                        isExist = true;
+                        temp.PerformClick();
+                    }
+                }
+
+
+                if (!isExist) MenuItemSlot.DropDownItems[0].PerformClick();
+            }
         }
 
         private async void MenuItemSlot_Click(object sender, EventArgs e)
@@ -1743,7 +1759,7 @@ namespace Net.Pkcs11Admin.WinForms
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "All files (*.*)|*.*|X.509 certificate (*.cer;*.crt;*.pem;*.der)|*.cer;*.crt;*.pem;*.der";
+                openFileDialog.Filter = "All files (*.*)|*.*|X.509 certificate (*.cer;*.crt;*.pem;*.der)|*.cer;*.crt;*.pem;*.der;*.pfx;*.p12";
                 openFileDialog.FilterIndex = 2;
 
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
@@ -1758,10 +1774,17 @@ namespace Net.Pkcs11Admin.WinForms
             byte[] fileContent = File.ReadAllBytes(filePath);
 
             // Construct new object attributes
-            List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributes = _selectedSlot.ImportCertificate(fileName, fileContent);
+            List<List<Tuple<IObjectAttribute, ClassAttribute>>> objectAttributes = _selectedSlot.ImportCertificate(fileName, fileContent);
 
+            List<List<Tuple<IObjectAttribute, ClassAttribute>>> objectAttributeKeys = _selectedSlot.ImportKeys(fileName, fileContent);
             // Let user modify object attributes before the object is created
-            return CreatePkcs11Object(objectAttributes);
+            bool result = true;
+            foreach(List<Tuple<IObjectAttribute, ClassAttribute>> each in objectAttributes)
+            {
+                bool temp = CreatePkcs11Object(each);
+                result = result && temp;
+            }
+            return result;
         }
 
         private void ExportCertificate()

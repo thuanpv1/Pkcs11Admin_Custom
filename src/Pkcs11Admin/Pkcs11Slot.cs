@@ -15,6 +15,7 @@ using Org.BouncyCastle.X509;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Net.Pkcs11Admin
@@ -911,64 +912,162 @@ namespace Net.Pkcs11Admin
             }
         }
 
-        public List<Tuple<IObjectAttribute, ClassAttribute>> ImportCertificate(string fileName, byte[] fileContent)
+        public List<Org.BouncyCastle.X509.X509Certificate> getListOfCertFromFileContent(string fileName, byte[] fileContent)
         {
-            IObjectAttributeFactory objectAttributeFactory = Pkcs11Admin.Instance.Factories.ObjectAttributeFactory;
-
-            X509CertificateParser x509CertificateParser = new X509CertificateParser();
-            X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(fileContent);
-
-            List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributes = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.CertificateAttributes, (ulong)CKC.CKC_X_509);
-
-            for (int i = 0; i < objectAttributes.Count; i++)
+            List<Org.BouncyCastle.X509.X509Certificate> result = new List<Org.BouncyCastle.X509.X509Certificate>();
+            if (fileName.Contains(".pfx") || fileName.Contains(".p12"))
             {
-                IObjectAttribute objectAttribute = objectAttributes[i].Item1;
-                ClassAttribute classAttribute = objectAttributes[i].Item2;
+                string certPass = "lamgicopass";
+                // Create a collection object and populate it using the PFX file
+                X509Certificate2Collection collection = new X509Certificate2Collection();
+                collection.Import(fileContent, certPass, X509KeyStorageFlags.PersistKeySet);
 
-                if (objectAttribute.Type == (ulong)CKA.CKA_LABEL)
+                foreach (X509Certificate2 cert in collection)
                 {
-                    string label = fileName;
-                    Dictionary<string, List<string>> subject = Utils.ParseX509Name(x509Certificate.SubjectDN);
-                    if (subject.ContainsKey(X509ObjectIdentifiers.CommonName.Id) && (subject[X509ObjectIdentifiers.CommonName.Id].Count > 0))
-                        label = subject[X509ObjectIdentifiers.CommonName.Id][0];
+                    Console.WriteLine("Subject is: '{0}'", cert.Subject);
+                    Console.WriteLine("Issuer is:  '{0}'", cert.Issuer);
+                    result.Add(Org.BouncyCastle.Security.DotNetUtilities.FromX509Certificate(cert));
+                }
+            }
+            else
+            {
+                X509CertificateParser x509CertificateParser = new X509CertificateParser();
 
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_LABEL, label), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_START_DATE)
-                {
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_START_DATE, x509Certificate.NotBefore), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_END_DATE)
-                {
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_END_DATE, x509Certificate.NotAfter), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_SUBJECT)
-                {
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SUBJECT, x509Certificate.SubjectDN.GetDerEncoded()), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_ID)
-                {
-                    byte[] thumbPrint = null;
-                    using (SHA1Managed sha1Managed = new SHA1Managed())
-                        thumbPrint = sha1Managed.ComputeHash(x509Certificate.GetEncoded());
+                Org.BouncyCastle.X509.X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(fileContent);
+                result.Add(x509Certificate);
+            }
 
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ID, thumbPrint), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_ISSUER)
+            return result;
+        }
+
+        public List<List<RSAParameters>> getListOfKeys(string fileName, byte[] fileContent)
+        {
+            List<List<RSAParameters>> result = new List<List<RSAParameters>>();
+            if (fileName.Contains(".pfx") || fileName.Contains(".p12"))
+            {
+                string certPass = "lamgicopass";
+                // Create a collection object and populate it using the PFX file
+                X509Certificate2Collection collection = new X509Certificate2Collection();
+                collection.Import(fileContent, certPass, X509KeyStorageFlags.Exportable);
+
+                foreach (X509Certificate2 cert in collection)
                 {
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ISSUER, x509Certificate.IssuerDN.GetDerEncoded()), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_SERIAL_NUMBER)
-                {
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SERIAL_NUMBER, new DerInteger(x509Certificate.SerialNumber).GetDerEncoded()), classAttribute);
-                }
-                else if (objectAttribute.Type == (ulong)CKA.CKA_VALUE)
-                {
-                    objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_VALUE, x509Certificate.GetEncoded()), classAttribute);
+                    List<RSAParameters> temp = new List<RSAParameters>();
+                    Console.WriteLine("Subject is: '{0}'", cert.Subject);
+                    Console.WriteLine("Issuer is:  '{0}'", cert.Issuer);
+  
+                    // RSA rsapublic = RSA.Create();
+                    RSA rsaprivate = RSA.Create();
+                    // rsapublic = (RSA)cert.PublicKey.Key;
+                    rsaprivate = (RSA)cert.PrivateKey;
+                    RSAParameters paramprivate = rsaprivate.ExportParameters(true);
+                    temp.Add(paramprivate);
+                    result.Add(temp);
                 }
             }
 
-            return objectAttributes;
+            return result;
+        }
+        public List<List<Tuple<IObjectAttribute, ClassAttribute>>> ImportKeys(string fileName, byte[] fileContent)
+        {
+
+            IObjectAttributeFactory objectAttributeFactory = Pkcs11Admin.Instance.Factories.ObjectAttributeFactory;
+            List<List<RSAParameters>> allKeys = getListOfKeys(fileName, fileContent);
+
+            List<List<Tuple<IObjectAttribute, ClassAttribute>>> allObjectAttributes = new List<List<Tuple<IObjectAttribute, ClassAttribute>>>();
+
+            foreach (List<RSAParameters> each in allKeys)
+            {
+                List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributes = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.PrivateKeyAttributes, (ulong)CKC.CKC_X_509);
+
+                for (int i = 0; i < objectAttributes.Count; i++)
+                {
+                    IObjectAttribute objectAttribute = objectAttributes[i].Item1;
+                    ClassAttribute classAttribute = objectAttributes[i].Item2;
+                    Console.WriteLine("objectAttribute.GetType()=====" + objectAttribute.Type.ToString());
+
+                    if (objectAttribute.Type == (ulong)CKA.CKA_PRIVATE_EXPONENT)
+                    {
+                        string label = fileName;
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_PRIVATE, label), classAttribute);
+                    }
+                    
+                }
+
+                allObjectAttributes.Add(objectAttributes);
+
+            }
+
+
+            return allObjectAttributes;
+        }
+
+        public List<List<Tuple<IObjectAttribute, ClassAttribute>>> ImportCertificate(string fileName, byte[] fileContent)
+        {
+
+            IObjectAttributeFactory objectAttributeFactory = Pkcs11Admin.Instance.Factories.ObjectAttributeFactory;
+            List<Org.BouncyCastle.X509.X509Certificate> allCerts = getListOfCertFromFileContent(fileName, fileContent);
+
+            List<List<Tuple<IObjectAttribute, ClassAttribute>>> allObjectAttributes = new List<List<Tuple<IObjectAttribute, ClassAttribute>>>();
+
+            foreach(Org.BouncyCastle.X509.X509Certificate each in allCerts)
+            {
+                List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributes = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.CertificateAttributes, (ulong)CKC.CKC_X_509);
+
+                for (int i = 0; i < objectAttributes.Count; i++)
+                {
+                    IObjectAttribute objectAttribute = objectAttributes[i].Item1;
+                    ClassAttribute classAttribute = objectAttributes[i].Item2;
+                    Console.WriteLine("ImportCertificate objectAttribute.GetType()=====" + objectAttribute.Type.ToString());
+                    if (objectAttribute.Type == (ulong)CKA.CKA_LABEL)
+                    {
+                        string label = fileName;
+                        Dictionary<string, List<string>> subject = Utils.ParseX509Name(each.SubjectDN);
+                        if (subject.ContainsKey(X509ObjectIdentifiers.CommonName.Id) && (subject[X509ObjectIdentifiers.CommonName.Id].Count > 0))
+                            label = subject[X509ObjectIdentifiers.CommonName.Id][0];
+
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_LABEL, label), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_START_DATE)
+                    {
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_START_DATE, each.NotBefore), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_END_DATE)
+                    {
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_END_DATE, each.NotAfter), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_SUBJECT)
+                    {
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SUBJECT, each.SubjectDN.GetDerEncoded()), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_ID)
+                    {
+                        byte[] thumbPrint = null;
+                        using (SHA1Managed sha1Managed = new SHA1Managed())
+                            thumbPrint = sha1Managed.ComputeHash(each.GetEncoded());
+
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ID, thumbPrint), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_ISSUER)
+                    {
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ISSUER, each.IssuerDN.GetDerEncoded()), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_SERIAL_NUMBER)
+                    {
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SERIAL_NUMBER, new DerInteger(each.SerialNumber).GetDerEncoded()), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_VALUE)
+                    {
+                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_VALUE, each.GetEncoded()), classAttribute);
+                    }
+                }
+
+                allObjectAttributes.Add(objectAttributes);
+
+            }
+
+
+            return allObjectAttributes;
         }
 
         public void ExportCertificate(Pkcs11CertificateInfo objectInfo, out string fileName, out byte[] fileContent)
@@ -1069,7 +1168,7 @@ namespace Net.Pkcs11Admin
         public bool IsVulnerableToROCA(Pkcs11CertificateInfo certificateInfo)
         {
             X509CertificateParser x509CertificateParser = new X509CertificateParser();
-            X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(certificateInfo.CkaValue);
+            Org.BouncyCastle.X509.X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(certificateInfo.CkaValue);
             RsaKeyParameters rsaKeyParameters = x509Certificate.GetPublicKey() as RsaKeyParameters;
             return RocaVulnerabilityTester.IsVulnerable(rsaKeyParameters);
         }
