@@ -1775,8 +1775,6 @@ namespace Net.Pkcs11Admin.WinForms
 
             // Construct new object attributes
             List<List<Tuple<IObjectAttribute, ClassAttribute>>> objectAttributes = _selectedSlot.ImportCertificate(fileName, fileContent);
-
-            List<List<Tuple<IObjectAttribute, ClassAttribute>>> objectAttributeKeys = _selectedSlot.ImportKeys(fileName, fileContent);
             // Let user modify object attributes before the object is created
             bool result = true;
             foreach(List<Tuple<IObjectAttribute, ClassAttribute>> each in objectAttributes)

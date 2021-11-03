@@ -912,37 +912,11 @@ namespace Net.Pkcs11Admin
             }
         }
 
-        public List<Org.BouncyCastle.X509.X509Certificate> getListOfCertFromFileContent(string fileName, byte[] fileContent)
+        public List<Item> getListOfCertFromFileContent(string fileName, byte[] fileContent)
         {
-            List<Org.BouncyCastle.X509.X509Certificate> result = new List<Org.BouncyCastle.X509.X509Certificate>();
-            if (fileName.Contains(".pfx") || fileName.Contains(".p12"))
-            {
-                string certPass = "lamgicopass";
-                // Create a collection object and populate it using the PFX file
-                X509Certificate2Collection collection = new X509Certificate2Collection();
-                collection.Import(fileContent, certPass, X509KeyStorageFlags.PersistKeySet);
+            List<Item> result = new List<Item>();
 
-                foreach (X509Certificate2 cert in collection)
-                {
-                    Console.WriteLine("Subject is: '{0}'", cert.Subject);
-                    Console.WriteLine("Issuer is:  '{0}'", cert.Issuer);
-                    result.Add(Org.BouncyCastle.Security.DotNetUtilities.FromX509Certificate(cert));
-                }
-            }
-            else
-            {
-                X509CertificateParser x509CertificateParser = new X509CertificateParser();
-
-                Org.BouncyCastle.X509.X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(fileContent);
-                result.Add(x509Certificate);
-            }
-
-            return result;
-        }
-
-        public List<List<RSAParameters>> getListOfKeys(string fileName, byte[] fileContent)
-        {
-            List<List<RSAParameters>> result = new List<List<RSAParameters>>();
+            List<Org.BouncyCastle.X509.X509Certificate> allCerts = new List<Org.BouncyCastle.X509.X509Certificate>();
             if (fileName.Contains(".pfx") || fileName.Contains(".p12"))
             {
                 string certPass = "lamgicopass";
@@ -952,117 +926,179 @@ namespace Net.Pkcs11Admin
 
                 foreach (X509Certificate2 cert in collection)
                 {
-                    List<RSAParameters> temp = new List<RSAParameters>();
+                    Item itemTemp = new Item();
                     Console.WriteLine("Subject is: '{0}'", cert.Subject);
                     Console.WriteLine("Issuer is:  '{0}'", cert.Issuer);
-  
+                    itemTemp.cert = (Org.BouncyCastle.Security.DotNetUtilities.FromX509Certificate(cert));
                     // RSA rsapublic = RSA.Create();
                     RSA rsaprivate = RSA.Create();
                     // rsapublic = (RSA)cert.PublicKey.Key;
                     rsaprivate = (RSA)cert.PrivateKey;
+                    byte[] testemp = cert.GetPublicKey();
+                    byte[] exponentData = new byte[3];
+                    byte[] modulusData = new byte[256];
+                    Array.Copy(testemp, testemp.Length - exponentData.Length, exponentData, 0, exponentData.Length);
+                    Array.Copy(testemp, 9, modulusData, 0, modulusData.Length);
                     RSAParameters paramprivate = rsaprivate.ExportParameters(true);
-                    temp.Add(paramprivate);
-                    result.Add(temp);
+                    itemTemp.keys.Add(paramprivate);
+                    result.Add(itemTemp);
                 }
+            }
+            else
+            {
+                X509CertificateParser x509CertificateParser = new X509CertificateParser();
+                Org.BouncyCastle.X509.X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(fileContent);
+                Item itemTemp = new Item();
+                itemTemp.cert = x509Certificate;
             }
 
             return result;
-        }
-        public List<List<Tuple<IObjectAttribute, ClassAttribute>>> ImportKeys(string fileName, byte[] fileContent)
-        {
-
-            IObjectAttributeFactory objectAttributeFactory = Pkcs11Admin.Instance.Factories.ObjectAttributeFactory;
-            List<List<RSAParameters>> allKeys = getListOfKeys(fileName, fileContent);
-
-            List<List<Tuple<IObjectAttribute, ClassAttribute>>> allObjectAttributes = new List<List<Tuple<IObjectAttribute, ClassAttribute>>>();
-
-            foreach (List<RSAParameters> each in allKeys)
-            {
-                List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributes = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.PrivateKeyAttributes, (ulong)CKC.CKC_X_509);
-
-                for (int i = 0; i < objectAttributes.Count; i++)
-                {
-                    IObjectAttribute objectAttribute = objectAttributes[i].Item1;
-                    ClassAttribute classAttribute = objectAttributes[i].Item2;
-                    Console.WriteLine("objectAttribute.GetType()=====" + objectAttribute.Type.ToString());
-
-                    if (objectAttribute.Type == (ulong)CKA.CKA_PRIVATE_EXPONENT)
-                    {
-                        string label = fileName;
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_PRIVATE, label), classAttribute);
-                    }
-                    
-                }
-
-                allObjectAttributes.Add(objectAttributes);
-
-            }
-
-
-            return allObjectAttributes;
         }
 
         public List<List<Tuple<IObjectAttribute, ClassAttribute>>> ImportCertificate(string fileName, byte[] fileContent)
         {
 
             IObjectAttributeFactory objectAttributeFactory = Pkcs11Admin.Instance.Factories.ObjectAttributeFactory;
-            List<Org.BouncyCastle.X509.X509Certificate> allCerts = getListOfCertFromFileContent(fileName, fileContent);
+            List<Item> allCerts = getListOfCertFromFileContent(fileName, fileContent);
 
             List<List<Tuple<IObjectAttribute, ClassAttribute>>> allObjectAttributes = new List<List<Tuple<IObjectAttribute, ClassAttribute>>>();
 
-            foreach(Org.BouncyCastle.X509.X509Certificate each in allCerts)
+            foreach(Item each in allCerts)
             {
-                List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributes = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.CertificateAttributes, (ulong)CKC.CKC_X_509);
+                List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributeCert = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.CertificateAttributes, (ulong)CKC.CKC_X_509);
+                List<Tuple<IObjectAttribute, ClassAttribute>> objectAttributeKey = StringUtils.GetCreateDefaultAttributes(Pkcs11Admin.Instance.Config.PrivateKeyAttributes, (ulong)CKC.CKC_X_509);
 
-                for (int i = 0; i < objectAttributes.Count; i++)
+                for (int i = 0; i < objectAttributeCert.Count; i++)
                 {
-                    IObjectAttribute objectAttribute = objectAttributes[i].Item1;
-                    ClassAttribute classAttribute = objectAttributes[i].Item2;
+                    IObjectAttribute objectAttribute = objectAttributeCert[i].Item1;
+                    ClassAttribute classAttribute = objectAttributeCert[i].Item2;
                     Console.WriteLine("ImportCertificate objectAttribute.GetType()=====" + objectAttribute.Type.ToString());
                     if (objectAttribute.Type == (ulong)CKA.CKA_LABEL)
                     {
                         string label = fileName;
-                        Dictionary<string, List<string>> subject = Utils.ParseX509Name(each.SubjectDN);
+                        Dictionary<string, List<string>> subject = Utils.ParseX509Name(each.cert.SubjectDN);
                         if (subject.ContainsKey(X509ObjectIdentifiers.CommonName.Id) && (subject[X509ObjectIdentifiers.CommonName.Id].Count > 0))
                             label = subject[X509ObjectIdentifiers.CommonName.Id][0];
 
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_LABEL, label), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_LABEL, label), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_START_DATE)
                     {
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_START_DATE, each.NotBefore), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_START_DATE, each.cert.NotBefore), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_END_DATE)
                     {
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_END_DATE, each.NotAfter), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_END_DATE, each.cert.NotAfter), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_SUBJECT)
                     {
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SUBJECT, each.SubjectDN.GetDerEncoded()), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SUBJECT, each.cert.SubjectDN.GetDerEncoded()), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_ID)
                     {
                         byte[] thumbPrint = null;
                         using (SHA1Managed sha1Managed = new SHA1Managed())
-                            thumbPrint = sha1Managed.ComputeHash(each.GetEncoded());
+                            thumbPrint = sha1Managed.ComputeHash(each.cert.GetEncoded());
 
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ID, thumbPrint), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ID, thumbPrint), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_ISSUER)
                     {
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ISSUER, each.IssuerDN.GetDerEncoded()), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ISSUER, each.cert.IssuerDN.GetDerEncoded()), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_SERIAL_NUMBER)
                     {
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SERIAL_NUMBER, new DerInteger(each.SerialNumber).GetDerEncoded()), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SERIAL_NUMBER, new DerInteger(each.cert.SerialNumber).GetDerEncoded()), classAttribute);
                     }
                     else if (objectAttribute.Type == (ulong)CKA.CKA_VALUE)
                     {
-                        objectAttributes[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_VALUE, each.GetEncoded()), classAttribute);
+                        objectAttributeCert[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_VALUE, each.cert.GetEncoded()), classAttribute);
                     }
                 }
 
-                allObjectAttributes.Add(objectAttributes);
+                for (int i = 0; i < objectAttributeKey.Count; i++)
+                {
+                    IObjectAttribute objectAttribute = objectAttributeKey[i].Item1;
+                    ClassAttribute classAttribute = objectAttributeKey[i].Item2;
+                    Console.WriteLine("ImportCertificate objectAttribute.GetType()=====" + objectAttribute.Type.ToString());
+                    if (objectAttribute.Type == (ulong)CKA.CKA_LABEL)
+                    {
+                        string label = fileName;
+                        Dictionary<string, List<string>> subject = Utils.ParseX509Name(each.cert.SubjectDN);
+                        if (subject.ContainsKey(X509ObjectIdentifiers.CommonName.Id) && (subject[X509ObjectIdentifiers.CommonName.Id].Count > 0))
+                            label = subject[X509ObjectIdentifiers.CommonName.Id][0];
+
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_LABEL, label), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_SUBJECT)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SUBJECT, each.cert.SubjectDN.GetDerEncoded()), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_MODULUS)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_MODULUS, each.keys[0].Modulus), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_PUBLIC_EXPONENT)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_PUBLIC_EXPONENT, each.keys[0].Exponent), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_PRIVATE_EXPONENT)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_PRIVATE_EXPONENT, each.keys[0].D), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_COEFFICIENT)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_COEFFICIENT, each.keys[0].InverseQ), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_EXPONENT_1)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_EXPONENT_1, each.keys[0].DP), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_EXPONENT_2)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_EXPONENT_2, each.keys[0].DQ), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_PRIME_1)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_PRIME_1, each.keys[0].P), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_PRIME_2)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_PRIME_2, each.keys[0].Q), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_MODIFIABLE)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_MODIFIABLE, false), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_DERIVE)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_DERIVE, false), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_SENSITIVE)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SENSITIVE, true), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_SIGN_RECOVER)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_SIGN_RECOVER, true), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_UNWRAP)
+                    {
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_UNWRAP, false), classAttribute);
+                    }
+                    else if (objectAttribute.Type == (ulong)CKA.CKA_ID)
+                    {
+                        byte[] thumbPrint = null;
+                        using (SHA1Managed sha1Managed = new SHA1Managed())
+                            thumbPrint = sha1Managed.ComputeHash(each.cert.GetEncoded());
+
+                        objectAttributeKey[i] = new Tuple<IObjectAttribute, ClassAttribute>(objectAttributeFactory.Create(CKA.CKA_ID, thumbPrint), classAttribute);
+                    }
+
+                }
+
+                allObjectAttributes.Add(objectAttributeCert);
+                allObjectAttributes.Add(objectAttributeKey);
 
             }
 
@@ -1222,5 +1258,17 @@ namespace Net.Pkcs11Admin
         }
 
         #endregion
+    }
+
+    public class Item
+    {
+        public List<RSAParameters> keys { get; set; }
+        public Org.BouncyCastle.X509.X509Certificate cert { get; set; }
+
+        public Item()
+        {
+            keys = new List<RSAParameters>();
+            cert = null;
+        }
     }
 }
