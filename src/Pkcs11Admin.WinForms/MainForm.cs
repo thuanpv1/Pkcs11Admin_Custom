@@ -15,6 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using CERTCLILib;
+using CERTENROLLLib;
 using Net.Pkcs11Admin.Configuration;
 using Net.Pkcs11Admin.WinForms.Controls;
 using Net.Pkcs11Admin.WinForms.Dialogs;
@@ -24,8 +26,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CertHelper;
 
 namespace Net.Pkcs11Admin.WinForms
 {
@@ -1777,10 +1783,138 @@ namespace Net.Pkcs11Admin.WinForms
             List<List<Tuple<IObjectAttribute, ClassAttribute>>> objectAttributes = _selectedSlot.ImportCertificate(fileName, fileContent);
             // Let user modify object attributes before the object is created
             bool result = true;
-            foreach(List<Tuple<IObjectAttribute, ClassAttribute>> each in objectAttributes)
+            //foreach (List<Tuple<IObjectAttribute, ClassAttribute>> each in objectAttributes)
+            //{
+            //    bool temp = CreatePkcs11Object(each);
+            //    result = result && temp;
+            //}
+
+            //if (result)
+            //{
+            //    List<X509Certificate2> temp = _selectedSlot.getListOfCert(fileName, fileContent);
+            //    X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            //    store.Open(OpenFlags.ReadWrite);
+            //    foreach (X509Certificate2 eachCert in temp)
+            //    {
+            //        X509Extension ext = new X509Extension();
+            //        store.Add(eachCert); //where cert is an X509Certificate object
+            //    }
+            //    store.Close();
+            //}
+            try
             {
-                bool temp = CreatePkcs11Object(each);
-                result = result && temp;
+                X509Store store = new X509Store("MY", StoreLocation.CurrentUser);
+                store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly | OpenFlags.ReadWrite);
+                X509Certificate2Collection collection = (X509Certificate2Collection)store.Certificates;
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    foreach (X509Extension extension in collection[i].Extensions)
+                    {
+
+                        if (extension.Oid.FriendlyName == "Enhanced Key Usage")
+                        {
+                            Console.WriteLine("0======================>" + extension.Oid.FriendlyName + "(" + extension.Oid.Value + ")");
+                            X509EnhancedKeyUsageExtension ext = (X509EnhancedKeyUsageExtension)extension;
+                            bool isOkItem = false;
+
+
+                            OidCollection oids = ext.EnhancedKeyUsages;
+                            foreach (Oid oid in oids)
+                            {
+                                Console.WriteLine(oid.FriendlyName + "(" + oid.Value + ")");
+                                if (oid.FriendlyName.Contains("Smart Card Logon"))
+                                {
+                                    isOkItem = true;
+                                }
+                            }
+                            if (isOkItem)
+                            {
+                                List<X509Certificate2> temp = _selectedSlot.getListOfCert(fileName, fileContent);
+                                foreach (X509Certificate2 eachCert in temp)
+                                {
+                                    //AsnEncodedData asnEncodedData = new AsnEncodedData(extension.RawData);
+                                    //X509Extension extTemp = new X509Extension(asnEncodedData, true);
+                                    //eachCert.Extensions.Add(ext);
+
+                                    X509EnhancedKeyUsageExtension exttemp = null;
+                                    for (int index = 0; index < eachCert.Extensions.Count; index++)
+                                    {
+                                        if (eachCert.Extensions[index].Oid.FriendlyName == "Enhanced Key Usage")
+                                        {
+                                            
+                                            //exttemp = (X509EnhancedKeyUsageExtension)eachExt;
+                                            //foreach (Oid oid in oids)
+                                            //{
+                                            //    exttemp.EnhancedKeyUsages.Add(oid);
+                                            //}
+
+                                        }
+                                    }
+                                    exttemp = new X509EnhancedKeyUsageExtension(oids, true);
+                                    exttemp.Oid.FriendlyName = "Enhanced Key Usage2";
+                                    if (exttemp != null)
+                                    {
+                                        //eachCert.Extensions.Add(exttemp);
+                                    }
+
+                                    //X509Store store2 = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+                                    //store2.Open(OpenFlags.ReadWrite);
+
+
+                                    // Create the self-signing request.
+                                    CX509CertificateRequestCertificate cert = new CX509CertificateRequestCertificate();
+                                    cert.InitializeFromCertificate(X509CertificateEnrollmentContext.ContextMachine, Convert.ToBase64String(eachCert.GetRawCertData(), 0, eachCert.GetRawCertData().Length));
+
+
+                                    // Enroll based on the certificate signing request.
+                                    CX509Enrollment enrollment = new CX509Enrollment();
+                                    enrollment.InitializeFromRequest(cert);
+                                    enrollment.CertificateFriendlyName = "ThuanTestLocalhost";
+                                    string csrText = enrollment.CreateRequest(EncodingType.XCN_CRYPT_STRING_BASE64);
+
+                                    // Install the certificate chain.  Note that no password is specified.
+                                    enrollment.InstallResponse(InstallResponseRestrictionFlags.AllowUntrustedCertificate, csrText, EncodingType.XCN_CRYPT_STRING_BASE64, "");
+
+                                    //--- Base-64 encode the PKCS#12 certificate in order to re-import it.
+                                    //string pfx = enrollment.CreatePFX("lamgicopass", PFXExportOptions.PFXExportChainWithRoot);
+
+                                    //---- Instantiate the PKCS#12 certificate.
+                                    //X509Certificate2 certificate = new X509Certificate2(System.Convert.FromBase64String(pfx), "lamgicopass", X509KeyStorageFlags.Exportable);
+
+                                    store.Add(eachCert); //where cert is an X509Certificate object
+
+
+
+                                    // Submit the request to the certificate authority.
+                                    CCertRequest certRequest = new CCertRequest();
+                                    int csrResponseCode = certRequest.Submit(CR_IN_BASE64 | CR_IN_FORMATANY, csrText, string.Empty, "");
+
+                                    // React to our response response from the certificate authority.
+                                    switch (csrResponseCode)
+                                    {
+                                        case 3:     // Issued.
+                                            Console.WriteLine("Issued");
+                                            return true;
+                                        case 5:     // Pending.
+                                            Console.WriteLine("Pending");
+                                            return false;
+                                        default:    // Failure.
+                                            Console.WriteLine("failure");
+                                            return false;
+                                    }
+
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+                store.Close();
+            }
+            catch (CryptographicException)
+            {
+                Console.WriteLine("Information could not be written out for this certificate.");
             }
             return result;
         }

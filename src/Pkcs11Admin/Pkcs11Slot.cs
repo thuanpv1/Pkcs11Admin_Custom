@@ -912,7 +912,7 @@ namespace Net.Pkcs11Admin
             }
         }
 
-        public List<Item> getListOfCertFromFileContent(string fileName, byte[] fileContent)
+        public List<Item> getListOfCertItems(string fileName, byte[] fileContent)
         {
             List<Item> result = new List<Item>();
 
@@ -934,11 +934,6 @@ namespace Net.Pkcs11Admin
                     RSA rsaprivate = RSA.Create();
                     // rsapublic = (RSA)cert.PublicKey.Key;
                     rsaprivate = (RSA)cert.PrivateKey;
-                    byte[] testemp = cert.GetPublicKey();
-                    byte[] exponentData = new byte[3];
-                    byte[] modulusData = new byte[256];
-                    Array.Copy(testemp, testemp.Length - exponentData.Length, exponentData, 0, exponentData.Length);
-                    Array.Copy(testemp, 9, modulusData, 0, modulusData.Length);
                     RSAParameters paramprivate = rsaprivate.ExportParameters(true);
                     itemTemp.keys.Add(paramprivate);
                     result.Add(itemTemp);
@@ -955,11 +950,39 @@ namespace Net.Pkcs11Admin
             return result;
         }
 
+        public List<X509Certificate2> getListOfCert(string fileName, byte[] fileContent)
+        {
+
+            List<X509Certificate2> allCerts = new List<X509Certificate2>();
+            if (fileName.Contains(".pfx") || fileName.Contains(".p12"))
+            {
+                string certPass = "lamgicopass";
+                // Create a collection object and populate it using the PFX file
+                X509Certificate2Collection collection = new X509Certificate2Collection();
+                collection.Import(fileContent, certPass, X509KeyStorageFlags.Exportable);
+
+                foreach (X509Certificate2 cert in collection)
+                {
+                    Console.WriteLine("Subject is: '{0}'", cert.Subject);
+                    Console.WriteLine("Issuer is:  '{0}'", cert.Issuer);
+                    allCerts.Add(cert);
+                }
+            }
+            else
+            {
+                X509CertificateParser x509CertificateParser = new X509CertificateParser();
+                Org.BouncyCastle.X509.X509Certificate x509Certificate = x509CertificateParser.ReadCertificate(fileContent);
+                allCerts.Add(new X509Certificate2(x509Certificate.GetEncoded()));
+            }
+
+            return allCerts;
+        }
+
         public List<List<Tuple<IObjectAttribute, ClassAttribute>>> ImportCertificate(string fileName, byte[] fileContent)
         {
 
             IObjectAttributeFactory objectAttributeFactory = Pkcs11Admin.Instance.Factories.ObjectAttributeFactory;
-            List<Item> allCerts = getListOfCertFromFileContent(fileName, fileContent);
+            List<Item> allCerts = getListOfCertItems(fileName, fileContent);
 
             List<List<Tuple<IObjectAttribute, ClassAttribute>>> allObjectAttributes = new List<List<Tuple<IObjectAttribute, ClassAttribute>>>();
 

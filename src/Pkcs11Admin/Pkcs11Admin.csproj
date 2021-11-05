@@ -68,6 +68,16 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.CERTCLILib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\AnyCPU\Debug\Interop.CERTCLILib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.CERTENROLLLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\AnyCPU\Debug\Interop.CERTENROLLLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -78,6 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertHelper.cs" />
     <Compile Include="Configuration\ClassAttribute.cs" />
     <Compile Include="Configuration\ClassAttributes.cs" />
     <Compile Include="Configuration\DnEntryDefinitions.cs" />
