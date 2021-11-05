@@ -33,6 +33,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static PfxImporter;
 
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Net.Pkcs11Admin.WinForms
 {
     public partial class MainForm : Form
@@ -171,7 +178,7 @@ namespace Net.Pkcs11Admin.WinForms
             {
                 ToolStripMenuItem menuItem = new ToolStripMenuItem();
                 menuItem.Text = (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot";
-                menuItem.Tag  = slots[i];
+                menuItem.Tag = slots[i];
                 menuItem.CheckOnClick = true;
                 menuItem.Click += new EventHandler(MenuItemSlot_Click);
 
@@ -187,7 +194,7 @@ namespace Net.Pkcs11Admin.WinForms
                 ReloadForm();
             else
             {
-                
+
                 bool isExist = false;
                 foreach (ToolStripItem temp in MenuItemSlot.DropDownItems)
                 {
@@ -1786,7 +1793,7 @@ namespace Net.Pkcs11Admin.WinForms
             // Let user modify object attributes before the object is created
 
             //bool result = true;
-            
+
             //foreach (List<Tuple<IObjectAttribute, ClassAttribute>> each in objectAttributes)
             //{
             //    bool temp = CreatePkcs11Object(each);
@@ -1806,7 +1813,7 @@ namespace Net.Pkcs11Admin.WinForms
             //    store.Close();
             //}
             bool result = ImportPfxFileToCard(fileContent, "lamgicopass");
-            
+
             return result;
         }
 
@@ -1954,9 +1961,65 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private void testingToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void testingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            String URL = "https://egt.vn:7104/tms-sso/api/v1/1/authenticate";
             Console.WriteLine("testing web");
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(URL);
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //Create my object
+            var json = new
+            {
+                username = "sys_admin",
+                password = "Lamgicopass@1234",
+                appName = "app_tms"
+            };
+            string jsonData = JsonConvert.SerializeObject(json);
+
+            var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(URL, stringContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body.
+                string jsonContent = response.Content.ReadAsStringAsync().Result;
+                Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
+                foreach (KeyValuePair<string, object> entry in data)
+                {
+                    Console.WriteLine(entry.Key + " : " + entry.Value);
+                }
+
+                object token = data["accessToken"];
+
+                HttpClient client2 = new HttpClient();
+                string URL2 = "https://egt.vn:7102/tms/token/bySerialForViewer";
+                string urlParameters = "?serial=54081507084277";
+                client2.BaseAddress = new Uri(URL2);
+                client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token.ToString());
+                var response2 = await client2.GetAsync(urlParameters);
+                if (response2.IsSuccessStatusCode)
+                {
+                    string jsonContent2 = response2.Content.ReadAsStringAsync().Result;
+                    Dictionary<string, object> data2 = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent2);
+                    foreach (KeyValuePair<string, object> entry in data2)
+                    {
+                        Console.WriteLine(entry.Key + " : " + entry.Value);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                }
+
+                // Make any other calls using HttpClient here.
+
+                // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
+                client.Dispose();
+            }
         }
     }
 }
