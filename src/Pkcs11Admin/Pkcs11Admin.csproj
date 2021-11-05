@@ -104,6 +104,7 @@
     <Compile Include="Configuration\AttributeType.cs" />
     <Compile Include="Configuration\DnEntryValueType.cs" />
     <Compile Include="HashAlgorithm.cs" />
+    <Compile Include="PfxImporter.cs" />
     <Compile Include="Pkcs11Admin.cs" />
     <Compile Include="Pkcs11AdminInfo.cs" />
     <Compile Include="CurrentVersionInfo.cs" />

@@ -178,6 +178,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemDomainParamsCsvAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemDomainParamsCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.LabelDomainParams = new System.Windows.Forms.Label();
+            this.testingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainFormStatusStrip.SuspendLayout();
             this.MainFormMenuStrip.SuspendLayout();
             this.MainFormPanel.SuspendLayout();
@@ -224,6 +225,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.MenuItemReloadLibrary,
             this.MenuItemRefreshSlot,
             this.MenuItemApplicationSeparator2,
+            this.testingToolStripMenuItem,
             this.MenuItemExit});
             this.MenuItemApplication.Name = "MenuItemApplication";
             this.MenuItemApplication.Size = new System.Drawing.Size(58, 24);
@@ -692,7 +694,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormPanel.Controls.Add(this.MainFormTabControl);
             this.MainFormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainFormPanel.Location = new System.Drawing.Point(0, 28);
-            this.MainFormPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MainFormPanel.Margin = new System.Windows.Forms.Padding(4);
             this.MainFormPanel.Name = "MainFormPanel";
             this.MainFormPanel.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
             this.MainFormPanel.Size = new System.Drawing.Size(1045, 517);
@@ -711,7 +713,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.Controls.Add(this.TabPageKeys);
             this.MainFormTabControl.Controls.Add(this.TabPageDomainParams);
             this.MainFormTabControl.Location = new System.Drawing.Point(16, 16);
-            this.MainFormTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MainFormTabControl.Margin = new System.Windows.Forms.Padding(4);
             this.MainFormTabControl.Name = "MainFormTabControl";
             this.MainFormTabControl.SelectedIndex = 0;
             this.MainFormTabControl.Size = new System.Drawing.Size(1011, 485);
@@ -723,7 +725,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageBasicInfo.Controls.Add(this.ListViewBasicInfo);
             this.TabPageBasicInfo.Controls.Add(this.LabelBasicInfo);
             this.TabPageBasicInfo.Location = new System.Drawing.Point(4, 25);
-            this.TabPageBasicInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageBasicInfo.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageBasicInfo.Name = "TabPageBasicInfo";
             this.TabPageBasicInfo.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
             this.TabPageBasicInfo.Size = new System.Drawing.Size(1003, 456);
@@ -740,7 +742,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewBasicInfo.FullRowSelect = true;
             this.ListViewBasicInfo.HideSelection = false;
             this.ListViewBasicInfo.Location = new System.Drawing.Point(18, 32);
-            this.ListViewBasicInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewBasicInfo.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewBasicInfo.Name = "ListViewBasicInfo";
             this.ListViewBasicInfo.Size = new System.Drawing.Size(964, 404);
             this.ListViewBasicInfo.Sortable = true;
@@ -797,10 +799,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageMechanisms.Controls.Add(this.ListViewMechanisms);
             this.TabPageMechanisms.Controls.Add(this.LabelMechanisms);
             this.TabPageMechanisms.Location = new System.Drawing.Point(4, 25);
-            this.TabPageMechanisms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageMechanisms.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageMechanisms.Name = "TabPageMechanisms";
             this.TabPageMechanisms.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageMechanisms.Size = new System.Drawing.Size(1003, 462);
+            this.TabPageMechanisms.Size = new System.Drawing.Size(1003, 456);
             this.TabPageMechanisms.TabIndex = 0;
             this.TabPageMechanisms.Text = " Danh sách hàm mật mã hỗ trợ ";
             this.TabPageMechanisms.UseVisualStyleBackColor = true;
@@ -814,7 +816,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewMechanisms.FullRowSelect = true;
             this.ListViewMechanisms.HideSelection = false;
             this.ListViewMechanisms.Location = new System.Drawing.Point(18, 32);
-            this.ListViewMechanisms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewMechanisms.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewMechanisms.Name = "ListViewMechanisms";
             this.ListViewMechanisms.Size = new System.Drawing.Size(964, 409);
             this.ListViewMechanisms.Sortable = true;
@@ -862,10 +864,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageHwFeatures.Controls.Add(this.ListViewHwFeatures);
             this.TabPageHwFeatures.Controls.Add(this.LabelHwFeatures);
             this.TabPageHwFeatures.Location = new System.Drawing.Point(4, 25);
-            this.TabPageHwFeatures.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageHwFeatures.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageHwFeatures.Name = "TabPageHwFeatures";
             this.TabPageHwFeatures.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageHwFeatures.Size = new System.Drawing.Size(1003, 462);
+            this.TabPageHwFeatures.Size = new System.Drawing.Size(1003, 456);
             this.TabPageHwFeatures.TabIndex = 1;
             this.TabPageHwFeatures.Text = "HW features";
             this.TabPageHwFeatures.UseVisualStyleBackColor = true;
@@ -879,7 +881,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewHwFeatures.FullRowSelect = true;
             this.ListViewHwFeatures.HideSelection = false;
             this.ListViewHwFeatures.Location = new System.Drawing.Point(18, 32);
-            this.ListViewHwFeatures.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewHwFeatures.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewHwFeatures.Name = "ListViewHwFeatures";
             this.ListViewHwFeatures.Size = new System.Drawing.Size(964, 409);
             this.ListViewHwFeatures.Sortable = true;
@@ -935,10 +937,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageDataObjects.Controls.Add(this.ListViewDataObjects);
             this.TabPageDataObjects.Controls.Add(this.LabelDataObjects);
             this.TabPageDataObjects.Location = new System.Drawing.Point(4, 25);
-            this.TabPageDataObjects.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageDataObjects.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageDataObjects.Name = "TabPageDataObjects";
             this.TabPageDataObjects.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageDataObjects.Size = new System.Drawing.Size(1003, 462);
+            this.TabPageDataObjects.Size = new System.Drawing.Size(1003, 456);
             this.TabPageDataObjects.TabIndex = 2;
             this.TabPageDataObjects.Text = "Data objects";
             this.TabPageDataObjects.UseVisualStyleBackColor = true;
@@ -952,7 +954,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewDataObjects.FullRowSelect = true;
             this.ListViewDataObjects.HideSelection = false;
             this.ListViewDataObjects.Location = new System.Drawing.Point(18, 32);
-            this.ListViewDataObjects.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewDataObjects.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewDataObjects.Name = "ListViewDataObjects";
             this.ListViewDataObjects.Size = new System.Drawing.Size(964, 409);
             this.ListViewDataObjects.Sortable = true;
@@ -1056,10 +1058,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageCertificates.Controls.Add(this.ListViewCertificates);
             this.TabPageCertificates.Controls.Add(this.LabelCertificates);
             this.TabPageCertificates.Location = new System.Drawing.Point(4, 25);
-            this.TabPageCertificates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageCertificates.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageCertificates.Name = "TabPageCertificates";
             this.TabPageCertificates.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageCertificates.Size = new System.Drawing.Size(1003, 462);
+            this.TabPageCertificates.Size = new System.Drawing.Size(1003, 456);
             this.TabPageCertificates.TabIndex = 5;
             this.TabPageCertificates.Text = "Certificates";
             this.TabPageCertificates.UseVisualStyleBackColor = true;
@@ -1073,7 +1075,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewCertificates.FullRowSelect = true;
             this.ListViewCertificates.HideSelection = false;
             this.ListViewCertificates.Location = new System.Drawing.Point(18, 32);
-            this.ListViewCertificates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewCertificates.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewCertificates.Name = "ListViewCertificates";
             this.ListViewCertificates.Size = new System.Drawing.Size(964, 409);
             this.ListViewCertificates.Sortable = true;
@@ -1177,10 +1179,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageKeys.Controls.Add(this.ListViewKeys);
             this.TabPageKeys.Controls.Add(this.LabelKeys);
             this.TabPageKeys.Location = new System.Drawing.Point(4, 25);
-            this.TabPageKeys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageKeys.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageKeys.Name = "TabPageKeys";
             this.TabPageKeys.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageKeys.Size = new System.Drawing.Size(1003, 462);
+            this.TabPageKeys.Size = new System.Drawing.Size(1003, 456);
             this.TabPageKeys.TabIndex = 3;
             this.TabPageKeys.Text = "Keys";
             this.TabPageKeys.UseVisualStyleBackColor = true;
@@ -1194,7 +1196,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewKeys.FullRowSelect = true;
             this.ListViewKeys.HideSelection = false;
             this.ListViewKeys.Location = new System.Drawing.Point(18, 32);
-            this.ListViewKeys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewKeys.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewKeys.Name = "ListViewKeys";
             this.ListViewKeys.Size = new System.Drawing.Size(964, 409);
             this.ListViewKeys.Sortable = true;
@@ -1314,10 +1316,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageDomainParams.Controls.Add(this.ListViewDomainParams);
             this.TabPageDomainParams.Controls.Add(this.LabelDomainParams);
             this.TabPageDomainParams.Location = new System.Drawing.Point(4, 25);
-            this.TabPageDomainParams.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabPageDomainParams.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageDomainParams.Name = "TabPageDomainParams";
             this.TabPageDomainParams.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageDomainParams.Size = new System.Drawing.Size(1003, 462);
+            this.TabPageDomainParams.Size = new System.Drawing.Size(1003, 456);
             this.TabPageDomainParams.TabIndex = 8;
             this.TabPageDomainParams.Text = "Domain params";
             this.TabPageDomainParams.UseVisualStyleBackColor = true;
@@ -1330,7 +1332,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewDomainParams.ContextMenuStrip = this.ContextMenuDomainParams;
             this.ListViewDomainParams.HideSelection = false;
             this.ListViewDomainParams.Location = new System.Drawing.Point(18, 32);
-            this.ListViewDomainParams.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ListViewDomainParams.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewDomainParams.Name = "ListViewDomainParams";
             this.ListViewDomainParams.Size = new System.Drawing.Size(964, 409);
             this.ListViewDomainParams.Sortable = true;
@@ -1389,6 +1391,13 @@ namespace Net.Pkcs11Admin.WinForms
             this.LabelDomainParams.TabIndex = 0;
             this.LabelDomainParams.Text = "These domain parameters objects were found:";
             // 
+            // testingToolStripMenuItem
+            // 
+            this.testingToolStripMenuItem.Name = "testingToolStripMenuItem";
+            this.testingToolStripMenuItem.Size = new System.Drawing.Size(351, 26);
+            this.testingToolStripMenuItem.Text = "Testing";
+            this.testingToolStripMenuItem.Click += new System.EventHandler(this.testingToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1399,7 +1408,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.Controls.Add(this.MainFormStatusStrip);
             this.Controls.Add(this.MainFormMenuStrip);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1059, 601);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1571,5 +1580,6 @@ namespace Net.Pkcs11Admin.WinForms
         private System.Windows.Forms.ToolStripMenuItem CtxMenuItemDomainParamsDelete;
         private System.Windows.Forms.ToolStripMenuItem CtxMenuItemCertificatesCheckRoca;
         private System.Windows.Forms.ToolStripMenuItem CtxMenuItemKeysCheckRoca;
+        private System.Windows.Forms.ToolStripMenuItem testingToolStripMenuItem;
     }
 }
