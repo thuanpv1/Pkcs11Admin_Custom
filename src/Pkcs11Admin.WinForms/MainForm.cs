@@ -2021,5 +2021,20 @@ namespace Net.Pkcs11Admin.WinForms
                 client.Dispose();
             }
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Testing");
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
