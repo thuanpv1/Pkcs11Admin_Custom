@@ -10,8 +10,9 @@
 
 namespace Net.Pkcs11Admin.WinForms.Properties {
     using System;
-    
-    
+    using System.Drawing;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,7 +20,7 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -65,8 +66,31 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
         /// </summary>
         internal static System.Drawing.Icon Pkcs11Admin {
             get {
+                // Get the bitmap.
+                Bitmap bm = new Bitmap(Properties.Resources.SmartSignLogo);
+
                 object obj = ResourceManager.GetObject("Pkcs11Admin", resourceCulture);
+                return ((System.Drawing.Icon)(Icon.FromHandle(bm.GetHicon())));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon smartSignIcon {
+            get {
+                object obj = ResourceManager.GetObject("smartSignIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SmartSignLogo {
+            get {
+                object obj = ResourceManager.GetObject("SmartSignLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

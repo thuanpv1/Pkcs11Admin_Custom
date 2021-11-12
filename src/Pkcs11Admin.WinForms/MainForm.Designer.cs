@@ -120,6 +120,25 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemBasicInfoCsvAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemBasicInfoCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.LabelBasicInfo = new System.Windows.Forms.Label();
+            this.tabPageCertNew = new System.Windows.Forms.TabPage();
+            this.panelLogin = new System.Windows.Forms.Panel();
+            this.buttonCancelCertTab = new System.Windows.Forms.Button();
+            this.textBoxLoginCertTab = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label4DangNhap = new System.Windows.Forms.Label();
+            this.buttonLoginCertTab = new System.Windows.Forms.Button();
+            this.treeViewCerts = new System.Windows.Forms.TreeView();
+            this.tabPageDoiPIN = new System.Windows.Forms.TabPage();
+            this.buttonHuy = new System.Windows.Forms.Button();
+            this.buttonChapNhan = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.oldPIN = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.textBoxAbout = new System.Windows.Forms.TextBox();
             this.TabPageCertificates = new System.Windows.Forms.TabPage();
             this.ListViewCertificates = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.ContextMenuCertificates = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -133,8 +152,21 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemCertificatesCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemCertificatesCheckRoca = new System.Windows.Forms.ToolStripMenuItem();
             this.LabelCertificates = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.TabPageKeys = new System.Windows.Forms.TabPage();
+            this.ListViewKeys = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ContextMenuKeys = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CtxMenuItemKeysNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeyDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysNewCsr = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysNewCert = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysPkcs11Uri = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysCsvAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemKeysCheckRoca = new System.Windows.Forms.ToolStripMenuItem();
+            this.LabelKeys = new System.Windows.Forms.Label();
             this.ContextMenuMechanisms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CtxMenuItemMechanismsCsvAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemMechanismsCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
@@ -152,18 +184,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemDataObjectsPkcs11Uri = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemDataObjectsCsvAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemDataObjectsCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuKeys = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.CtxMenuItemKeysNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeyDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysImport = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysExport = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysNewCsr = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysNewCert = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysPkcs11Uri = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysCsvAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemKeysCheckRoca = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuDomainParams = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CtxMenuItemDomainParamsEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemDomainParamsDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,9 +192,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageDomainParams = new System.Windows.Forms.TabPage();
             this.ListViewDomainParams = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelDomainParams = new System.Windows.Forms.Label();
-            this.TabPageKeys = new System.Windows.Forms.TabPage();
-            this.ListViewKeys = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
-            this.LabelKeys = new System.Windows.Forms.Label();
             this.TabPageDataObjects = new System.Windows.Forms.TabPage();
             this.ListViewDataObjects = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelDataObjects = new System.Windows.Forms.Label();
@@ -184,12 +201,8 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageMechanisms = new System.Windows.Forms.TabPage();
             this.ListViewMechanisms = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelMechanisms = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.oldPIN = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.contextMenuStripForViewDetailCertKeys = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainFormStatusStrip.SuspendLayout();
             this.MainFormMenuStrip.SuspendLayout();
             this.MainFormPanel.SuspendLayout();
@@ -197,19 +210,23 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.SuspendLayout();
             this.TabPageBasicInfo.SuspendLayout();
             this.ContextMenuBasicInfo.SuspendLayout();
+            this.tabPageCertNew.SuspendLayout();
+            this.panelLogin.SuspendLayout();
+            this.tabPageDoiPIN.SuspendLayout();
+            this.tabPageAbout.SuspendLayout();
             this.TabPageCertificates.SuspendLayout();
             this.ContextMenuCertificates.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.TabPageKeys.SuspendLayout();
+            this.ContextMenuKeys.SuspendLayout();
             this.ContextMenuMechanisms.SuspendLayout();
             this.ContextMenuHwFeatures.SuspendLayout();
             this.ContextMenuDataObjects.SuspendLayout();
-            this.ContextMenuKeys.SuspendLayout();
             this.ContextMenuDomainParams.SuspendLayout();
             this.TabPageDomainParams.SuspendLayout();
-            this.TabPageKeys.SuspendLayout();
             this.TabPageDataObjects.SuspendLayout();
             this.TabPageHwFeatures.SuspendLayout();
             this.TabPageMechanisms.SuspendLayout();
+            this.contextMenuStripForViewDetailCertKeys.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainFormStatusStrip
@@ -217,7 +234,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormStatusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.MainFormStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainFormStatusStripLabel});
-            this.MainFormStatusStrip.Location = new System.Drawing.Point(0, 545);
+            this.MainFormStatusStrip.Location = new System.Drawing.Point(0, 570);
             this.MainFormStatusStrip.Name = "MainFormStatusStrip";
             this.MainFormStatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 19, 0);
             this.MainFormStatusStrip.Size = new System.Drawing.Size(1045, 22);
@@ -719,7 +736,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormPanel.Margin = new System.Windows.Forms.Padding(4);
             this.MainFormPanel.Name = "MainFormPanel";
             this.MainFormPanel.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.MainFormPanel.Size = new System.Drawing.Size(1045, 545);
+            this.MainFormPanel.Size = new System.Drawing.Size(1045, 570);
             this.MainFormPanel.TabIndex = 2;
             // 
             // pictureBox1
@@ -739,14 +756,16 @@ namespace Net.Pkcs11Admin.WinForms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainFormTabControl.Controls.Add(this.TabPageBasicInfo);
-            this.MainFormTabControl.Controls.Add(this.TabPageCertificates);
-            this.MainFormTabControl.Controls.Add(this.tabPage1);
-            this.MainFormTabControl.Controls.Add(this.tabPage2);
-            this.MainFormTabControl.Location = new System.Drawing.Point(16, 159);
+            this.MainFormTabControl.Controls.Add(this.tabPageCertNew);
+            this.MainFormTabControl.Controls.Add(this.tabPageDoiPIN);
+            this.MainFormTabControl.Controls.Add(this.tabPageAbout);
+            this.MainFormTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainFormTabControl.ItemSize = new System.Drawing.Size(106, 30);
+            this.MainFormTabControl.Location = new System.Drawing.Point(0, 159);
             this.MainFormTabControl.Margin = new System.Windows.Forms.Padding(4);
             this.MainFormTabControl.Name = "MainFormTabControl";
             this.MainFormTabControl.SelectedIndex = 0;
-            this.MainFormTabControl.Size = new System.Drawing.Size(1011, 366);
+            this.MainFormTabControl.Size = new System.Drawing.Size(1045, 420);
             this.MainFormTabControl.TabIndex = 1;
             this.MainFormTabControl.SelectedIndexChanged += new System.EventHandler(this.MainFormTabControl_SelectedIndexChanged);
             // 
@@ -754,11 +773,11 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             this.TabPageBasicInfo.Controls.Add(this.ListViewBasicInfo);
             this.TabPageBasicInfo.Controls.Add(this.LabelBasicInfo);
-            this.TabPageBasicInfo.Location = new System.Drawing.Point(4, 25);
+            this.TabPageBasicInfo.Location = new System.Drawing.Point(4, 34);
             this.TabPageBasicInfo.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageBasicInfo.Name = "TabPageBasicInfo";
             this.TabPageBasicInfo.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageBasicInfo.Size = new System.Drawing.Size(1003, 337);
+            this.TabPageBasicInfo.Size = new System.Drawing.Size(1003, 328);
             this.TabPageBasicInfo.TabIndex = 7;
             this.TabPageBasicInfo.Text = "Thông tin chung";
             this.TabPageBasicInfo.UseVisualStyleBackColor = true;
@@ -774,7 +793,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewBasicInfo.Location = new System.Drawing.Point(18, 32);
             this.ListViewBasicInfo.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewBasicInfo.Name = "ListViewBasicInfo";
-            this.ListViewBasicInfo.Size = new System.Drawing.Size(964, 281);
+            this.ListViewBasicInfo.Size = new System.Drawing.Size(964, 272);
             this.ListViewBasicInfo.Sortable = true;
             this.ListViewBasicInfo.TabIndex = 1;
             this.ListViewBasicInfo.UseCompatibleStateImageBehavior = false;
@@ -819,10 +838,217 @@ namespace Net.Pkcs11Admin.WinForms
             this.LabelBasicInfo.Location = new System.Drawing.Point(13, 12);
             this.LabelBasicInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelBasicInfo.Name = "LabelBasicInfo";
-            this.LabelBasicInfo.Size = new System.Drawing.Size(364, 17);
+            this.LabelBasicInfo.Size = new System.Drawing.Size(432, 20);
             this.LabelBasicInfo.TabIndex = 0;
             this.LabelBasicInfo.Text = "Basic information about PKCS#11 library, slot and token:";
             this.LabelBasicInfo.Click += new System.EventHandler(this.LabelBasicInfo_Click);
+            // 
+            // tabPageCertNew
+            // 
+            this.tabPageCertNew.Controls.Add(this.panelLogin);
+            this.tabPageCertNew.Controls.Add(this.treeViewCerts);
+            this.tabPageCertNew.Location = new System.Drawing.Point(4, 34);
+            this.tabPageCertNew.Name = "tabPageCertNew";
+            this.tabPageCertNew.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCertNew.Size = new System.Drawing.Size(1003, 353);
+            this.tabPageCertNew.TabIndex = 10;
+            this.tabPageCertNew.Text = "Certificates";
+            this.tabPageCertNew.UseVisualStyleBackColor = true;
+            // 
+            // panelLogin
+            // 
+            this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLogin.Controls.Add(this.buttonCancelCertTab);
+            this.panelLogin.Controls.Add(this.textBoxLoginCertTab);
+            this.panelLogin.Controls.Add(this.label4);
+            this.panelLogin.Controls.Add(this.label4DangNhap);
+            this.panelLogin.Controls.Add(this.buttonLoginCertTab);
+            this.panelLogin.Location = new System.Drawing.Point(25, 28);
+            this.panelLogin.Name = "panelLogin";
+            this.panelLogin.Size = new System.Drawing.Size(953, 288);
+            this.panelLogin.TabIndex = 1;
+            // 
+            // buttonCancelCertTab
+            // 
+            this.buttonCancelCertTab.ForeColor = System.Drawing.Color.Red;
+            this.buttonCancelCertTab.Location = new System.Drawing.Point(461, 170);
+            this.buttonCancelCertTab.Name = "buttonCancelCertTab";
+            this.buttonCancelCertTab.Size = new System.Drawing.Size(119, 36);
+            this.buttonCancelCertTab.TabIndex = 4;
+            this.buttonCancelCertTab.Text = "Hủy bỏ";
+            this.buttonCancelCertTab.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLoginCertTab
+            // 
+            this.textBoxLoginCertTab.Location = new System.Drawing.Point(238, 100);
+            this.textBoxLoginCertTab.Name = "textBoxLoginCertTab";
+            this.textBoxLoginCertTab.PasswordChar = '*';
+            this.textBoxLoginCertTab.Size = new System.Drawing.Size(489, 27);
+            this.textBoxLoginCertTab.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(128, 107);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "PIN code:";
+            // 
+            // label4DangNhap
+            // 
+            this.label4DangNhap.AutoSize = true;
+            this.label4DangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4DangNhap.Location = new System.Drawing.Point(126, 55);
+            this.label4DangNhap.Name = "label4DangNhap";
+            this.label4DangNhap.Size = new System.Drawing.Size(138, 29);
+            this.label4DangNhap.TabIndex = 1;
+            this.label4DangNhap.Text = "Đăng nhập";
+            this.label4DangNhap.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // buttonLoginCertTab
+            // 
+            this.buttonLoginCertTab.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonLoginCertTab.Location = new System.Drawing.Point(326, 170);
+            this.buttonLoginCertTab.Name = "buttonLoginCertTab";
+            this.buttonLoginCertTab.Size = new System.Drawing.Size(119, 36);
+            this.buttonLoginCertTab.TabIndex = 0;
+            this.buttonLoginCertTab.Text = "Login";
+            this.buttonLoginCertTab.UseVisualStyleBackColor = true;
+            this.buttonLoginCertTab.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // treeViewCerts
+            // 
+            this.treeViewCerts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeViewCerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewCerts.Location = new System.Drawing.Point(25, 28);
+            this.treeViewCerts.Name = "treeViewCerts";
+            this.treeViewCerts.ShowNodeToolTips = true;
+            this.treeViewCerts.Size = new System.Drawing.Size(953, 288);
+            this.treeViewCerts.TabIndex = 0;
+            this.treeViewCerts.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCerts_AfterSelect);
+            this.treeViewCerts.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewCerts_NodeMouseClick);
+            // 
+            // tabPageDoiPIN
+            // 
+            this.tabPageDoiPIN.Controls.Add(this.buttonHuy);
+            this.tabPageDoiPIN.Controls.Add(this.buttonChapNhan);
+            this.tabPageDoiPIN.Controls.Add(this.textBox2);
+            this.tabPageDoiPIN.Controls.Add(this.textBox1);
+            this.tabPageDoiPIN.Controls.Add(this.label3);
+            this.tabPageDoiPIN.Controls.Add(this.label2);
+            this.tabPageDoiPIN.Controls.Add(this.oldPIN);
+            this.tabPageDoiPIN.Controls.Add(this.label1);
+            this.tabPageDoiPIN.Location = new System.Drawing.Point(4, 34);
+            this.tabPageDoiPIN.Name = "tabPageDoiPIN";
+            this.tabPageDoiPIN.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDoiPIN.Size = new System.Drawing.Size(1037, 382);
+            this.tabPageDoiPIN.TabIndex = 8;
+            this.tabPageDoiPIN.Text = "Đổi PIN";
+            this.tabPageDoiPIN.UseVisualStyleBackColor = true;
+            // 
+            // buttonHuy
+            // 
+            this.buttonHuy.ForeColor = System.Drawing.Color.Red;
+            this.buttonHuy.Location = new System.Drawing.Point(494, 266);
+            this.buttonHuy.Name = "buttonHuy";
+            this.buttonHuy.Size = new System.Drawing.Size(119, 36);
+            this.buttonHuy.TabIndex = 7;
+            this.buttonHuy.Text = "Hủy";
+            this.buttonHuy.UseVisualStyleBackColor = true;
+            // 
+            // buttonChapNhan
+            // 
+            this.buttonChapNhan.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonChapNhan.Location = new System.Drawing.Point(354, 266);
+            this.buttonChapNhan.Name = "buttonChapNhan";
+            this.buttonChapNhan.Size = new System.Drawing.Size(119, 36);
+            this.buttonChapNhan.TabIndex = 6;
+            this.buttonChapNhan.Text = "Chấp nhận";
+            this.buttonChapNhan.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(59, 205);
+            this.textBox2.MaxLength = 68;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
+            this.textBox2.Size = new System.Drawing.Size(886, 27);
+            this.textBox2.TabIndex = 5;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(59, 127);
+            this.textBox1.MaxLength = 68;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PasswordChar = '*';
+            this.textBox1.Size = new System.Drawing.Size(886, 27);
+            this.textBox1.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(57, 173);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(305, 20);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Xác nhận PIN code mới (8 đến 64 ký tự)";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(57, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(230, 20);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "PIN code mới (8 đến 64 ký tự)";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // oldPIN
+            // 
+            this.oldPIN.Location = new System.Drawing.Point(57, 49);
+            this.oldPIN.MaxLength = 68;
+            this.oldPIN.Name = "oldPIN";
+            this.oldPIN.PasswordChar = '*';
+            this.oldPIN.Size = new System.Drawing.Size(888, 27);
+            this.oldPIN.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(57, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "PIN code cũ";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // tabPageAbout
+            // 
+            this.tabPageAbout.Controls.Add(this.textBoxAbout);
+            this.tabPageAbout.Location = new System.Drawing.Point(4, 34);
+            this.tabPageAbout.Name = "tabPageAbout";
+            this.tabPageAbout.Size = new System.Drawing.Size(1003, 328);
+            this.tabPageAbout.TabIndex = 9;
+            this.tabPageAbout.Text = "About";
+            this.tabPageAbout.UseVisualStyleBackColor = true;
+            // 
+            // textBoxAbout
+            // 
+            this.textBoxAbout.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.textBoxAbout.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAbout.Location = new System.Drawing.Point(41, 33);
+            this.textBoxAbout.Multiline = true;
+            this.textBoxAbout.Name = "textBoxAbout";
+            this.textBoxAbout.ReadOnly = true;
+            this.textBoxAbout.Size = new System.Drawing.Size(570, 164);
+            this.textBoxAbout.TabIndex = 1;
+            this.textBoxAbout.Text = "Token Manager v1.0\r\n\r\nPhần mềm này đã được đăng ký thương hiệu tại Việt Nam.\r\n\r\nB" +
+    "ản quyền 2021-2025";
             // 
             // TabPageCertificates
             // 
@@ -848,7 +1074,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.ListViewCertificates.Location = new System.Drawing.Point(18, 32);
             this.ListViewCertificates.Margin = new System.Windows.Forms.Padding(4);
             this.ListViewCertificates.Name = "ListViewCertificates";
-            this.ListViewCertificates.Size = new System.Drawing.Size(964, 294);
+            this.ListViewCertificates.Size = new System.Drawing.Size(978, 294);
             this.ListViewCertificates.Sortable = true;
             this.ListViewCertificates.TabIndex = 1;
             this.ListViewCertificates.UseCompatibleStateImageBehavior = false;
@@ -945,30 +1171,142 @@ namespace Net.Pkcs11Admin.WinForms
             this.LabelCertificates.TabIndex = 0;
             this.LabelCertificates.Text = "These certificate objects were found:";
             // 
-            // tabPage1
+            // TabPageKeys
             // 
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.oldPIN);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1003, 337);
-            this.tabPage1.TabIndex = 8;
-            this.tabPage1.Text = "Đổi PIN";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.TabPageKeys.Controls.Add(this.ListViewKeys);
+            this.TabPageKeys.Controls.Add(this.LabelKeys);
+            this.TabPageKeys.Location = new System.Drawing.Point(4, 25);
+            this.TabPageKeys.Margin = new System.Windows.Forms.Padding(4);
+            this.TabPageKeys.Name = "TabPageKeys";
+            this.TabPageKeys.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.TabPageKeys.Size = new System.Drawing.Size(1003, 337);
+            this.TabPageKeys.TabIndex = 3;
+            this.TabPageKeys.Text = "Keys";
+            this.TabPageKeys.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // ListViewKeys
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1003, 337);
-            this.tabPage2.TabIndex = 9;
-            this.tabPage2.Text = "About";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.ListViewKeys.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewKeys.ContextMenuStrip = this.ContextMenuKeys;
+            this.ListViewKeys.FullRowSelect = true;
+            this.ListViewKeys.HideSelection = false;
+            this.ListViewKeys.Location = new System.Drawing.Point(18, 32);
+            this.ListViewKeys.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewKeys.Name = "ListViewKeys";
+            this.ListViewKeys.Size = new System.Drawing.Size(964, 294);
+            this.ListViewKeys.Sortable = true;
+            this.ListViewKeys.TabIndex = 1;
+            this.ListViewKeys.UseCompatibleStateImageBehavior = false;
+            this.ListViewKeys.View = System.Windows.Forms.View.Details;
+            // 
+            // ContextMenuKeys
+            // 
+            this.ContextMenuKeys.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.ContextMenuKeys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CtxMenuItemKeysNew,
+            this.CtxMenuItemKeysEdit,
+            this.CtxMenuItemKeyDelete,
+            this.CtxMenuItemKeysImport,
+            this.CtxMenuItemKeysExport,
+            this.CtxMenuItemKeysNewCsr,
+            this.CtxMenuItemKeysNewCert,
+            this.CtxMenuItemKeysPkcs11Uri,
+            this.CtxMenuItemKeysCsvAll,
+            this.CtxMenuItemKeysCsvSelected,
+            this.CtxMenuItemKeysCheckRoca});
+            this.ContextMenuKeys.Name = "ContextMenuKeys";
+            this.ContextMenuKeys.ShowImageMargin = false;
+            this.ContextMenuKeys.ShowItemToolTips = false;
+            this.ContextMenuKeys.Size = new System.Drawing.Size(298, 268);
+            // 
+            // CtxMenuItemKeysNew
+            // 
+            this.CtxMenuItemKeysNew.Name = "CtxMenuItemKeysNew";
+            this.CtxMenuItemKeysNew.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysNew.Text = "Generate new...";
+            this.CtxMenuItemKeysNew.Click += new System.EventHandler(this.CtxMenuItemKeysNew_Click);
+            // 
+            // CtxMenuItemKeysEdit
+            // 
+            this.CtxMenuItemKeysEdit.Name = "CtxMenuItemKeysEdit";
+            this.CtxMenuItemKeysEdit.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysEdit.Text = "Edit attributes...";
+            this.CtxMenuItemKeysEdit.Click += new System.EventHandler(this.CtxMenuItemKeysEdit_Click);
+            // 
+            // CtxMenuItemKeyDelete
+            // 
+            this.CtxMenuItemKeyDelete.Name = "CtxMenuItemKeyDelete";
+            this.CtxMenuItemKeyDelete.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeyDelete.Text = "Delete...";
+            this.CtxMenuItemKeyDelete.Click += new System.EventHandler(this.CtxMenuItemKeyDelete_Click);
+            // 
+            // CtxMenuItemKeysImport
+            // 
+            this.CtxMenuItemKeysImport.Name = "CtxMenuItemKeysImport";
+            this.CtxMenuItemKeysImport.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysImport.Text = "Import from file...";
+            this.CtxMenuItemKeysImport.Click += new System.EventHandler(this.CtxMenuItemKeysImport_Click);
+            // 
+            // CtxMenuItemKeysExport
+            // 
+            this.CtxMenuItemKeysExport.Name = "CtxMenuItemKeysExport";
+            this.CtxMenuItemKeysExport.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysExport.Text = "Export to file...";
+            this.CtxMenuItemKeysExport.Click += new System.EventHandler(this.CtxMenuItemKeysExport_Click);
+            // 
+            // CtxMenuItemKeysNewCsr
+            // 
+            this.CtxMenuItemKeysNewCsr.Name = "CtxMenuItemKeysNewCsr";
+            this.CtxMenuItemKeysNewCsr.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysNewCsr.Text = "Generate certificate signing request...";
+            this.CtxMenuItemKeysNewCsr.Click += new System.EventHandler(this.CtxMenuItemKeysNewCsr_Click);
+            // 
+            // CtxMenuItemKeysNewCert
+            // 
+            this.CtxMenuItemKeysNewCert.Name = "CtxMenuItemKeysNewCert";
+            this.CtxMenuItemKeysNewCert.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysNewCert.Text = "Generate self-signed certificate...";
+            this.CtxMenuItemKeysNewCert.Click += new System.EventHandler(this.CtxMenuItemKeysNewCert_Click);
+            // 
+            // CtxMenuItemKeysPkcs11Uri
+            // 
+            this.CtxMenuItemKeysPkcs11Uri.Name = "CtxMenuItemKeysPkcs11Uri";
+            this.CtxMenuItemKeysPkcs11Uri.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysPkcs11Uri.Text = "Build PKCS#11 URI...";
+            this.CtxMenuItemKeysPkcs11Uri.Click += new System.EventHandler(this.CtxMenuItemKeysPkcs11Uri_Click);
+            // 
+            // CtxMenuItemKeysCsvAll
+            // 
+            this.CtxMenuItemKeysCsvAll.Name = "CtxMenuItemKeysCsvAll";
+            this.CtxMenuItemKeysCsvAll.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysCsvAll.Text = "Export all items to CSV...";
+            this.CtxMenuItemKeysCsvAll.Click += new System.EventHandler(this.CtxMenuItemKeysCsvAll_Click);
+            // 
+            // CtxMenuItemKeysCsvSelected
+            // 
+            this.CtxMenuItemKeysCsvSelected.Name = "CtxMenuItemKeysCsvSelected";
+            this.CtxMenuItemKeysCsvSelected.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysCsvSelected.Text = "Export selected items to CSV...";
+            this.CtxMenuItemKeysCsvSelected.Click += new System.EventHandler(this.CtxMenuItemKeysCsvSelected_Click);
+            // 
+            // CtxMenuItemKeysCheckRoca
+            // 
+            this.CtxMenuItemKeysCheckRoca.Name = "CtxMenuItemKeysCheckRoca";
+            this.CtxMenuItemKeysCheckRoca.Size = new System.Drawing.Size(297, 24);
+            this.CtxMenuItemKeysCheckRoca.Text = "Check for ROCA vulnerability...";
+            this.CtxMenuItemKeysCheckRoca.Click += new System.EventHandler(this.CtxMenuItemKeysCheckRoca_Click);
+            // 
+            // LabelKeys
+            // 
+            this.LabelKeys.AutoSize = true;
+            this.LabelKeys.Location = new System.Drawing.Point(13, 12);
+            this.LabelKeys.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LabelKeys.Name = "LabelKeys";
+            this.LabelKeys.Size = new System.Drawing.Size(201, 17);
+            this.LabelKeys.TabIndex = 0;
+            this.LabelKeys.Text = "These key objects were found:";
             // 
             // ContextMenuMechanisms
             // 
@@ -1109,103 +1447,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemDataObjectsCsvSelected.Text = "Export selected items to CSV...";
             this.CtxMenuItemDataObjectsCsvSelected.Click += new System.EventHandler(this.CtxMenuItemDataObjectsCsvSelected_Click);
             // 
-            // ContextMenuKeys
-            // 
-            this.ContextMenuKeys.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.ContextMenuKeys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CtxMenuItemKeysNew,
-            this.CtxMenuItemKeysEdit,
-            this.CtxMenuItemKeyDelete,
-            this.CtxMenuItemKeysImport,
-            this.CtxMenuItemKeysExport,
-            this.CtxMenuItemKeysNewCsr,
-            this.CtxMenuItemKeysNewCert,
-            this.CtxMenuItemKeysPkcs11Uri,
-            this.CtxMenuItemKeysCsvAll,
-            this.CtxMenuItemKeysCsvSelected,
-            this.CtxMenuItemKeysCheckRoca});
-            this.ContextMenuKeys.Name = "ContextMenuKeys";
-            this.ContextMenuKeys.ShowImageMargin = false;
-            this.ContextMenuKeys.ShowItemToolTips = false;
-            this.ContextMenuKeys.Size = new System.Drawing.Size(298, 268);
-            // 
-            // CtxMenuItemKeysNew
-            // 
-            this.CtxMenuItemKeysNew.Name = "CtxMenuItemKeysNew";
-            this.CtxMenuItemKeysNew.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysNew.Text = "Generate new...";
-            this.CtxMenuItemKeysNew.Click += new System.EventHandler(this.CtxMenuItemKeysNew_Click);
-            // 
-            // CtxMenuItemKeysEdit
-            // 
-            this.CtxMenuItemKeysEdit.Name = "CtxMenuItemKeysEdit";
-            this.CtxMenuItemKeysEdit.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysEdit.Text = "Edit attributes...";
-            this.CtxMenuItemKeysEdit.Click += new System.EventHandler(this.CtxMenuItemKeysEdit_Click);
-            // 
-            // CtxMenuItemKeyDelete
-            // 
-            this.CtxMenuItemKeyDelete.Name = "CtxMenuItemKeyDelete";
-            this.CtxMenuItemKeyDelete.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeyDelete.Text = "Delete...";
-            this.CtxMenuItemKeyDelete.Click += new System.EventHandler(this.CtxMenuItemKeyDelete_Click);
-            // 
-            // CtxMenuItemKeysImport
-            // 
-            this.CtxMenuItemKeysImport.Name = "CtxMenuItemKeysImport";
-            this.CtxMenuItemKeysImport.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysImport.Text = "Import from file...";
-            this.CtxMenuItemKeysImport.Click += new System.EventHandler(this.CtxMenuItemKeysImport_Click);
-            // 
-            // CtxMenuItemKeysExport
-            // 
-            this.CtxMenuItemKeysExport.Name = "CtxMenuItemKeysExport";
-            this.CtxMenuItemKeysExport.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysExport.Text = "Export to file...";
-            this.CtxMenuItemKeysExport.Click += new System.EventHandler(this.CtxMenuItemKeysExport_Click);
-            // 
-            // CtxMenuItemKeysNewCsr
-            // 
-            this.CtxMenuItemKeysNewCsr.Name = "CtxMenuItemKeysNewCsr";
-            this.CtxMenuItemKeysNewCsr.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysNewCsr.Text = "Generate certificate signing request...";
-            this.CtxMenuItemKeysNewCsr.Click += new System.EventHandler(this.CtxMenuItemKeysNewCsr_Click);
-            // 
-            // CtxMenuItemKeysNewCert
-            // 
-            this.CtxMenuItemKeysNewCert.Name = "CtxMenuItemKeysNewCert";
-            this.CtxMenuItemKeysNewCert.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysNewCert.Text = "Generate self-signed certificate...";
-            this.CtxMenuItemKeysNewCert.Click += new System.EventHandler(this.CtxMenuItemKeysNewCert_Click);
-            // 
-            // CtxMenuItemKeysPkcs11Uri
-            // 
-            this.CtxMenuItemKeysPkcs11Uri.Name = "CtxMenuItemKeysPkcs11Uri";
-            this.CtxMenuItemKeysPkcs11Uri.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysPkcs11Uri.Text = "Build PKCS#11 URI...";
-            this.CtxMenuItemKeysPkcs11Uri.Click += new System.EventHandler(this.CtxMenuItemKeysPkcs11Uri_Click);
-            // 
-            // CtxMenuItemKeysCsvAll
-            // 
-            this.CtxMenuItemKeysCsvAll.Name = "CtxMenuItemKeysCsvAll";
-            this.CtxMenuItemKeysCsvAll.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysCsvAll.Text = "Export all items to CSV...";
-            this.CtxMenuItemKeysCsvAll.Click += new System.EventHandler(this.CtxMenuItemKeysCsvAll_Click);
-            // 
-            // CtxMenuItemKeysCsvSelected
-            // 
-            this.CtxMenuItemKeysCsvSelected.Name = "CtxMenuItemKeysCsvSelected";
-            this.CtxMenuItemKeysCsvSelected.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysCsvSelected.Text = "Export selected items to CSV...";
-            this.CtxMenuItemKeysCsvSelected.Click += new System.EventHandler(this.CtxMenuItemKeysCsvSelected_Click);
-            // 
-            // CtxMenuItemKeysCheckRoca
-            // 
-            this.CtxMenuItemKeysCheckRoca.Name = "CtxMenuItemKeysCheckRoca";
-            this.CtxMenuItemKeysCheckRoca.Size = new System.Drawing.Size(297, 24);
-            this.CtxMenuItemKeysCheckRoca.Text = "Check for ROCA vulnerability...";
-            this.CtxMenuItemKeysCheckRoca.Click += new System.EventHandler(this.CtxMenuItemKeysCheckRoca_Click);
-            // 
             // ContextMenuDomainParams
             // 
             this.ContextMenuDomainParams.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -1285,46 +1526,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.LabelDomainParams.Size = new System.Drawing.Size(301, 17);
             this.LabelDomainParams.TabIndex = 0;
             this.LabelDomainParams.Text = "These domain parameters objects were found:";
-            // 
-            // TabPageKeys
-            // 
-            this.TabPageKeys.Controls.Add(this.ListViewKeys);
-            this.TabPageKeys.Controls.Add(this.LabelKeys);
-            this.TabPageKeys.Location = new System.Drawing.Point(4, 25);
-            this.TabPageKeys.Margin = new System.Windows.Forms.Padding(4);
-            this.TabPageKeys.Name = "TabPageKeys";
-            this.TabPageKeys.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageKeys.Size = new System.Drawing.Size(1003, 337);
-            this.TabPageKeys.TabIndex = 3;
-            this.TabPageKeys.Text = "Keys";
-            this.TabPageKeys.UseVisualStyleBackColor = true;
-            // 
-            // ListViewKeys
-            // 
-            this.ListViewKeys.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewKeys.ContextMenuStrip = this.ContextMenuKeys;
-            this.ListViewKeys.FullRowSelect = true;
-            this.ListViewKeys.HideSelection = false;
-            this.ListViewKeys.Location = new System.Drawing.Point(18, 32);
-            this.ListViewKeys.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewKeys.Name = "ListViewKeys";
-            this.ListViewKeys.Size = new System.Drawing.Size(964, 294);
-            this.ListViewKeys.Sortable = true;
-            this.ListViewKeys.TabIndex = 1;
-            this.ListViewKeys.UseCompatibleStateImageBehavior = false;
-            this.ListViewKeys.View = System.Windows.Forms.View.Details;
-            // 
-            // LabelKeys
-            // 
-            this.LabelKeys.AutoSize = true;
-            this.LabelKeys.Location = new System.Drawing.Point(13, 12);
-            this.LabelKeys.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LabelKeys.Name = "LabelKeys";
-            this.LabelKeys.Size = new System.Drawing.Size(201, 17);
-            this.LabelKeys.TabIndex = 0;
-            this.LabelKeys.Text = "These key objects were found:";
             // 
             // TabPageDataObjects
             // 
@@ -1446,67 +1647,34 @@ namespace Net.Pkcs11Admin.WinForms
             this.LabelMechanisms.TabIndex = 1;
             this.LabelMechanisms.Text = "These mechanisms are supported by the PKCS#11 library:";
             // 
-            // label1
+            // contextMenuStripForViewDetailCertKeys
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "PIN code cũ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.contextMenuStripForViewDetailCertKeys.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStripForViewDetailCertKeys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewDetailToolStripMenuItem});
+            this.contextMenuStripForViewDetailCertKeys.Name = "contextMenuStripForViewDetailCertKeys";
+            this.contextMenuStripForViewDetailCertKeys.Size = new System.Drawing.Size(158, 28);
             // 
-            // oldPIN
+            // viewDetailToolStripMenuItem
             // 
-            this.oldPIN.Location = new System.Drawing.Point(57, 68);
-            this.oldPIN.Name = "oldPIN";
-            this.oldPIN.Size = new System.Drawing.Size(888, 22);
-            this.oldPIN.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(82, 121);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(195, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "PIN code mới (8 đến 64 ký tự)";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(79, 172);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(259, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Xác nhận PIN code mới (8 đến 64 ký tự)";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(59, 150);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(886, 22);
-            this.textBox1.TabIndex = 4;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(59, 222);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(886, 22);
-            this.textBox2.TabIndex = 5;
+            this.viewDetailToolStripMenuItem.Name = "viewDetailToolStripMenuItem";
+            this.viewDetailToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
+            this.viewDetailToolStripMenuItem.Text = "Xem chi tiết";
+            this.viewDetailToolStripMenuItem.Click += new System.EventHandler(this.viewDetailToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1045, 567);
+            this.ClientSize = new System.Drawing.Size(1045, 592);
             this.Controls.Add(this.MainFormPanel);
             this.Controls.Add(this.MainFormStatusStrip);
             this.Controls.Add(this.MainFormMenuStrip);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1059, 601);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1522,26 +1690,32 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageBasicInfo.ResumeLayout(false);
             this.TabPageBasicInfo.PerformLayout();
             this.ContextMenuBasicInfo.ResumeLayout(false);
+            this.tabPageCertNew.ResumeLayout(false);
+            this.panelLogin.ResumeLayout(false);
+            this.panelLogin.PerformLayout();
+            this.tabPageDoiPIN.ResumeLayout(false);
+            this.tabPageDoiPIN.PerformLayout();
+            this.tabPageAbout.ResumeLayout(false);
+            this.tabPageAbout.PerformLayout();
             this.TabPageCertificates.ResumeLayout(false);
             this.TabPageCertificates.PerformLayout();
             this.ContextMenuCertificates.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.TabPageKeys.ResumeLayout(false);
+            this.TabPageKeys.PerformLayout();
+            this.ContextMenuKeys.ResumeLayout(false);
             this.ContextMenuMechanisms.ResumeLayout(false);
             this.ContextMenuHwFeatures.ResumeLayout(false);
             this.ContextMenuDataObjects.ResumeLayout(false);
-            this.ContextMenuKeys.ResumeLayout(false);
             this.ContextMenuDomainParams.ResumeLayout(false);
             this.TabPageDomainParams.ResumeLayout(false);
             this.TabPageDomainParams.PerformLayout();
-            this.TabPageKeys.ResumeLayout(false);
-            this.TabPageKeys.PerformLayout();
             this.TabPageDataObjects.ResumeLayout(false);
             this.TabPageDataObjects.PerformLayout();
             this.TabPageHwFeatures.ResumeLayout(false);
             this.TabPageHwFeatures.PerformLayout();
             this.TabPageMechanisms.ResumeLayout(false);
             this.TabPageMechanisms.PerformLayout();
+            this.contextMenuStripForViewDetailCertKeys.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1683,13 +1857,26 @@ namespace Net.Pkcs11Admin.WinForms
         private TabPage TabPageDomainParams;
         private Controls.EnhancedListView ListViewDomainParams;
         private Label LabelDomainParams;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
+        private TabPage tabPageDoiPIN;
+        private TabPage tabPageAbout;
         private Label label1;
         private Label label3;
         private Label label2;
         private TextBox oldPIN;
         private TextBox textBox2;
         private TextBox textBox1;
+        private Button buttonHuy;
+        private Button buttonChapNhan;
+        private TextBox textBoxAbout;
+        private TabPage tabPageCertNew;
+        private TreeView treeViewCerts;
+        private Panel panelLogin;
+        private Button buttonLoginCertTab;
+        private Label label4DangNhap;
+        private TextBox textBoxLoginCertTab;
+        private Label label4;
+        private Button buttonCancelCertTab;
+        private ContextMenuStrip contextMenuStripForViewDetailCertKeys;
+        private ToolStripMenuItem viewDetailToolStripMenuItem;
     }
 }

@@ -1030,6 +1030,37 @@ namespace Net.Pkcs11Admin.WinForms
 
         #endregion
 
+        #region TabPageCertTreeView
+        private void ReloadCertTreeView()
+        {
+            bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null)));
+            treeViewCerts.Enabled = controlsEnabled;
+            treeViewCerts.Nodes.Clear();
+            List<KeyValuePair<object, string[]>> data = new List<KeyValuePair<object, string[]>>();
+
+            int index = -1;
+
+            if ((_selectedSlot != null) && (_selectedSlot.Certificates != null))
+            {
+                foreach (Pkcs11CertificateInfo certificate in _selectedSlot.Certificates)
+                {
+                    index++;
+                    X509Certificate2 cert = new X509Certificate2(certificate.CkaValue);
+                    treeViewCerts.Nodes.Add(BitConverter.ToString(certificate.CkaId).Replace("-", ""), "[" + certificate.CkaLabel + "] " + cert.Subject);
+                    treeViewCerts.Nodes[index].Nodes.Add("certNode", "Chứng thư số");
+                    treeViewCerts.Nodes[index].Nodes.Add("privateKeyNode", "Khóa riêng");
+                    treeViewCerts.Nodes[index].Nodes[0].ContextMenuStrip = this.contextMenuStripForViewDetailCertKeys;
+                    treeViewCerts.Nodes[index].Nodes[1].ContextMenuStrip = this.contextMenuStripForViewDetailCertKeys;
+
+                    if (_selectedSlot.Keys != null && _selectedSlot.Keys.Count > 0)
+                    {
+                        panelLogin.Dispose();
+                    }
+                }
+
+            }
+        }
+        #endregion
         #region TabPageCertificates
 
         private void ReloadTabPageCertificates()
@@ -1439,6 +1470,7 @@ namespace Net.Pkcs11Admin.WinForms
             ReloadTabPageHwFeatures();
             ReloadTabPageDataObjects();
             ReloadTabPageCertificates();
+            ReloadCertTreeView();
             ReloadTabPageKeys();
             ReloadTabPageDomainParams();
 
@@ -2035,6 +2067,105 @@ namespace Net.Pkcs11Admin.WinForms
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String pinCode = textBoxLoginCertTab.Text;
+            byte[] pin = null;
+            Console.WriteLine("pinCode ==== " + pinCode);
+            try
+            {
+                pin = ConvertUtils.Utf8StringToBytes(pinCode);
+            }
+            catch (Exception)
+            {
+                WinFormsUtils.ShowError(this, "Unable to decode UTF-8 string");
+                return;
+            }
+
+            if (_selectedSlot.Login(CKU.CKU_USER, pin))
+            {
+                _selectedSlot.Reload();
+                ReloadForm();
+            } else
+            {
+                MessageBox.Show("Mật khẩu không chính xác! \nBạn còn " + _selectedSlot.getCurrentAllowLogin() + " lần thử.", "Sai mật khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewDetailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode selectedNodeCert = treeViewCerts.SelectedNode;
+            TreeNode selectedParentNodeCert = selectedNodeCert.Parent;
+            // thuan: find cert with the certId is selectedParentNodeCert.Name the show it out.
+            if ((_selectedSlot != null) && (_selectedSlot.Certificates != null) && selectedNodeCert.Name == "certNode")
+            {
+                foreach (Pkcs11CertificateInfo certificate in _selectedSlot.Certificates)
+                {
+                    if (BitConverter.ToString(certificate.CkaId).Replace("-", "") == selectedParentNodeCert.Name)
+                    {
+                        X509Certificate2 x509Cert = new X509Certificate2(certificate.CkaValue);
+                        X509Certificate2UI.DisplayCertificate(x509Cert, this.Handle);
+                    }
+                }
+            }
+
+            if ((_selectedSlot != null) && (_selectedSlot.Keys != null) && selectedNodeCert.Name == "privateKeyNode")
+            {
+                foreach (Pkcs11KeyInfo key in _selectedSlot.Keys)
+                {
+                    if (BitConverter.ToString(key.CkaId).Replace("-", "") == selectedParentNodeCert.Name)
+                    {
+                        String label = key.CkaLabel;
+                        String keyId = BitConverter.ToString(key.CkaId).Replace("-", "");
+                        String keyModulus = "";
+                        String keyPublicExponent = "";
+
+                        foreach(IObjectAttribute item in key.ObjectAttributes)
+                        {
+                            if (!item.CannotBeRead)
+                            {
+                                if (item.Type.ToString() == "288")
+                                {
+                                    keyModulus = BitConverter.ToString(item.GetValueAsByteArray()).Replace("-", "");
+                                }
+                                if (item.Type.ToString() == "290")
+                                {
+                                    keyPublicExponent = BitConverter.ToString(item.GetValueAsByteArray()).Replace("-", "");
+                                }
+                            }
+                        }
+
+                        using (ViewDetailKeyDialog viewDetailKeyDialog = new ViewDetailKeyDialog(label, keyId, keyPublicExponent, keyModulus))
+                        {
+                            
+                            viewDetailKeyDialog.ShowDialog();
+                        }
+
+
+                    }
+                }
+            }
+
+        }
+
+        private void treeViewCerts_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void treeViewCerts_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                treeViewCerts.SelectedNode = e.Node;
+            }
         }
     }
 }

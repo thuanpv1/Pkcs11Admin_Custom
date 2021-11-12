@@ -27,6 +27,12 @@ namespace Net.Pkcs11Admin
         private ISlot _slot = null;
 
         private ISession _authenticatedSession = null;
+        private int currentAllowLogin = 10;
+
+        public int getCurrentAllowLogin ()
+        {
+            return currentAllowLogin;
+        }
 
         #region Properties
 
@@ -739,7 +745,7 @@ namespace Net.Pkcs11Admin
             _slot.InitToken(soPin, label);
         }
 
-        public void Login(CKU userType, byte[] pin)
+        public bool Login(CKU userType, byte[] pin)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -752,12 +758,18 @@ namespace Net.Pkcs11Admin
             try
             {
                 _authenticatedSession.Login(userType, pin);
+                currentAllowLogin = 10;
+                return true;
             }
             catch (Exception)
             {
                 _authenticatedSession.Dispose();
                 _authenticatedSession = null;
-                throw;
+
+                currentAllowLogin--;
+                return false;
+                //[thuan] update here
+                //throw;
             }
         }
 

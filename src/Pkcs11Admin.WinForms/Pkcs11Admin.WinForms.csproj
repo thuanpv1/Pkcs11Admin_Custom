@@ -200,6 +200,12 @@
     <Compile Include="Dialogs\UriDialog.Designer.cs">
       <DependentUpon>UriDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ViewDetailKeyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ViewDetailKeyDialog.Designer.cs">
+      <DependentUpon>ViewDetailKeyDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\WaitDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +272,9 @@
     <EmbeddedResource Include="Dialogs\UriDialog.resx">
       <DependentUpon>UriDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ViewDetailKeyDialog.resx">
+      <DependentUpon>ViewDetailKeyDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\WaitDialog.resx">
       <DependentUpon>WaitDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -303,6 +312,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pkcs11Admin.ico" />
+    <None Include="Resources\SmartSign_logo 3.png" />
+    <None Include="Resources\Image1.png" />
+    <None Include="Resources\smartSignIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Asn1Net.Forms.TreeView">
