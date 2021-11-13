@@ -22,7 +22,7 @@ namespace Net.Pkcs11Admin
     public class TokenNotPresentException : Exception
     {
         public TokenNotPresentException()
-            : base("Token/card is not present in the slot/reader")
+            : base("Không tìm thấy token/card trên đầu đọc")
         {
 
         }

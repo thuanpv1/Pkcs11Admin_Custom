@@ -639,6 +639,31 @@ namespace Net.Pkcs11Admin.WinForms
             ReloadMainFormStatusStripLabel();
         }
 
+        #region TabTokenManager
+
+        private void ReloadTokenManager()
+        {
+            bool controlsEnabled = (!((_selectedLibrary == null) || (_selectedSlot == null)));
+            tabPageTokenManger.Enabled = controlsEnabled;
+
+            //List<KeyValuePair<object, string[]>> data = null;
+
+            // Token info
+            if ((_selectedSlot != null) && (_selectedSlot.TokenInfo != null))
+            {
+
+                this.textBoxLabelToken.Text = _selectedSlot.TokenInfo.Label;
+                this.textBoxManufacture.Text = _selectedSlot.TokenInfo.ManufacturerId;
+                this.textBoxModelToken.Text = _selectedSlot.TokenInfo.Model;
+                this.textBoxSerialNumber.Text = _selectedSlot.TokenInfo.SerialNumber;
+                this.textBoxTrangThai.Text = "Đang khóa";
+                this.textBoxGhiChu.Text = "Khách hàng chưa nộp tiền";
+            }
+
+        }
+
+        #endregion
+
         #region TabPageBasicInfo
 
         private void ReloadTabPageBasicInfo()
@@ -1055,6 +1080,12 @@ namespace Net.Pkcs11Admin.WinForms
                     if (_selectedSlot.Keys != null && _selectedSlot.Keys.Count > 0)
                     {
                         panelLogin.Dispose();
+                        panelLoginDoiPIN.Dispose();
+                        panelDangNhapTokenManager.Dispose();
+                    } else
+                    {
+                        panelLogin.Show();
+                        panelLoginDoiPIN.Show();
                     }
                 }
 
@@ -1422,6 +1453,27 @@ namespace Net.Pkcs11Admin.WinForms
                 else
                     ShowObjectCountInStatusStrip(ListViewDomainParams.Items.Count);
             }
+            else if (MainFormTabControl.SelectedTab == tabPageAbout)
+            {
+                if (_selectedSlot.TokenInfoException != null)
+                    ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
+                else
+                    ShowInfoInStatusStrip(string.Empty);
+            }
+            else if (MainFormTabControl.SelectedTab == tabPageCertNew)
+            {
+                if (_selectedSlot.TokenInfoException != null)
+                    ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
+                else
+                    ShowObjectCountInStatusStrip(treeViewCerts.Nodes.Count);
+            }
+            else if (MainFormTabControl.SelectedTab == tabPageDoiPIN)
+            {
+                if (_selectedSlot.TokenInfoException != null)
+                    ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
+                else
+                    ShowInfoInStatusStrip(string.Empty);
+            }
             else
             {
                 ShowInfoInStatusStrip(string.Empty);
@@ -1445,7 +1497,16 @@ namespace Net.Pkcs11Admin.WinForms
             if (exception is TokenNotPresentException)
                 ShowErrorInStatusStrip(exception.Message);
             else
-                ShowErrorInStatusStrip(string.Format("Error occurred: {0}", exception.Message));
+            {
+                if (exception.Message.Contains("CKR_TOKEN_NOT_RECOGNIZED"))
+                {
+                    ShowErrorInStatusStrip("Không nhận ra token, hãy thử đổi chiều cắm smartcard.");
+                }
+                else
+                {
+                    ShowErrorInStatusStrip(string.Format("Error occurred: {0}", exception.Message));
+                }
+            }
         }
 
         private void ShowObjectCountInStatusStrip(int count)
@@ -1472,6 +1533,7 @@ namespace Net.Pkcs11Admin.WinForms
             ReloadTabPageCertificates();
             ReloadCertTreeView();
             ReloadTabPageKeys();
+            ReloadTokenManager();
             ReloadTabPageDomainParams();
 
             ReloadMainFormStatusStripLabel();
@@ -2071,7 +2133,18 @@ namespace Net.Pkcs11Admin.WinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;           
             String pinCode = textBoxLoginCertTab.Text;
+            if (String.Equals(btn.Name, "buttonLoginDoiPINTab"))
+            {
+                pinCode = textBoxLoginDoiPINTab.Text;
+            }
+
+            if (String.Equals(btn.Name, "buttonLoginTokenManager"))
+            {
+                pinCode = textBoxPinCodeLoginTokenManager.Text;
+            }
+
             byte[] pin = null;
             Console.WriteLine("pinCode ==== " + pinCode);
             try
@@ -2083,14 +2156,26 @@ namespace Net.Pkcs11Admin.WinForms
                 WinFormsUtils.ShowError(this, "Unable to decode UTF-8 string");
                 return;
             }
-
-            if (_selectedSlot.Login(CKU.CKU_USER, pin))
+            string loginResult = _selectedSlot.Login(CKU.CKU_USER, pin);
+            if (String.Equals(loginResult, "authenticatedSuccessfully"))
             {
                 _selectedSlot.Reload();
                 ReloadForm();
             } else
             {
-                MessageBox.Show("Mật khẩu không chính xác! \nBạn còn " + _selectedSlot.getCurrentAllowLogin() + " lần thử.", "Sai mật khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (String.Equals(loginResult, "authenticatedUnSuccessfully"))
+                {
+                    MessageBox.Show("Mật khẩu không chính xác! \nBạn còn " + _selectedSlot.getCurrentAllowLogin() + " lần thử.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (String.Equals(loginResult, "authenticatedAlready"))
+                {
+                    MessageBox.Show("Bạn đã login rồi", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   
+                }
+                if (String.Equals(loginResult, "connectToCardUnsuccessfully"))
+                {
+                    MessageBox.Show("Không thể kết nối với smartcard", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -2166,6 +2251,100 @@ namespace Net.Pkcs11Admin.WinForms
             {
                 treeViewCerts.SelectedNode = e.Node;
             }
+        }
+
+        private void buttonChapNhan_Click(object sender, EventArgs e)
+        {
+            string oldPIN = this.oldPIN.Text;
+            string newPIN = this.newPIN.Text;
+            string newPINConfirm = this.newPINConfirm.Text;
+            // validate1: all password should not be empty.
+            if (String.IsNullOrEmpty(oldPIN))
+            {
+                MessageBox.Show("Mật khẩu cũ không được để trống !", "Đổi Mật Khẩu Không Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (String.IsNullOrEmpty(newPIN))
+            {
+                MessageBox.Show("Mật khẩu mới không được để trống !", "Đổi Mật Khẩu Không Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (String.IsNullOrEmpty(newPINConfirm))
+            {
+                MessageBox.Show("Mật khẩu mới nhắc lại không được để trống !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!String.Equals(newPIN, newPINConfirm))
+            {
+                MessageBox.Show("Mật khẩu mới và mật khẩu nhắc lại không giống nhau !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (newPIN.Length < 8)
+            {
+                MessageBox.Show("Mật khẩu mới phải có ít nhất 8 ký tự !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                _selectedSlot.ChangePin(oldPIN, newPIN);
+                MessageBox.Show("Đổi mật khẩu thành công !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                MessageBox.Show("Mật khẩu cũ ko chính xác hoặc bạn chưa đăng nhập !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private void buttonLoginTokenManager_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonDoiPinTabQuanLyToken_Click(object sender, EventArgs e)
+        {
+            string oldPIN = this.textBoxOldPin.Text;
+            string newPIN = this.textBoxNewPin.Text;
+            string newPINConfirm = this.textBoxNewPinConfirm.Text;
+            // validate1: all password should not be empty.
+            if (String.IsNullOrEmpty(oldPIN))
+            {
+                MessageBox.Show("Mật khẩu cũ không được để trống !", "Đổi Mật Khẩu Không Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (String.IsNullOrEmpty(newPIN))
+            {
+                MessageBox.Show("Mật khẩu mới không được để trống !", "Đổi Mật Khẩu Không Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (String.IsNullOrEmpty(newPINConfirm))
+            {
+                MessageBox.Show("Mật khẩu mới nhắc lại không được để trống !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!String.Equals(newPIN, newPINConfirm))
+            {
+                MessageBox.Show("Mật khẩu mới và mật khẩu nhắc lại không giống nhau !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (newPIN.Length < 8)
+            {
+                MessageBox.Show("Mật khẩu mới phải có ít nhất 8 ký tự !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                _selectedSlot.ChangePin(oldPIN, newPIN);
+                MessageBox.Show("Đổi mật khẩu thành công !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                MessageBox.Show("Mật khẩu cũ ko chính xác hoặc bạn chưa đăng nhập !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

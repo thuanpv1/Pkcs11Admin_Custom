@@ -114,12 +114,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainFormTabControl = new System.Windows.Forms.TabControl();
             this.TabPageBasicInfo = new System.Windows.Forms.TabPage();
-            this.ListViewBasicInfo = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.ContextMenuBasicInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CtxMenuItemBasicInfoPkcs11Uri = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemBasicInfoCsvAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemBasicInfoCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
-            this.LabelBasicInfo = new System.Windows.Forms.Label();
             this.tabPageCertNew = new System.Windows.Forms.TabPage();
             this.panelLogin = new System.Windows.Forms.Panel();
             this.buttonCancelCertTab = new System.Windows.Forms.Button();
@@ -129,18 +127,56 @@ namespace Net.Pkcs11Admin.WinForms
             this.buttonLoginCertTab = new System.Windows.Forms.Button();
             this.treeViewCerts = new System.Windows.Forms.TreeView();
             this.tabPageDoiPIN = new System.Windows.Forms.TabPage();
+            this.panelLoginDoiPIN = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBoxLoginDoiPINTab = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.buttonLoginDoiPINTab = new System.Windows.Forms.Button();
             this.buttonHuy = new System.Windows.Forms.Button();
             this.buttonChapNhan = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.newPINConfirm = new System.Windows.Forms.TextBox();
+            this.newPIN = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.oldPIN = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.textBoxAbout = new System.Windows.Forms.TextBox();
+            this.tabPageTokenManger = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panelDoiPinTokenManager = new System.Windows.Forms.Panel();
+            this.panelDangNhapTokenManager = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.buttonLoginTokenManager = new System.Windows.Forms.Button();
+            this.textBoxPinCodeLoginTokenManager = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.buttonDoiPinTabQuanLyToken = new System.Windows.Forms.Button();
+            this.textBoxNewPinConfirm = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxNewPin = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBoxOldPin = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDatTokenMacDinh = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxGhiChu = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxTrangThai = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxSerialNumber = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxModelToken = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxManufacture = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxLabelToken = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxDanhSachTokenReader = new System.Windows.Forms.ComboBox();
             this.TabPageCertificates = new System.Windows.Forms.TabPage();
-            this.ListViewCertificates = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.ContextMenuCertificates = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CtxMenuItemCertificatesView = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemCertificatesEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,7 +189,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemCertificatesCheckRoca = new System.Windows.Forms.ToolStripMenuItem();
             this.LabelCertificates = new System.Windows.Forms.Label();
             this.TabPageKeys = new System.Windows.Forms.TabPage();
-            this.ListViewKeys = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.ContextMenuKeys = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CtxMenuItemKeysNew = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemKeysEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -190,19 +225,22 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemDomainParamsCsvAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMenuItemDomainParamsCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.TabPageDomainParams = new System.Windows.Forms.TabPage();
-            this.ListViewDomainParams = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelDomainParams = new System.Windows.Forms.Label();
             this.TabPageDataObjects = new System.Windows.Forms.TabPage();
-            this.ListViewDataObjects = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelDataObjects = new System.Windows.Forms.Label();
             this.TabPageHwFeatures = new System.Windows.Forms.TabPage();
-            this.ListViewHwFeatures = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelHwFeatures = new System.Windows.Forms.Label();
             this.TabPageMechanisms = new System.Windows.Forms.TabPage();
-            this.ListViewMechanisms = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.LabelMechanisms = new System.Windows.Forms.Label();
             this.contextMenuStripForViewDetailCertKeys = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ListViewBasicInfo = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ListViewCertificates = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ListViewKeys = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ListViewDomainParams = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ListViewDataObjects = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ListViewHwFeatures = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
+            this.ListViewMechanisms = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
             this.MainFormStatusStrip.SuspendLayout();
             this.MainFormMenuStrip.SuspendLayout();
             this.MainFormPanel.SuspendLayout();
@@ -213,7 +251,14 @@ namespace Net.Pkcs11Admin.WinForms
             this.tabPageCertNew.SuspendLayout();
             this.panelLogin.SuspendLayout();
             this.tabPageDoiPIN.SuspendLayout();
+            this.panelLoginDoiPIN.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
+            this.tabPageTokenManger.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.panelDoiPinTokenManager.SuspendLayout();
+            this.panelDangNhapTokenManager.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.TabPageCertificates.SuspendLayout();
             this.ContextMenuCertificates.SuspendLayout();
             this.TabPageKeys.SuspendLayout();
@@ -755,9 +800,10 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MainFormTabControl.Controls.Add(this.TabPageBasicInfo);
+            //this.MainFormTabControl.Controls.Add(this.TabPageBasicInfo);
+            this.MainFormTabControl.Controls.Add(this.tabPageTokenManger);
             this.MainFormTabControl.Controls.Add(this.tabPageCertNew);
-            this.MainFormTabControl.Controls.Add(this.tabPageDoiPIN);
+            //this.MainFormTabControl.Controls.Add(this.tabPageDoiPIN);
             this.MainFormTabControl.Controls.Add(this.tabPageAbout);
             this.MainFormTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainFormTabControl.ItemSize = new System.Drawing.Size(106, 30);
@@ -772,32 +818,14 @@ namespace Net.Pkcs11Admin.WinForms
             // TabPageBasicInfo
             // 
             this.TabPageBasicInfo.Controls.Add(this.ListViewBasicInfo);
-            this.TabPageBasicInfo.Controls.Add(this.LabelBasicInfo);
             this.TabPageBasicInfo.Location = new System.Drawing.Point(4, 34);
             this.TabPageBasicInfo.Margin = new System.Windows.Forms.Padding(4);
             this.TabPageBasicInfo.Name = "TabPageBasicInfo";
             this.TabPageBasicInfo.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageBasicInfo.Size = new System.Drawing.Size(1003, 328);
+            this.TabPageBasicInfo.Size = new System.Drawing.Size(1037, 382);
             this.TabPageBasicInfo.TabIndex = 7;
             this.TabPageBasicInfo.Text = "Thông tin chung";
             this.TabPageBasicInfo.UseVisualStyleBackColor = true;
-            // 
-            // ListViewBasicInfo
-            // 
-            this.ListViewBasicInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewBasicInfo.ContextMenuStrip = this.ContextMenuBasicInfo;
-            this.ListViewBasicInfo.FullRowSelect = true;
-            this.ListViewBasicInfo.HideSelection = false;
-            this.ListViewBasicInfo.Location = new System.Drawing.Point(18, 32);
-            this.ListViewBasicInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewBasicInfo.Name = "ListViewBasicInfo";
-            this.ListViewBasicInfo.Size = new System.Drawing.Size(964, 272);
-            this.ListViewBasicInfo.Sortable = true;
-            this.ListViewBasicInfo.TabIndex = 1;
-            this.ListViewBasicInfo.UseCompatibleStateImageBehavior = false;
-            this.ListViewBasicInfo.View = System.Windows.Forms.View.Details;
             // 
             // ContextMenuBasicInfo
             // 
@@ -832,17 +860,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.CtxMenuItemBasicInfoCsvSelected.Text = "Export selected items to CSV...";
             this.CtxMenuItemBasicInfoCsvSelected.Click += new System.EventHandler(this.CtxMenuItemBasicInfoCsvSelected_Click);
             // 
-            // LabelBasicInfo
-            // 
-            this.LabelBasicInfo.AutoSize = true;
-            this.LabelBasicInfo.Location = new System.Drawing.Point(13, 12);
-            this.LabelBasicInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LabelBasicInfo.Name = "LabelBasicInfo";
-            this.LabelBasicInfo.Size = new System.Drawing.Size(432, 20);
-            this.LabelBasicInfo.TabIndex = 0;
-            this.LabelBasicInfo.Text = "Basic information about PKCS#11 library, slot and token:";
-            this.LabelBasicInfo.Click += new System.EventHandler(this.LabelBasicInfo_Click);
-            // 
             // tabPageCertNew
             // 
             this.tabPageCertNew.Controls.Add(this.panelLogin);
@@ -850,28 +867,27 @@ namespace Net.Pkcs11Admin.WinForms
             this.tabPageCertNew.Location = new System.Drawing.Point(4, 34);
             this.tabPageCertNew.Name = "tabPageCertNew";
             this.tabPageCertNew.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCertNew.Size = new System.Drawing.Size(1003, 353);
+            this.tabPageCertNew.Size = new System.Drawing.Size(1037, 382);
             this.tabPageCertNew.TabIndex = 10;
-            this.tabPageCertNew.Text = "Certificates";
+            this.tabPageCertNew.Text = "Quản lý Certificates";
             this.tabPageCertNew.UseVisualStyleBackColor = true;
             // 
             // panelLogin
             // 
-            this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLogin.Controls.Add(this.buttonCancelCertTab);
             this.panelLogin.Controls.Add(this.textBoxLoginCertTab);
             this.panelLogin.Controls.Add(this.label4);
             this.panelLogin.Controls.Add(this.label4DangNhap);
             this.panelLogin.Controls.Add(this.buttonLoginCertTab);
-            this.panelLogin.Location = new System.Drawing.Point(25, 28);
+            this.panelLogin.Location = new System.Drawing.Point(0, 17);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(953, 288);
+            this.panelLogin.Size = new System.Drawing.Size(1037, 362);
             this.panelLogin.TabIndex = 1;
             // 
             // buttonCancelCertTab
             // 
             this.buttonCancelCertTab.ForeColor = System.Drawing.Color.Red;
-            this.buttonCancelCertTab.Location = new System.Drawing.Point(461, 170);
+            this.buttonCancelCertTab.Location = new System.Drawing.Point(461, 181);
             this.buttonCancelCertTab.Name = "buttonCancelCertTab";
             this.buttonCancelCertTab.Size = new System.Drawing.Size(119, 36);
             this.buttonCancelCertTab.TabIndex = 4;
@@ -880,7 +896,7 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // textBoxLoginCertTab
             // 
-            this.textBoxLoginCertTab.Location = new System.Drawing.Point(238, 100);
+            this.textBoxLoginCertTab.Location = new System.Drawing.Point(238, 111);
             this.textBoxLoginCertTab.Name = "textBoxLoginCertTab";
             this.textBoxLoginCertTab.PasswordChar = '*';
             this.textBoxLoginCertTab.Size = new System.Drawing.Size(489, 27);
@@ -889,7 +905,7 @@ namespace Net.Pkcs11Admin.WinForms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(128, 107);
+            this.label4.Location = new System.Drawing.Point(128, 118);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 20);
             this.label4.TabIndex = 2;
@@ -899,7 +915,7 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             this.label4DangNhap.AutoSize = true;
             this.label4DangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4DangNhap.Location = new System.Drawing.Point(126, 55);
+            this.label4DangNhap.Location = new System.Drawing.Point(126, 66);
             this.label4DangNhap.Name = "label4DangNhap";
             this.label4DangNhap.Size = new System.Drawing.Size(138, 29);
             this.label4DangNhap.TabIndex = 1;
@@ -909,7 +925,7 @@ namespace Net.Pkcs11Admin.WinForms
             // buttonLoginCertTab
             // 
             this.buttonLoginCertTab.ForeColor = System.Drawing.Color.DarkGreen;
-            this.buttonLoginCertTab.Location = new System.Drawing.Point(326, 170);
+            this.buttonLoginCertTab.Location = new System.Drawing.Point(326, 181);
             this.buttonLoginCertTab.Name = "buttonLoginCertTab";
             this.buttonLoginCertTab.Size = new System.Drawing.Size(119, 36);
             this.buttonLoginCertTab.TabIndex = 0;
@@ -919,22 +935,23 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // treeViewCerts
             // 
-            this.treeViewCerts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeViewCerts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeViewCerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeViewCerts.Location = new System.Drawing.Point(25, 28);
+            this.treeViewCerts.Location = new System.Drawing.Point(0, 17);
             this.treeViewCerts.Name = "treeViewCerts";
             this.treeViewCerts.ShowNodeToolTips = true;
-            this.treeViewCerts.Size = new System.Drawing.Size(953, 288);
+            this.treeViewCerts.Size = new System.Drawing.Size(1037, 357);
             this.treeViewCerts.TabIndex = 0;
             this.treeViewCerts.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCerts_AfterSelect);
             this.treeViewCerts.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewCerts_NodeMouseClick);
             // 
             // tabPageDoiPIN
             // 
+            this.tabPageDoiPIN.Controls.Add(this.panelLoginDoiPIN);
             this.tabPageDoiPIN.Controls.Add(this.buttonHuy);
             this.tabPageDoiPIN.Controls.Add(this.buttonChapNhan);
-            this.tabPageDoiPIN.Controls.Add(this.textBox2);
-            this.tabPageDoiPIN.Controls.Add(this.textBox1);
+            this.tabPageDoiPIN.Controls.Add(this.newPINConfirm);
+            this.tabPageDoiPIN.Controls.Add(this.newPIN);
             this.tabPageDoiPIN.Controls.Add(this.label3);
             this.tabPageDoiPIN.Controls.Add(this.label2);
             this.tabPageDoiPIN.Controls.Add(this.oldPIN);
@@ -946,6 +963,66 @@ namespace Net.Pkcs11Admin.WinForms
             this.tabPageDoiPIN.TabIndex = 8;
             this.tabPageDoiPIN.Text = "Đổi PIN";
             this.tabPageDoiPIN.UseVisualStyleBackColor = true;
+            // 
+            // panelLoginDoiPIN
+            // 
+            this.panelLoginDoiPIN.Controls.Add(this.button1);
+            this.panelLoginDoiPIN.Controls.Add(this.textBoxLoginDoiPINTab);
+            this.panelLoginDoiPIN.Controls.Add(this.label5);
+            this.panelLoginDoiPIN.Controls.Add(this.label6);
+            this.panelLoginDoiPIN.Controls.Add(this.buttonLoginDoiPINTab);
+            this.panelLoginDoiPIN.Location = new System.Drawing.Point(0, 17);
+            this.panelLoginDoiPIN.Name = "panelLoginDoiPIN";
+            this.panelLoginDoiPIN.Size = new System.Drawing.Size(1037, 360);
+            this.panelLoginDoiPIN.TabIndex = 8;
+            // 
+            // button1
+            // 
+            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.Location = new System.Drawing.Point(461, 181);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(119, 36);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Hủy bỏ";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLoginDoiPINTab
+            // 
+            this.textBoxLoginDoiPINTab.Location = new System.Drawing.Point(238, 111);
+            this.textBoxLoginDoiPINTab.Name = "textBoxLoginDoiPINTab";
+            this.textBoxLoginDoiPINTab.PasswordChar = '*';
+            this.textBoxLoginDoiPINTab.Size = new System.Drawing.Size(489, 27);
+            this.textBoxLoginDoiPINTab.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(128, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(82, 20);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "PIN code:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(126, 66);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(138, 29);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Đăng nhập";
+            // 
+            // buttonLoginDoiPINTab
+            // 
+            this.buttonLoginDoiPINTab.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonLoginDoiPINTab.Location = new System.Drawing.Point(326, 181);
+            this.buttonLoginDoiPINTab.Name = "buttonLoginDoiPINTab";
+            this.buttonLoginDoiPINTab.Size = new System.Drawing.Size(119, 36);
+            this.buttonLoginDoiPINTab.TabIndex = 0;
+            this.buttonLoginDoiPINTab.Text = "Login";
+            this.buttonLoginDoiPINTab.UseVisualStyleBackColor = true;
+            this.buttonLoginDoiPINTab.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonHuy
             // 
@@ -966,24 +1043,25 @@ namespace Net.Pkcs11Admin.WinForms
             this.buttonChapNhan.TabIndex = 6;
             this.buttonChapNhan.Text = "Chấp nhận";
             this.buttonChapNhan.UseVisualStyleBackColor = true;
+            this.buttonChapNhan.Click += new System.EventHandler(this.buttonChapNhan_Click);
             // 
-            // textBox2
+            // newPINConfirm
             // 
-            this.textBox2.Location = new System.Drawing.Point(59, 205);
-            this.textBox2.MaxLength = 68;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(886, 27);
-            this.textBox2.TabIndex = 5;
+            this.newPINConfirm.Location = new System.Drawing.Point(59, 205);
+            this.newPINConfirm.MaxLength = 68;
+            this.newPINConfirm.Name = "newPINConfirm";
+            this.newPINConfirm.PasswordChar = '*';
+            this.newPINConfirm.Size = new System.Drawing.Size(886, 27);
+            this.newPINConfirm.TabIndex = 5;
             // 
-            // textBox1
+            // newPIN
             // 
-            this.textBox1.Location = new System.Drawing.Point(59, 127);
-            this.textBox1.MaxLength = 68;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(886, 27);
-            this.textBox1.TabIndex = 4;
+            this.newPIN.Location = new System.Drawing.Point(59, 127);
+            this.newPIN.MaxLength = 68;
+            this.newPIN.Name = "newPIN";
+            this.newPIN.PasswordChar = '*';
+            this.newPIN.Size = new System.Drawing.Size(886, 27);
+            this.newPIN.TabIndex = 4;
             // 
             // label3
             // 
@@ -1031,7 +1109,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.tabPageAbout.Controls.Add(this.textBoxAbout);
             this.tabPageAbout.Location = new System.Drawing.Point(4, 34);
             this.tabPageAbout.Name = "tabPageAbout";
-            this.tabPageAbout.Size = new System.Drawing.Size(1003, 328);
+            this.tabPageAbout.Size = new System.Drawing.Size(1037, 382);
             this.tabPageAbout.TabIndex = 9;
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
@@ -1050,6 +1128,354 @@ namespace Net.Pkcs11Admin.WinForms
             this.textBoxAbout.Text = "Token Manager v1.0\r\n\r\nPhần mềm này đã được đăng ký thương hiệu tại Việt Nam.\r\n\r\nB" +
     "ản quyền 2021-2025";
             // 
+            // tabPageTokenManger
+            // 
+            this.tabPageTokenManger.Controls.Add(this.groupBox3);
+            this.tabPageTokenManger.Controls.Add(this.groupBox2);
+            this.tabPageTokenManger.Controls.Add(this.groupBox1);
+            this.tabPageTokenManger.Controls.Add(this.buttonRefresh);
+            this.tabPageTokenManger.Controls.Add(this.label7);
+            this.tabPageTokenManger.Controls.Add(this.comboBoxDanhSachTokenReader);
+            this.tabPageTokenManger.Location = new System.Drawing.Point(4, 34);
+            this.tabPageTokenManger.Name = "tabPageTokenManger";
+            this.tabPageTokenManger.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTokenManger.Size = new System.Drawing.Size(1037, 382);
+            this.tabPageTokenManger.TabIndex = 11;
+            this.tabPageTokenManger.Text = "Quản lý token";
+            this.tabPageTokenManger.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.panelDoiPinTokenManager);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(634, 159);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(400, 203);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Đổi PIN";
+            // 
+            // panelDoiPinTokenManager
+            // 
+            this.panelDoiPinTokenManager.Controls.Add(this.panelDangNhapTokenManager);
+            this.panelDoiPinTokenManager.Controls.Add(this.buttonDoiPinTabQuanLyToken);
+            this.panelDoiPinTokenManager.Controls.Add(this.textBoxNewPinConfirm);
+            this.panelDoiPinTokenManager.Controls.Add(this.label16);
+            this.panelDoiPinTokenManager.Controls.Add(this.textBoxNewPin);
+            this.panelDoiPinTokenManager.Controls.Add(this.label15);
+            this.panelDoiPinTokenManager.Controls.Add(this.textBoxOldPin);
+            this.panelDoiPinTokenManager.Controls.Add(this.label14);
+            this.panelDoiPinTokenManager.Location = new System.Drawing.Point(0, 30);
+            this.panelDoiPinTokenManager.Name = "panelDoiPinTokenManager";
+            this.panelDoiPinTokenManager.Size = new System.Drawing.Size(399, 172);
+            this.panelDoiPinTokenManager.TabIndex = 0;
+            // 
+            // panelDangNhapTokenManager
+            // 
+            this.panelDangNhapTokenManager.Controls.Add(this.label18);
+            this.panelDangNhapTokenManager.Controls.Add(this.buttonLoginTokenManager);
+            this.panelDangNhapTokenManager.Controls.Add(this.textBoxPinCodeLoginTokenManager);
+            this.panelDangNhapTokenManager.Controls.Add(this.label17);
+            this.panelDangNhapTokenManager.Location = new System.Drawing.Point(0, 0);
+            this.panelDangNhapTokenManager.Name = "panelDangNhapTokenManager";
+            this.panelDangNhapTokenManager.Size = new System.Drawing.Size(399, 172);
+            this.panelDangNhapTokenManager.TabIndex = 10;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(34, 73);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(77, 20);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "PIN code";
+            // 
+            // buttonLoginTokenManager
+            // 
+            this.buttonLoginTokenManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLoginTokenManager.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonLoginTokenManager.Location = new System.Drawing.Point(254, 118);
+            this.buttonLoginTokenManager.Name = "buttonLoginTokenManager";
+            this.buttonLoginTokenManager.Size = new System.Drawing.Size(119, 36);
+            this.buttonLoginTokenManager.TabIndex = 2;
+            this.buttonLoginTokenManager.Text = "Login";
+            this.buttonLoginTokenManager.UseVisualStyleBackColor = true;
+            this.buttonLoginTokenManager.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBoxPinCodeLoginTokenManager
+            // 
+            this.textBoxPinCodeLoginTokenManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPinCodeLoginTokenManager.Location = new System.Drawing.Point(143, 66);
+            this.textBoxPinCodeLoginTokenManager.Name = "textBoxPinCodeLoginTokenManager";
+            this.textBoxPinCodeLoginTokenManager.Size = new System.Drawing.Size(230, 27);
+            this.textBoxPinCodeLoginTokenManager.TabIndex = 1;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(34, 18);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 20);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Đăng nhập";
+            // 
+            // buttonDoiPinTabQuanLyToken
+            // 
+            this.buttonDoiPinTabQuanLyToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDoiPinTabQuanLyToken.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonDoiPinTabQuanLyToken.Location = new System.Drawing.Point(204, 130);
+            this.buttonDoiPinTabQuanLyToken.Name = "buttonDoiPinTabQuanLyToken";
+            this.buttonDoiPinTabQuanLyToken.Size = new System.Drawing.Size(180, 32);
+            this.buttonDoiPinTabQuanLyToken.TabIndex = 9;
+            this.buttonDoiPinTabQuanLyToken.Text = "Chấp nhận";
+            this.buttonDoiPinTabQuanLyToken.UseVisualStyleBackColor = true;
+            this.buttonDoiPinTabQuanLyToken.Click += new System.EventHandler(this.buttonDoiPinTabQuanLyToken_Click);
+            // 
+            // textBoxNewPinConfirm
+            // 
+            this.textBoxNewPinConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNewPinConfirm.Location = new System.Drawing.Point(204, 89);
+            this.textBoxNewPinConfirm.Name = "textBoxNewPinConfirm";
+            this.textBoxNewPinConfirm.Size = new System.Drawing.Size(180, 27);
+            this.textBoxNewPinConfirm.TabIndex = 6;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(14, 96);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(143, 20);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Xác nhận PIN mới";
+            // 
+            // textBoxNewPin
+            // 
+            this.textBoxNewPin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNewPin.Location = new System.Drawing.Point(204, 49);
+            this.textBoxNewPin.Name = "textBoxNewPin";
+            this.textBoxNewPin.Size = new System.Drawing.Size(180, 27);
+            this.textBoxNewPin.TabIndex = 7;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(14, 56);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(109, 20);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "PIN code mới";
+            // 
+            // textBoxOldPin
+            // 
+            this.textBoxOldPin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxOldPin.Location = new System.Drawing.Point(204, 11);
+            this.textBoxOldPin.Name = "textBoxOldPin";
+            this.textBoxOldPin.Size = new System.Drawing.Size(180, 27);
+            this.textBoxOldPin.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(14, 18);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(100, 20);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "PIN code cũ";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBoxDatTokenMacDinh);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(634, 77);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(400, 74);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Cài đặt token";
+            // 
+            // checkBoxDatTokenMacDinh
+            // 
+            this.checkBoxDatTokenMacDinh.AutoSize = true;
+            this.checkBoxDatTokenMacDinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDatTokenMacDinh.Location = new System.Drawing.Point(23, 40);
+            this.checkBoxDatTokenMacDinh.Name = "checkBoxDatTokenMacDinh";
+            this.checkBoxDatTokenMacDinh.Size = new System.Drawing.Size(230, 24);
+            this.checkBoxDatTokenMacDinh.TabIndex = 0;
+            this.checkBoxDatTokenMacDinh.Text = "Đặt làm lựa chọn mặc định";
+            this.checkBoxDatTokenMacDinh.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxGhiChu);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.textBoxTrangThai);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.textBoxSerialNumber);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.textBoxModelToken);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.textBoxManufacture);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.textBoxLabelToken);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 77);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(616, 285);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Thông tin token";
+            // 
+            // textBoxGhiChu
+            // 
+            this.textBoxGhiChu.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxGhiChu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxGhiChu.Location = new System.Drawing.Point(167, 238);
+            this.textBoxGhiChu.Name = "textBoxGhiChu";
+            this.textBoxGhiChu.ReadOnly = true;
+            this.textBoxGhiChu.Size = new System.Drawing.Size(437, 20);
+            this.textBoxGhiChu.TabIndex = 1;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(18, 241);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 20);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Ghi chú";
+            // 
+            // textBoxTrangThai
+            // 
+            this.textBoxTrangThai.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTrangThai.Location = new System.Drawing.Point(167, 196);
+            this.textBoxTrangThai.Name = "textBoxTrangThai";
+            this.textBoxTrangThai.ReadOnly = true;
+            this.textBoxTrangThai.Size = new System.Drawing.Size(437, 20);
+            this.textBoxTrangThai.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(18, 199);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 20);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Trạng Thái";
+            // 
+            // textBoxSerialNumber
+            // 
+            this.textBoxSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSerialNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSerialNumber.Location = new System.Drawing.Point(167, 153);
+            this.textBoxSerialNumber.Name = "textBoxSerialNumber";
+            this.textBoxSerialNumber.ReadOnly = true;
+            this.textBoxSerialNumber.Size = new System.Drawing.Size(437, 20);
+            this.textBoxSerialNumber.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(18, 156);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(116, 20);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Serial Number";
+            // 
+            // textBoxModelToken
+            // 
+            this.textBoxModelToken.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxModelToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxModelToken.Location = new System.Drawing.Point(167, 112);
+            this.textBoxModelToken.Name = "textBoxModelToken";
+            this.textBoxModelToken.ReadOnly = true;
+            this.textBoxModelToken.Size = new System.Drawing.Size(437, 20);
+            this.textBoxModelToken.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(18, 115);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Model";
+            // 
+            // textBoxManufacture
+            // 
+            this.textBoxManufacture.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxManufacture.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxManufacture.Location = new System.Drawing.Point(167, 74);
+            this.textBoxManufacture.Name = "textBoxManufacture";
+            this.textBoxManufacture.ReadOnly = true;
+            this.textBoxManufacture.Size = new System.Drawing.Size(437, 20);
+            this.textBoxManufacture.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(18, 77);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(108, 20);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Manufacturer";
+            // 
+            // textBoxLabelToken
+            // 
+            this.textBoxLabelToken.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxLabelToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLabelToken.Location = new System.Drawing.Point(167, 37);
+            this.textBoxLabelToken.Name = "textBoxLabelToken";
+            this.textBoxLabelToken.ReadOnly = true;
+            this.textBoxLabelToken.Size = new System.Drawing.Size(437, 20);
+            this.textBoxLabelToken.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(18, 40);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 20);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Label";
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(843, 16);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(180, 31);
+            this.buttonRefresh.TabIndex = 5;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(176, 20);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Lựa chọn token reader";
+            // 
+            // comboBoxDanhSachTokenReader
+            // 
+            this.comboBoxDanhSachTokenReader.FormattingEnabled = true;
+            this.comboBoxDanhSachTokenReader.Location = new System.Drawing.Point(273, 19);
+            this.comboBoxDanhSachTokenReader.Name = "comboBoxDanhSachTokenReader";
+            this.comboBoxDanhSachTokenReader.Size = new System.Drawing.Size(541, 28);
+            this.comboBoxDanhSachTokenReader.TabIndex = 0;
+            // 
             // TabPageCertificates
             // 
             this.TabPageCertificates.Controls.Add(this.ListViewCertificates);
@@ -1062,23 +1488,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageCertificates.TabIndex = 5;
             this.TabPageCertificates.Text = "Certificates";
             this.TabPageCertificates.UseVisualStyleBackColor = true;
-            // 
-            // ListViewCertificates
-            // 
-            this.ListViewCertificates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewCertificates.ContextMenuStrip = this.ContextMenuCertificates;
-            this.ListViewCertificates.FullRowSelect = true;
-            this.ListViewCertificates.HideSelection = false;
-            this.ListViewCertificates.Location = new System.Drawing.Point(18, 32);
-            this.ListViewCertificates.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewCertificates.Name = "ListViewCertificates";
-            this.ListViewCertificates.Size = new System.Drawing.Size(978, 294);
-            this.ListViewCertificates.Sortable = true;
-            this.ListViewCertificates.TabIndex = 1;
-            this.ListViewCertificates.UseCompatibleStateImageBehavior = false;
-            this.ListViewCertificates.View = System.Windows.Forms.View.Details;
             // 
             // ContextMenuCertificates
             // 
@@ -1183,23 +1592,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageKeys.TabIndex = 3;
             this.TabPageKeys.Text = "Keys";
             this.TabPageKeys.UseVisualStyleBackColor = true;
-            // 
-            // ListViewKeys
-            // 
-            this.ListViewKeys.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewKeys.ContextMenuStrip = this.ContextMenuKeys;
-            this.ListViewKeys.FullRowSelect = true;
-            this.ListViewKeys.HideSelection = false;
-            this.ListViewKeys.Location = new System.Drawing.Point(18, 32);
-            this.ListViewKeys.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewKeys.Name = "ListViewKeys";
-            this.ListViewKeys.Size = new System.Drawing.Size(964, 294);
-            this.ListViewKeys.Sortable = true;
-            this.ListViewKeys.TabIndex = 1;
-            this.ListViewKeys.UseCompatibleStateImageBehavior = false;
-            this.ListViewKeys.View = System.Windows.Forms.View.Details;
             // 
             // ContextMenuKeys
             // 
@@ -1501,22 +1893,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageDomainParams.Text = "Domain params";
             this.TabPageDomainParams.UseVisualStyleBackColor = true;
             // 
-            // ListViewDomainParams
-            // 
-            this.ListViewDomainParams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewDomainParams.ContextMenuStrip = this.ContextMenuDomainParams;
-            this.ListViewDomainParams.HideSelection = false;
-            this.ListViewDomainParams.Location = new System.Drawing.Point(18, 32);
-            this.ListViewDomainParams.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewDomainParams.Name = "ListViewDomainParams";
-            this.ListViewDomainParams.Size = new System.Drawing.Size(964, 294);
-            this.ListViewDomainParams.Sortable = true;
-            this.ListViewDomainParams.TabIndex = 1;
-            this.ListViewDomainParams.UseCompatibleStateImageBehavior = false;
-            this.ListViewDomainParams.View = System.Windows.Forms.View.Details;
-            // 
             // LabelDomainParams
             // 
             this.LabelDomainParams.AutoSize = true;
@@ -1539,23 +1915,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageDataObjects.TabIndex = 2;
             this.TabPageDataObjects.Text = "Data objects";
             this.TabPageDataObjects.UseVisualStyleBackColor = true;
-            // 
-            // ListViewDataObjects
-            // 
-            this.ListViewDataObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewDataObjects.ContextMenuStrip = this.ContextMenuDataObjects;
-            this.ListViewDataObjects.FullRowSelect = true;
-            this.ListViewDataObjects.HideSelection = false;
-            this.ListViewDataObjects.Location = new System.Drawing.Point(18, 32);
-            this.ListViewDataObjects.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewDataObjects.Name = "ListViewDataObjects";
-            this.ListViewDataObjects.Size = new System.Drawing.Size(964, 294);
-            this.ListViewDataObjects.Sortable = true;
-            this.ListViewDataObjects.TabIndex = 1;
-            this.ListViewDataObjects.UseCompatibleStateImageBehavior = false;
-            this.ListViewDataObjects.View = System.Windows.Forms.View.Details;
             // 
             // LabelDataObjects
             // 
@@ -1580,23 +1939,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageHwFeatures.Text = "HW features";
             this.TabPageHwFeatures.UseVisualStyleBackColor = true;
             // 
-            // ListViewHwFeatures
-            // 
-            this.ListViewHwFeatures.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewHwFeatures.ContextMenuStrip = this.ContextMenuHwFeatures;
-            this.ListViewHwFeatures.FullRowSelect = true;
-            this.ListViewHwFeatures.HideSelection = false;
-            this.ListViewHwFeatures.Location = new System.Drawing.Point(18, 32);
-            this.ListViewHwFeatures.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewHwFeatures.Name = "ListViewHwFeatures";
-            this.ListViewHwFeatures.Size = new System.Drawing.Size(964, 294);
-            this.ListViewHwFeatures.Sortable = true;
-            this.ListViewHwFeatures.TabIndex = 1;
-            this.ListViewHwFeatures.UseCompatibleStateImageBehavior = false;
-            this.ListViewHwFeatures.View = System.Windows.Forms.View.Details;
-            // 
             // LabelHwFeatures
             // 
             this.LabelHwFeatures.AutoSize = true;
@@ -1619,23 +1961,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.TabPageMechanisms.TabIndex = 0;
             this.TabPageMechanisms.Text = " Danh sách hàm mật mã hỗ trợ ";
             this.TabPageMechanisms.UseVisualStyleBackColor = true;
-            // 
-            // ListViewMechanisms
-            // 
-            this.ListViewMechanisms.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListViewMechanisms.ContextMenuStrip = this.ContextMenuMechanisms;
-            this.ListViewMechanisms.FullRowSelect = true;
-            this.ListViewMechanisms.HideSelection = false;
-            this.ListViewMechanisms.Location = new System.Drawing.Point(18, 32);
-            this.ListViewMechanisms.Margin = new System.Windows.Forms.Padding(4);
-            this.ListViewMechanisms.Name = "ListViewMechanisms";
-            this.ListViewMechanisms.Size = new System.Drawing.Size(964, 294);
-            this.ListViewMechanisms.Sortable = true;
-            this.ListViewMechanisms.TabIndex = 0;
-            this.ListViewMechanisms.UseCompatibleStateImageBehavior = false;
-            this.ListViewMechanisms.View = System.Windows.Forms.View.Details;
             // 
             // LabelMechanisms
             // 
@@ -1661,6 +1986,125 @@ namespace Net.Pkcs11Admin.WinForms
             this.viewDetailToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.viewDetailToolStripMenuItem.Text = "Xem chi tiết";
             this.viewDetailToolStripMenuItem.Click += new System.EventHandler(this.viewDetailToolStripMenuItem_Click);
+            // 
+            // ListViewBasicInfo
+            // 
+            this.ListViewBasicInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewBasicInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ListViewBasicInfo.ContextMenuStrip = this.ContextMenuBasicInfo;
+            this.ListViewBasicInfo.FullRowSelect = true;
+            this.ListViewBasicInfo.HideSelection = false;
+            this.ListViewBasicInfo.Location = new System.Drawing.Point(0, 16);
+            this.ListViewBasicInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewBasicInfo.Name = "ListViewBasicInfo";
+            this.ListViewBasicInfo.Size = new System.Drawing.Size(1037, 361);
+            this.ListViewBasicInfo.Sortable = true;
+            this.ListViewBasicInfo.TabIndex = 1;
+            this.ListViewBasicInfo.UseCompatibleStateImageBehavior = false;
+            this.ListViewBasicInfo.View = System.Windows.Forms.View.Details;
+            // 
+            // ListViewCertificates
+            // 
+            this.ListViewCertificates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewCertificates.ContextMenuStrip = this.ContextMenuCertificates;
+            this.ListViewCertificates.FullRowSelect = true;
+            this.ListViewCertificates.HideSelection = false;
+            this.ListViewCertificates.Location = new System.Drawing.Point(18, 32);
+            this.ListViewCertificates.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewCertificates.Name = "ListViewCertificates";
+            this.ListViewCertificates.Size = new System.Drawing.Size(978, 294);
+            this.ListViewCertificates.Sortable = true;
+            this.ListViewCertificates.TabIndex = 1;
+            this.ListViewCertificates.UseCompatibleStateImageBehavior = false;
+            this.ListViewCertificates.View = System.Windows.Forms.View.Details;
+            // 
+            // ListViewKeys
+            // 
+            this.ListViewKeys.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewKeys.ContextMenuStrip = this.ContextMenuKeys;
+            this.ListViewKeys.FullRowSelect = true;
+            this.ListViewKeys.HideSelection = false;
+            this.ListViewKeys.Location = new System.Drawing.Point(18, 32);
+            this.ListViewKeys.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewKeys.Name = "ListViewKeys";
+            this.ListViewKeys.Size = new System.Drawing.Size(964, 294);
+            this.ListViewKeys.Sortable = true;
+            this.ListViewKeys.TabIndex = 1;
+            this.ListViewKeys.UseCompatibleStateImageBehavior = false;
+            this.ListViewKeys.View = System.Windows.Forms.View.Details;
+            // 
+            // ListViewDomainParams
+            // 
+            this.ListViewDomainParams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewDomainParams.ContextMenuStrip = this.ContextMenuDomainParams;
+            this.ListViewDomainParams.HideSelection = false;
+            this.ListViewDomainParams.Location = new System.Drawing.Point(18, 32);
+            this.ListViewDomainParams.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewDomainParams.Name = "ListViewDomainParams";
+            this.ListViewDomainParams.Size = new System.Drawing.Size(964, 294);
+            this.ListViewDomainParams.Sortable = true;
+            this.ListViewDomainParams.TabIndex = 1;
+            this.ListViewDomainParams.UseCompatibleStateImageBehavior = false;
+            this.ListViewDomainParams.View = System.Windows.Forms.View.Details;
+            // 
+            // ListViewDataObjects
+            // 
+            this.ListViewDataObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewDataObjects.ContextMenuStrip = this.ContextMenuDataObjects;
+            this.ListViewDataObjects.FullRowSelect = true;
+            this.ListViewDataObjects.HideSelection = false;
+            this.ListViewDataObjects.Location = new System.Drawing.Point(18, 32);
+            this.ListViewDataObjects.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewDataObjects.Name = "ListViewDataObjects";
+            this.ListViewDataObjects.Size = new System.Drawing.Size(964, 294);
+            this.ListViewDataObjects.Sortable = true;
+            this.ListViewDataObjects.TabIndex = 1;
+            this.ListViewDataObjects.UseCompatibleStateImageBehavior = false;
+            this.ListViewDataObjects.View = System.Windows.Forms.View.Details;
+            // 
+            // ListViewHwFeatures
+            // 
+            this.ListViewHwFeatures.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewHwFeatures.ContextMenuStrip = this.ContextMenuHwFeatures;
+            this.ListViewHwFeatures.FullRowSelect = true;
+            this.ListViewHwFeatures.HideSelection = false;
+            this.ListViewHwFeatures.Location = new System.Drawing.Point(18, 32);
+            this.ListViewHwFeatures.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewHwFeatures.Name = "ListViewHwFeatures";
+            this.ListViewHwFeatures.Size = new System.Drawing.Size(964, 294);
+            this.ListViewHwFeatures.Sortable = true;
+            this.ListViewHwFeatures.TabIndex = 1;
+            this.ListViewHwFeatures.UseCompatibleStateImageBehavior = false;
+            this.ListViewHwFeatures.View = System.Windows.Forms.View.Details;
+            // 
+            // ListViewMechanisms
+            // 
+            this.ListViewMechanisms.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewMechanisms.ContextMenuStrip = this.ContextMenuMechanisms;
+            this.ListViewMechanisms.FullRowSelect = true;
+            this.ListViewMechanisms.HideSelection = false;
+            this.ListViewMechanisms.Location = new System.Drawing.Point(18, 32);
+            this.ListViewMechanisms.Margin = new System.Windows.Forms.Padding(4);
+            this.ListViewMechanisms.Name = "ListViewMechanisms";
+            this.ListViewMechanisms.Size = new System.Drawing.Size(964, 294);
+            this.ListViewMechanisms.Sortable = true;
+            this.ListViewMechanisms.TabIndex = 0;
+            this.ListViewMechanisms.UseCompatibleStateImageBehavior = false;
+            this.ListViewMechanisms.View = System.Windows.Forms.View.Details;
             // 
             // MainForm
             // 
@@ -1688,15 +2132,27 @@ namespace Net.Pkcs11Admin.WinForms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MainFormTabControl.ResumeLayout(false);
             this.TabPageBasicInfo.ResumeLayout(false);
-            this.TabPageBasicInfo.PerformLayout();
             this.ContextMenuBasicInfo.ResumeLayout(false);
             this.tabPageCertNew.ResumeLayout(false);
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
             this.tabPageDoiPIN.ResumeLayout(false);
             this.tabPageDoiPIN.PerformLayout();
+            this.panelLoginDoiPIN.ResumeLayout(false);
+            this.panelLoginDoiPIN.PerformLayout();
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageAbout.PerformLayout();
+            this.tabPageTokenManger.ResumeLayout(false);
+            this.tabPageTokenManger.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.panelDoiPinTokenManager.ResumeLayout(false);
+            this.panelDoiPinTokenManager.PerformLayout();
+            this.panelDangNhapTokenManager.ResumeLayout(false);
+            this.panelDangNhapTokenManager.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.TabPageCertificates.ResumeLayout(false);
             this.TabPageCertificates.PerformLayout();
             this.ContextMenuCertificates.ResumeLayout(false);
@@ -1838,7 +2294,6 @@ namespace Net.Pkcs11Admin.WinForms
         private TabControl MainFormTabControl;
         private TabPage TabPageBasicInfo;
         private Controls.EnhancedListView ListViewBasicInfo;
-        private Label LabelBasicInfo;
         private TabPage TabPageMechanisms;
         private Controls.EnhancedListView ListViewMechanisms;
         private Label LabelMechanisms;
@@ -1863,8 +2318,8 @@ namespace Net.Pkcs11Admin.WinForms
         private Label label3;
         private Label label2;
         private TextBox oldPIN;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox newPINConfirm;
+        private TextBox newPIN;
         private Button buttonHuy;
         private Button buttonChapNhan;
         private TextBox textBoxAbout;
@@ -1878,5 +2333,44 @@ namespace Net.Pkcs11Admin.WinForms
         private Button buttonCancelCertTab;
         private ContextMenuStrip contextMenuStripForViewDetailCertKeys;
         private ToolStripMenuItem viewDetailToolStripMenuItem;
+        private Panel panelLoginDoiPIN;
+        private Button button1;
+        private TextBox textBoxLoginDoiPINTab;
+        private Label label5;
+        private Label label6;
+        private Button buttonLoginDoiPINTab;
+        private TabPage tabPageTokenManger;
+        private Label label7;
+        private ComboBox comboBoxDanhSachTokenReader;
+        private Button buttonRefresh;
+        private GroupBox groupBox2;
+        private GroupBox groupBox1;
+        private TextBox textBoxLabelToken;
+        private Label label8;
+        private TextBox textBoxSerialNumber;
+        private Label label11;
+        private TextBox textBoxModelToken;
+        private Label label10;
+        private TextBox textBoxManufacture;
+        private Label label9;
+        private GroupBox groupBox3;
+        private CheckBox checkBoxDatTokenMacDinh;
+        private TextBox textBoxGhiChu;
+        private Label label13;
+        private TextBox textBoxTrangThai;
+        private Label label12;
+        private Panel panelDoiPinTokenManager;
+        private Panel panelDangNhapTokenManager;
+        private Button buttonDoiPinTabQuanLyToken;
+        private TextBox textBoxNewPinConfirm;
+        private Label label16;
+        private TextBox textBoxNewPin;
+        private Label label15;
+        private TextBox textBoxOldPin;
+        private Label label14;
+        private Label label18;
+        private Button buttonLoginTokenManager;
+        private TextBox textBoxPinCodeLoginTokenManager;
+        private Label label17;
     }
 }

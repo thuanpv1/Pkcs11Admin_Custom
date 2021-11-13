@@ -745,21 +745,30 @@ namespace Net.Pkcs11Admin
             _slot.InitToken(soPin, label);
         }
 
-        public bool Login(CKU userType, byte[] pin)
+        public string Login(CKU userType, byte[] pin)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (_authenticatedSession != null)
-                throw new Exception("Authenticated session already exists");
+            {
+                return "authenticatedAlready";
+                //throw new Exception("Authenticated session already exists");
+            }
 
-            _authenticatedSession = _slot.OpenSession(SessionType.ReadWrite);
+            try
+            {
+                _authenticatedSession = _slot.OpenSession(SessionType.ReadWrite);
+            } catch (Exception ex)
+            {
+                return "connectToCardUnsuccessfully";
+            }
 
             try
             {
                 _authenticatedSession.Login(userType, pin);
                 currentAllowLogin = 10;
-                return true;
+                return "authenticatedSuccessfully";
             }
             catch (Exception)
             {
@@ -767,7 +776,7 @@ namespace Net.Pkcs11Admin
                 _authenticatedSession = null;
 
                 currentAllowLogin--;
-                return false;
+                return "authenticatedUnSuccessfully";
                 //[thuan] update here
                 //throw;
             }
