@@ -39,6 +39,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Configuration;
 
 namespace Net.Pkcs11Admin.WinForms
 {
@@ -47,6 +48,8 @@ namespace Net.Pkcs11Admin.WinForms
         private Pkcs11Library _selectedLibrary = null;
 
         private Pkcs11Slot _selectedSlot = null;
+
+        private bool isLoaded = false;
 
         #region MainForm
 
@@ -180,7 +183,7 @@ namespace Net.Pkcs11Admin.WinForms
                 menuItem.Text = (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot";
                 menuItem.Tag = slots[i];
                 menuItem.CheckOnClick = true;
-                menuItem.Click += new EventHandler(MenuItemSlot_Click);
+                //menuItem.Click += new EventHandler(MenuItemSlot_Click);
 
                 menuItems[i] = menuItem;
             }
@@ -195,20 +198,26 @@ namespace Net.Pkcs11Admin.WinForms
             else
             {
 
-                bool isExist = false;
+                //bool isExist = false;
+                List<Object> items = new List<Object>();
+
                 foreach (ToolStripItem temp in MenuItemSlot.DropDownItems)
                 {
                     String item = temp.ToString();
-                    Console.WriteLine(item);
-                    if (item.Contains("Precise Biometrics Precise 200"))
-                    {
-                        isExist = true;
-                        temp.PerformClick();
-                    }
+                    items.Add(new { Text = temp.Text, Value = temp });
+                    //if (item.Contains("Precise Biometrics Precise 200"))
+                    //{
+                    //    isExist = true;
+                    //    temp.PerformClick();
+                    //}
                 }
 
+                comboBoxDanhSachTokenReader.DisplayMember = "Text";
+                comboBoxDanhSachTokenReader.ValueMember = "Value";
+                comboBoxDanhSachTokenReader.DataSource = items;
+                comboBoxDanhSachTokenReader.SelectedItem = null;
 
-                if (!isExist) MenuItemSlot.DropDownItems[0].PerformClick();
+                //if (!isExist) MenuItemSlot.DropDownItems[0].PerformClick();
             }
         }
 
@@ -641,6 +650,24 @@ namespace Net.Pkcs11Admin.WinForms
 
         #region TabTokenManager
 
+        private void tokenManager_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox combobox = (ComboBox)sender;
+            object selectedItem = combobox.SelectedItem;
+            if (selectedItem != null)
+            {
+                var propertyInfo = selectedItem.GetType().GetProperty("Value");
+                ToolStripItem value = (ToolStripItem) propertyInfo.GetValue(selectedItem, null);
+                if (value != null)
+                {
+                    if (this.WindowState == FormWindowState.Normal) {
+                        value.PerformClick();
+                    }
+                }
+            }
+
+        }
+
         private void ReloadTokenManager()
         {
             bool controlsEnabled = (!((_selectedLibrary == null) || (_selectedSlot == null)));
@@ -658,6 +685,15 @@ namespace Net.Pkcs11Admin.WinForms
                 this.textBoxSerialNumber.Text = _selectedSlot.TokenInfo.SerialNumber;
                 this.textBoxTrangThai.Text = "Đang khóa";
                 this.textBoxGhiChu.Text = "Khách hàng chưa nộp tiền";
+
+            } else
+            {
+                this.textBoxLabelToken.Text = "Not available";
+                this.textBoxManufacture.Text = "Not available";
+                this.textBoxModelToken.Text = "Not available";
+                this.textBoxSerialNumber.Text = "Not available";
+                this.textBoxTrangThai.Text = "Not available";
+                this.textBoxGhiChu.Text = "Not available";
             }
 
         }
@@ -1474,6 +1510,13 @@ namespace Net.Pkcs11Admin.WinForms
                 else
                     ShowInfoInStatusStrip(string.Empty);
             }
+            else if (MainFormTabControl.SelectedTab == tabPageTokenManger)
+            {
+                if (_selectedSlot.TokenInfoException != null)
+                    ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
+                else
+                    ShowInfoInStatusStrip(string.Empty);
+            }
             else
             {
                 ShowInfoInStatusStrip(string.Empty);
@@ -1537,6 +1580,27 @@ namespace Net.Pkcs11Admin.WinForms
             ReloadTabPageDomainParams();
 
             ReloadMainFormStatusStripLabel();
+
+            String defaultToken = Properties.Settings.Default.defaultTokenAtStartUp;
+
+            foreach (Object eachitem in comboBoxDanhSachTokenReader.Items)
+            {
+                var propertyInfo = eachitem.GetType().GetProperty("Text");
+                String value = (String)propertyInfo.GetValue(eachitem, null);
+
+
+                var propertyInfo2 = comboBoxDanhSachTokenReader.SelectedItem.GetType().GetProperty("Text");
+                String value2 = (String)propertyInfo.GetValue(comboBoxDanhSachTokenReader.SelectedItem, null);
+
+                if (!String.Equals(value2, value))
+                {
+
+                    var propertyInfoDefault = eachitem.GetType().GetProperty("Value");
+                    ToolStripItem valueDefault = (ToolStripItem)propertyInfoDefault.GetValue(eachitem, null);
+
+                    valueDefault.PerformClick();
+                }
+            }
         }
 
         private async Task ReloadFormAfter(Action action)
@@ -2351,6 +2415,29 @@ namespace Net.Pkcs11Admin.WinForms
                 MessageBox.Show("Mật khẩu cũ ko chính xác hoặc bạn chưa đăng nhập !", "Đổi Mật Khẩu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            this.MenuItemRefreshSlot_Click(sender, e);
+        }
+
+        private void checkBoxDatTokenMacDinh_CheckedChanged(object sender, EventArgs e)
+        {
+            String defaultToken = Properties.Settings.Default.defaultTokenAtStartUp;
+            CheckBox senderBinding = (CheckBox)sender;
+            if (senderBinding.CheckState == CheckState.Checked)
+            {
+                object selectedItem = comboBoxDanhSachTokenReader.SelectedItem;
+                var propertyInfo = selectedItem.GetType().GetProperty("Text");
+                String value = (String) propertyInfo.GetValue(selectedItem, null);
+
+                Properties.Settings.Default.defaultTokenAtStartUp = value;
+            } else
+            {
+                Properties.Settings.Default.defaultTokenAtStartUp = "Unknown";
+            }
+            
         }
     }
 }

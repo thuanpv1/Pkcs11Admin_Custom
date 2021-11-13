@@ -12,7 +12,7 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -38,6 +38,18 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
         public bool AutoLoadDefaultPkcs11Library {
             get {
                 return ((bool)(this["AutoLoadDefaultPkcs11Library"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Precise Biometrics Precise 200 MC 0")]
+        public string defaultTokenAtStartUp {
+            get {
+                return ((string)(this["defaultTokenAtStartUp"]));
+            }
+            set {
+                this["defaultTokenAtStartUp"] = value;
             }
         }
     }

@@ -996,6 +996,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.checkBoxDatTokenMacDinh.TabIndex = 0;
             this.checkBoxDatTokenMacDinh.Text = "Đặt làm lựa chọn mặc định";
             this.checkBoxDatTokenMacDinh.UseVisualStyleBackColor = true;
+            this.checkBoxDatTokenMacDinh.CheckedChanged += new System.EventHandler(this.checkBoxDatTokenMacDinh_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -1148,6 +1149,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.buttonRefresh.TabIndex = 5;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // label7
             // 
@@ -1165,6 +1167,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.comboBoxDanhSachTokenReader.Name = "comboBoxDanhSachTokenReader";
             this.comboBoxDanhSachTokenReader.Size = new System.Drawing.Size(541, 28);
             this.comboBoxDanhSachTokenReader.TabIndex = 0;
+            this.comboBoxDanhSachTokenReader.SelectedIndexChanged += new System.EventHandler(this.tokenManager_SelectedIndexChanged);
             // 
             // tabPageCertNew
             // 
