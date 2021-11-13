@@ -2145,6 +2145,12 @@ namespace Net.Pkcs11Admin.WinForms
                 pinCode = textBoxPinCodeLoginTokenManager.Text;
             }
 
+            if (String.IsNullOrEmpty(pinCode))
+            {
+                MessageBox.Show("Không được để trống trường PIN code", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             byte[] pin = null;
             Console.WriteLine("pinCode ==== " + pinCode);
             try

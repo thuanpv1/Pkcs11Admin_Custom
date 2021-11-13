@@ -113,36 +113,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainFormTabControl = new System.Windows.Forms.TabControl();
-            this.TabPageBasicInfo = new System.Windows.Forms.TabPage();
-            this.ContextMenuBasicInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.CtxMenuItemBasicInfoPkcs11Uri = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemBasicInfoCsvAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtxMenuItemBasicInfoCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPageCertNew = new System.Windows.Forms.TabPage();
-            this.panelLogin = new System.Windows.Forms.Panel();
-            this.buttonCancelCertTab = new System.Windows.Forms.Button();
-            this.textBoxLoginCertTab = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label4DangNhap = new System.Windows.Forms.Label();
-            this.buttonLoginCertTab = new System.Windows.Forms.Button();
-            this.treeViewCerts = new System.Windows.Forms.TreeView();
-            this.tabPageDoiPIN = new System.Windows.Forms.TabPage();
-            this.panelLoginDoiPIN = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBoxLoginDoiPINTab = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.buttonLoginDoiPINTab = new System.Windows.Forms.Button();
-            this.buttonHuy = new System.Windows.Forms.Button();
-            this.buttonChapNhan = new System.Windows.Forms.Button();
-            this.newPINConfirm = new System.Windows.Forms.TextBox();
-            this.newPIN = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.oldPIN = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPageAbout = new System.Windows.Forms.TabPage();
-            this.textBoxAbout = new System.Windows.Forms.TextBox();
             this.tabPageTokenManger = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.panelDoiPinTokenManager = new System.Windows.Forms.Panel();
@@ -176,6 +146,36 @@ namespace Net.Pkcs11Admin.WinForms
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxDanhSachTokenReader = new System.Windows.Forms.ComboBox();
+            this.tabPageCertNew = new System.Windows.Forms.TabPage();
+            this.panelLogin = new System.Windows.Forms.Panel();
+            this.buttonCancelCertTab = new System.Windows.Forms.Button();
+            this.textBoxLoginCertTab = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label4DangNhap = new System.Windows.Forms.Label();
+            this.buttonLoginCertTab = new System.Windows.Forms.Button();
+            this.treeViewCerts = new System.Windows.Forms.TreeView();
+            this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.textBoxAbout = new System.Windows.Forms.TextBox();
+            this.TabPageBasicInfo = new System.Windows.Forms.TabPage();
+            this.ContextMenuBasicInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CtxMenuItemBasicInfoPkcs11Uri = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemBasicInfoCsvAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtxMenuItemBasicInfoCsvSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPageDoiPIN = new System.Windows.Forms.TabPage();
+            this.panelLoginDoiPIN = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBoxLoginDoiPINTab = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.buttonLoginDoiPINTab = new System.Windows.Forms.Button();
+            this.buttonHuy = new System.Windows.Forms.Button();
+            this.buttonChapNhan = new System.Windows.Forms.Button();
+            this.newPINConfirm = new System.Windows.Forms.TextBox();
+            this.newPIN = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.oldPIN = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TabPageCertificates = new System.Windows.Forms.TabPage();
             this.ContextMenuCertificates = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CtxMenuItemCertificatesView = new System.Windows.Forms.ToolStripMenuItem();
@@ -246,19 +246,19 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MainFormTabControl.SuspendLayout();
-            this.TabPageBasicInfo.SuspendLayout();
-            this.ContextMenuBasicInfo.SuspendLayout();
-            this.tabPageCertNew.SuspendLayout();
-            this.panelLogin.SuspendLayout();
-            this.tabPageDoiPIN.SuspendLayout();
-            this.panelLoginDoiPIN.SuspendLayout();
-            this.tabPageAbout.SuspendLayout();
             this.tabPageTokenManger.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panelDoiPinTokenManager.SuspendLayout();
             this.panelDangNhapTokenManager.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPageCertNew.SuspendLayout();
+            this.panelLogin.SuspendLayout();
+            this.tabPageAbout.SuspendLayout();
+            this.TabPageBasicInfo.SuspendLayout();
+            this.ContextMenuBasicInfo.SuspendLayout();
+            this.tabPageDoiPIN.SuspendLayout();
+            this.panelLoginDoiPIN.SuspendLayout();
             this.TabPageCertificates.SuspendLayout();
             this.ContextMenuCertificates.SuspendLayout();
             this.TabPageKeys.SuspendLayout();
@@ -800,10 +800,8 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            //this.MainFormTabControl.Controls.Add(this.TabPageBasicInfo);
             this.MainFormTabControl.Controls.Add(this.tabPageTokenManger);
             this.MainFormTabControl.Controls.Add(this.tabPageCertNew);
-            //this.MainFormTabControl.Controls.Add(this.tabPageDoiPIN);
             this.MainFormTabControl.Controls.Add(this.tabPageAbout);
             this.MainFormTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainFormTabControl.ItemSize = new System.Drawing.Size(106, 30);
@@ -815,50 +813,358 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.TabIndex = 1;
             this.MainFormTabControl.SelectedIndexChanged += new System.EventHandler(this.MainFormTabControl_SelectedIndexChanged);
             // 
-            // TabPageBasicInfo
+            // tabPageTokenManger
             // 
-            this.TabPageBasicInfo.Controls.Add(this.ListViewBasicInfo);
-            this.TabPageBasicInfo.Location = new System.Drawing.Point(4, 34);
-            this.TabPageBasicInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.TabPageBasicInfo.Name = "TabPageBasicInfo";
-            this.TabPageBasicInfo.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.TabPageBasicInfo.Size = new System.Drawing.Size(1037, 382);
-            this.TabPageBasicInfo.TabIndex = 7;
-            this.TabPageBasicInfo.Text = "Thông tin chung";
-            this.TabPageBasicInfo.UseVisualStyleBackColor = true;
+            this.tabPageTokenManger.Controls.Add(this.groupBox3);
+            this.tabPageTokenManger.Controls.Add(this.groupBox2);
+            this.tabPageTokenManger.Controls.Add(this.groupBox1);
+            this.tabPageTokenManger.Controls.Add(this.buttonRefresh);
+            this.tabPageTokenManger.Controls.Add(this.label7);
+            this.tabPageTokenManger.Controls.Add(this.comboBoxDanhSachTokenReader);
+            this.tabPageTokenManger.Location = new System.Drawing.Point(4, 34);
+            this.tabPageTokenManger.Name = "tabPageTokenManger";
+            this.tabPageTokenManger.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTokenManger.Size = new System.Drawing.Size(1037, 382);
+            this.tabPageTokenManger.TabIndex = 11;
+            this.tabPageTokenManger.Text = "Quản lý token";
+            this.tabPageTokenManger.UseVisualStyleBackColor = true;
             // 
-            // ContextMenuBasicInfo
+            // groupBox3
             // 
-            this.ContextMenuBasicInfo.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.ContextMenuBasicInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CtxMenuItemBasicInfoPkcs11Uri,
-            this.CtxMenuItemBasicInfoCsvAll,
-            this.CtxMenuItemBasicInfoCsvSelected});
-            this.ContextMenuBasicInfo.Name = "ContextMenuBasicInfo";
-            this.ContextMenuBasicInfo.ShowImageMargin = false;
-            this.ContextMenuBasicInfo.ShowItemToolTips = false;
-            this.ContextMenuBasicInfo.Size = new System.Drawing.Size(253, 76);
+            this.groupBox3.Controls.Add(this.panelDoiPinTokenManager);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(634, 159);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(400, 203);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Đổi PIN";
             // 
-            // CtxMenuItemBasicInfoPkcs11Uri
+            // panelDoiPinTokenManager
             // 
-            this.CtxMenuItemBasicInfoPkcs11Uri.Name = "CtxMenuItemBasicInfoPkcs11Uri";
-            this.CtxMenuItemBasicInfoPkcs11Uri.Size = new System.Drawing.Size(252, 24);
-            this.CtxMenuItemBasicInfoPkcs11Uri.Text = "Build PKCS#11 URI...";
-            this.CtxMenuItemBasicInfoPkcs11Uri.Click += new System.EventHandler(this.CtxMenuItemBasicInfoPkcs11Uri_Click);
+            this.panelDoiPinTokenManager.Controls.Add(this.panelDangNhapTokenManager);
+            this.panelDoiPinTokenManager.Controls.Add(this.buttonDoiPinTabQuanLyToken);
+            this.panelDoiPinTokenManager.Controls.Add(this.textBoxNewPinConfirm);
+            this.panelDoiPinTokenManager.Controls.Add(this.label16);
+            this.panelDoiPinTokenManager.Controls.Add(this.textBoxNewPin);
+            this.panelDoiPinTokenManager.Controls.Add(this.label15);
+            this.panelDoiPinTokenManager.Controls.Add(this.textBoxOldPin);
+            this.panelDoiPinTokenManager.Controls.Add(this.label14);
+            this.panelDoiPinTokenManager.Location = new System.Drawing.Point(0, 30);
+            this.panelDoiPinTokenManager.Name = "panelDoiPinTokenManager";
+            this.panelDoiPinTokenManager.Size = new System.Drawing.Size(399, 172);
+            this.panelDoiPinTokenManager.TabIndex = 0;
             // 
-            // CtxMenuItemBasicInfoCsvAll
+            // panelDangNhapTokenManager
             // 
-            this.CtxMenuItemBasicInfoCsvAll.Name = "CtxMenuItemBasicInfoCsvAll";
-            this.CtxMenuItemBasicInfoCsvAll.Size = new System.Drawing.Size(252, 24);
-            this.CtxMenuItemBasicInfoCsvAll.Text = "Export all items to CSV...";
-            this.CtxMenuItemBasicInfoCsvAll.Click += new System.EventHandler(this.CtxMenuItemBasicInfoCsvAll_Click);
+            this.panelDangNhapTokenManager.Controls.Add(this.label18);
+            this.panelDangNhapTokenManager.Controls.Add(this.buttonLoginTokenManager);
+            this.panelDangNhapTokenManager.Controls.Add(this.textBoxPinCodeLoginTokenManager);
+            this.panelDangNhapTokenManager.Controls.Add(this.label17);
+            this.panelDangNhapTokenManager.Location = new System.Drawing.Point(0, 0);
+            this.panelDangNhapTokenManager.Name = "panelDangNhapTokenManager";
+            this.panelDangNhapTokenManager.Size = new System.Drawing.Size(399, 172);
+            this.panelDangNhapTokenManager.TabIndex = 10;
             // 
-            // CtxMenuItemBasicInfoCsvSelected
+            // label18
             // 
-            this.CtxMenuItemBasicInfoCsvSelected.Name = "CtxMenuItemBasicInfoCsvSelected";
-            this.CtxMenuItemBasicInfoCsvSelected.Size = new System.Drawing.Size(252, 24);
-            this.CtxMenuItemBasicInfoCsvSelected.Text = "Export selected items to CSV...";
-            this.CtxMenuItemBasicInfoCsvSelected.Click += new System.EventHandler(this.CtxMenuItemBasicInfoCsvSelected_Click);
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(34, 73);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(77, 20);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "PIN code";
+            // 
+            // buttonLoginTokenManager
+            // 
+            this.buttonLoginTokenManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLoginTokenManager.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonLoginTokenManager.Location = new System.Drawing.Point(254, 118);
+            this.buttonLoginTokenManager.Name = "buttonLoginTokenManager";
+            this.buttonLoginTokenManager.Size = new System.Drawing.Size(142, 36);
+            this.buttonLoginTokenManager.TabIndex = 2;
+            this.buttonLoginTokenManager.Text = "Login";
+            this.buttonLoginTokenManager.UseVisualStyleBackColor = true;
+            this.buttonLoginTokenManager.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBoxPinCodeLoginTokenManager
+            // 
+            this.textBoxPinCodeLoginTokenManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPinCodeLoginTokenManager.Location = new System.Drawing.Point(143, 66);
+            this.textBoxPinCodeLoginTokenManager.Name = "textBoxPinCodeLoginTokenManager";
+            this.textBoxPinCodeLoginTokenManager.PasswordChar = '*';
+            this.textBoxPinCodeLoginTokenManager.Size = new System.Drawing.Size(251, 27);
+            this.textBoxPinCodeLoginTokenManager.TabIndex = 1;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(34, 18);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 20);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Đăng nhập";
+            // 
+            // buttonDoiPinTabQuanLyToken
+            // 
+            this.buttonDoiPinTabQuanLyToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDoiPinTabQuanLyToken.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonDoiPinTabQuanLyToken.Location = new System.Drawing.Point(204, 130);
+            this.buttonDoiPinTabQuanLyToken.Name = "buttonDoiPinTabQuanLyToken";
+            this.buttonDoiPinTabQuanLyToken.Size = new System.Drawing.Size(180, 32);
+            this.buttonDoiPinTabQuanLyToken.TabIndex = 9;
+            this.buttonDoiPinTabQuanLyToken.Text = "Chấp nhận";
+            this.buttonDoiPinTabQuanLyToken.UseVisualStyleBackColor = true;
+            this.buttonDoiPinTabQuanLyToken.Click += new System.EventHandler(this.buttonDoiPinTabQuanLyToken_Click);
+            // 
+            // textBoxNewPinConfirm
+            // 
+            this.textBoxNewPinConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNewPinConfirm.Location = new System.Drawing.Point(204, 89);
+            this.textBoxNewPinConfirm.Name = "textBoxNewPinConfirm";
+            this.textBoxNewPinConfirm.PasswordChar = '*';
+            this.textBoxNewPinConfirm.Size = new System.Drawing.Size(180, 27);
+            this.textBoxNewPinConfirm.TabIndex = 6;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(14, 96);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(143, 20);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Xác nhận PIN mới";
+            // 
+            // textBoxNewPin
+            // 
+            this.textBoxNewPin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNewPin.Location = new System.Drawing.Point(204, 49);
+            this.textBoxNewPin.Name = "textBoxNewPin";
+            this.textBoxNewPin.PasswordChar = '*';
+            this.textBoxNewPin.Size = new System.Drawing.Size(180, 27);
+            this.textBoxNewPin.TabIndex = 7;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(14, 56);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(109, 20);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "PIN code mới";
+            // 
+            // textBoxOldPin
+            // 
+            this.textBoxOldPin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxOldPin.Location = new System.Drawing.Point(204, 11);
+            this.textBoxOldPin.Name = "textBoxOldPin";
+            this.textBoxOldPin.PasswordChar = '*';
+            this.textBoxOldPin.Size = new System.Drawing.Size(180, 27);
+            this.textBoxOldPin.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(14, 18);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(100, 20);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "PIN code cũ";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBoxDatTokenMacDinh);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(634, 77);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(400, 74);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Cài đặt token";
+            // 
+            // checkBoxDatTokenMacDinh
+            // 
+            this.checkBoxDatTokenMacDinh.AutoSize = true;
+            this.checkBoxDatTokenMacDinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDatTokenMacDinh.Location = new System.Drawing.Point(23, 40);
+            this.checkBoxDatTokenMacDinh.Name = "checkBoxDatTokenMacDinh";
+            this.checkBoxDatTokenMacDinh.Size = new System.Drawing.Size(230, 24);
+            this.checkBoxDatTokenMacDinh.TabIndex = 0;
+            this.checkBoxDatTokenMacDinh.Text = "Đặt làm lựa chọn mặc định";
+            this.checkBoxDatTokenMacDinh.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxGhiChu);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.textBoxTrangThai);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.textBoxSerialNumber);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.textBoxModelToken);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.textBoxManufacture);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.textBoxLabelToken);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 77);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(616, 285);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Thông tin token";
+            // 
+            // textBoxGhiChu
+            // 
+            this.textBoxGhiChu.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxGhiChu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxGhiChu.Location = new System.Drawing.Point(167, 190);
+            this.textBoxGhiChu.Multiline = true;
+            this.textBoxGhiChu.Name = "textBoxGhiChu";
+            this.textBoxGhiChu.ReadOnly = true;
+            this.textBoxGhiChu.Size = new System.Drawing.Size(437, 76);
+            this.textBoxGhiChu.TabIndex = 1;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(18, 190);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 20);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Ghi chú";
+            // 
+            // textBoxTrangThai
+            // 
+            this.textBoxTrangThai.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTrangThai.Location = new System.Drawing.Point(167, 160);
+            this.textBoxTrangThai.Name = "textBoxTrangThai";
+            this.textBoxTrangThai.ReadOnly = true;
+            this.textBoxTrangThai.Size = new System.Drawing.Size(437, 20);
+            this.textBoxTrangThai.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(18, 160);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 20);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Trạng Thái";
+            // 
+            // textBoxSerialNumber
+            // 
+            this.textBoxSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSerialNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSerialNumber.Location = new System.Drawing.Point(167, 130);
+            this.textBoxSerialNumber.Name = "textBoxSerialNumber";
+            this.textBoxSerialNumber.ReadOnly = true;
+            this.textBoxSerialNumber.Size = new System.Drawing.Size(437, 20);
+            this.textBoxSerialNumber.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(18, 130);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(116, 20);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Serial Number";
+            // 
+            // textBoxModelToken
+            // 
+            this.textBoxModelToken.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxModelToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxModelToken.Location = new System.Drawing.Point(167, 100);
+            this.textBoxModelToken.Name = "textBoxModelToken";
+            this.textBoxModelToken.ReadOnly = true;
+            this.textBoxModelToken.Size = new System.Drawing.Size(437, 20);
+            this.textBoxModelToken.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(18, 100);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Model";
+            // 
+            // textBoxManufacture
+            // 
+            this.textBoxManufacture.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxManufacture.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxManufacture.Location = new System.Drawing.Point(167, 67);
+            this.textBoxManufacture.Name = "textBoxManufacture";
+            this.textBoxManufacture.ReadOnly = true;
+            this.textBoxManufacture.Size = new System.Drawing.Size(437, 20);
+            this.textBoxManufacture.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(18, 70);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(108, 20);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Manufacturer";
+            // 
+            // textBoxLabelToken
+            // 
+            this.textBoxLabelToken.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxLabelToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLabelToken.Location = new System.Drawing.Point(167, 40);
+            this.textBoxLabelToken.Name = "textBoxLabelToken";
+            this.textBoxLabelToken.ReadOnly = true;
+            this.textBoxLabelToken.Size = new System.Drawing.Size(437, 20);
+            this.textBoxLabelToken.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(18, 40);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 20);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Label";
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(840, 16);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(193, 31);
+            this.buttonRefresh.TabIndex = 5;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(176, 20);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Lựa chọn token reader";
+            // 
+            // comboBoxDanhSachTokenReader
+            // 
+            this.comboBoxDanhSachTokenReader.FormattingEnabled = true;
+            this.comboBoxDanhSachTokenReader.Location = new System.Drawing.Point(273, 19);
+            this.comboBoxDanhSachTokenReader.Name = "comboBoxDanhSachTokenReader";
+            this.comboBoxDanhSachTokenReader.Size = new System.Drawing.Size(541, 28);
+            this.comboBoxDanhSachTokenReader.TabIndex = 0;
             // 
             // tabPageCertNew
             // 
@@ -945,6 +1251,75 @@ namespace Net.Pkcs11Admin.WinForms
             this.treeViewCerts.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCerts_AfterSelect);
             this.treeViewCerts.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewCerts_NodeMouseClick);
             // 
+            // tabPageAbout
+            // 
+            this.tabPageAbout.Controls.Add(this.textBoxAbout);
+            this.tabPageAbout.Location = new System.Drawing.Point(4, 34);
+            this.tabPageAbout.Name = "tabPageAbout";
+            this.tabPageAbout.Size = new System.Drawing.Size(1037, 382);
+            this.tabPageAbout.TabIndex = 9;
+            this.tabPageAbout.Text = "About";
+            this.tabPageAbout.UseVisualStyleBackColor = true;
+            // 
+            // textBoxAbout
+            // 
+            this.textBoxAbout.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.textBoxAbout.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAbout.Location = new System.Drawing.Point(41, 33);
+            this.textBoxAbout.Multiline = true;
+            this.textBoxAbout.Name = "textBoxAbout";
+            this.textBoxAbout.ReadOnly = true;
+            this.textBoxAbout.Size = new System.Drawing.Size(570, 164);
+            this.textBoxAbout.TabIndex = 1;
+            this.textBoxAbout.Text = "Token Manager v1.0\r\n\r\nPhần mềm này đã được đăng ký thương hiệu tại Việt Nam.\r\n\r\nB" +
+    "ản quyền 2021-2025";
+            // 
+            // TabPageBasicInfo
+            // 
+            this.TabPageBasicInfo.Controls.Add(this.ListViewBasicInfo);
+            this.TabPageBasicInfo.Location = new System.Drawing.Point(4, 34);
+            this.TabPageBasicInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.TabPageBasicInfo.Name = "TabPageBasicInfo";
+            this.TabPageBasicInfo.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.TabPageBasicInfo.Size = new System.Drawing.Size(1037, 382);
+            this.TabPageBasicInfo.TabIndex = 7;
+            this.TabPageBasicInfo.Text = "Thông tin chung";
+            this.TabPageBasicInfo.UseVisualStyleBackColor = true;
+            // 
+            // ContextMenuBasicInfo
+            // 
+            this.ContextMenuBasicInfo.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.ContextMenuBasicInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CtxMenuItemBasicInfoPkcs11Uri,
+            this.CtxMenuItemBasicInfoCsvAll,
+            this.CtxMenuItemBasicInfoCsvSelected});
+            this.ContextMenuBasicInfo.Name = "ContextMenuBasicInfo";
+            this.ContextMenuBasicInfo.ShowImageMargin = false;
+            this.ContextMenuBasicInfo.ShowItemToolTips = false;
+            this.ContextMenuBasicInfo.Size = new System.Drawing.Size(253, 76);
+            // 
+            // CtxMenuItemBasicInfoPkcs11Uri
+            // 
+            this.CtxMenuItemBasicInfoPkcs11Uri.Name = "CtxMenuItemBasicInfoPkcs11Uri";
+            this.CtxMenuItemBasicInfoPkcs11Uri.Size = new System.Drawing.Size(252, 24);
+            this.CtxMenuItemBasicInfoPkcs11Uri.Text = "Build PKCS#11 URI...";
+            this.CtxMenuItemBasicInfoPkcs11Uri.Click += new System.EventHandler(this.CtxMenuItemBasicInfoPkcs11Uri_Click);
+            // 
+            // CtxMenuItemBasicInfoCsvAll
+            // 
+            this.CtxMenuItemBasicInfoCsvAll.Name = "CtxMenuItemBasicInfoCsvAll";
+            this.CtxMenuItemBasicInfoCsvAll.Size = new System.Drawing.Size(252, 24);
+            this.CtxMenuItemBasicInfoCsvAll.Text = "Export all items to CSV...";
+            this.CtxMenuItemBasicInfoCsvAll.Click += new System.EventHandler(this.CtxMenuItemBasicInfoCsvAll_Click);
+            // 
+            // CtxMenuItemBasicInfoCsvSelected
+            // 
+            this.CtxMenuItemBasicInfoCsvSelected.Name = "CtxMenuItemBasicInfoCsvSelected";
+            this.CtxMenuItemBasicInfoCsvSelected.Size = new System.Drawing.Size(252, 24);
+            this.CtxMenuItemBasicInfoCsvSelected.Text = "Export selected items to CSV...";
+            this.CtxMenuItemBasicInfoCsvSelected.Click += new System.EventHandler(this.CtxMenuItemBasicInfoCsvSelected_Click);
+            // 
             // tabPageDoiPIN
             // 
             this.tabPageDoiPIN.Controls.Add(this.panelLoginDoiPIN);
@@ -991,7 +1366,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.textBoxLoginDoiPINTab.Location = new System.Drawing.Point(238, 111);
             this.textBoxLoginDoiPINTab.Name = "textBoxLoginDoiPINTab";
             this.textBoxLoginDoiPINTab.PasswordChar = '*';
-            this.textBoxLoginDoiPINTab.Size = new System.Drawing.Size(489, 27);
+            this.textBoxLoginDoiPINTab.Size = new System.Drawing.Size(489, 22);
             this.textBoxLoginDoiPINTab.TabIndex = 3;
             // 
             // label5
@@ -999,7 +1374,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(128, 118);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 20);
+            this.label5.Size = new System.Drawing.Size(69, 17);
             this.label5.TabIndex = 2;
             this.label5.Text = "PIN code:";
             // 
@@ -1051,7 +1426,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.newPINConfirm.MaxLength = 68;
             this.newPINConfirm.Name = "newPINConfirm";
             this.newPINConfirm.PasswordChar = '*';
-            this.newPINConfirm.Size = new System.Drawing.Size(886, 27);
+            this.newPINConfirm.Size = new System.Drawing.Size(886, 22);
             this.newPINConfirm.TabIndex = 5;
             // 
             // newPIN
@@ -1060,7 +1435,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.newPIN.MaxLength = 68;
             this.newPIN.Name = "newPIN";
             this.newPIN.PasswordChar = '*';
-            this.newPIN.Size = new System.Drawing.Size(886, 27);
+            this.newPIN.Size = new System.Drawing.Size(886, 22);
             this.newPIN.TabIndex = 4;
             // 
             // label3
@@ -1090,7 +1465,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.oldPIN.MaxLength = 68;
             this.oldPIN.Name = "oldPIN";
             this.oldPIN.PasswordChar = '*';
-            this.oldPIN.Size = new System.Drawing.Size(888, 27);
+            this.oldPIN.Size = new System.Drawing.Size(888, 22);
             this.oldPIN.TabIndex = 1;
             // 
             // label1
@@ -1103,378 +1478,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.label1.TabIndex = 0;
             this.label1.Text = "PIN code cũ";
             this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // tabPageAbout
-            // 
-            this.tabPageAbout.Controls.Add(this.textBoxAbout);
-            this.tabPageAbout.Location = new System.Drawing.Point(4, 34);
-            this.tabPageAbout.Name = "tabPageAbout";
-            this.tabPageAbout.Size = new System.Drawing.Size(1037, 382);
-            this.tabPageAbout.TabIndex = 9;
-            this.tabPageAbout.Text = "About";
-            this.tabPageAbout.UseVisualStyleBackColor = true;
-            // 
-            // textBoxAbout
-            // 
-            this.textBoxAbout.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.textBoxAbout.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAbout.Location = new System.Drawing.Point(41, 33);
-            this.textBoxAbout.Multiline = true;
-            this.textBoxAbout.Name = "textBoxAbout";
-            this.textBoxAbout.ReadOnly = true;
-            this.textBoxAbout.Size = new System.Drawing.Size(570, 164);
-            this.textBoxAbout.TabIndex = 1;
-            this.textBoxAbout.Text = "Token Manager v1.0\r\n\r\nPhần mềm này đã được đăng ký thương hiệu tại Việt Nam.\r\n\r\nB" +
-    "ản quyền 2021-2025";
-            // 
-            // tabPageTokenManger
-            // 
-            this.tabPageTokenManger.Controls.Add(this.groupBox3);
-            this.tabPageTokenManger.Controls.Add(this.groupBox2);
-            this.tabPageTokenManger.Controls.Add(this.groupBox1);
-            this.tabPageTokenManger.Controls.Add(this.buttonRefresh);
-            this.tabPageTokenManger.Controls.Add(this.label7);
-            this.tabPageTokenManger.Controls.Add(this.comboBoxDanhSachTokenReader);
-            this.tabPageTokenManger.Location = new System.Drawing.Point(4, 34);
-            this.tabPageTokenManger.Name = "tabPageTokenManger";
-            this.tabPageTokenManger.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTokenManger.Size = new System.Drawing.Size(1037, 382);
-            this.tabPageTokenManger.TabIndex = 11;
-            this.tabPageTokenManger.Text = "Quản lý token";
-            this.tabPageTokenManger.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.panelDoiPinTokenManager);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(634, 159);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(400, 203);
-            this.groupBox3.TabIndex = 8;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Đổi PIN";
-            // 
-            // panelDoiPinTokenManager
-            // 
-            this.panelDoiPinTokenManager.Controls.Add(this.panelDangNhapTokenManager);
-            this.panelDoiPinTokenManager.Controls.Add(this.buttonDoiPinTabQuanLyToken);
-            this.panelDoiPinTokenManager.Controls.Add(this.textBoxNewPinConfirm);
-            this.panelDoiPinTokenManager.Controls.Add(this.label16);
-            this.panelDoiPinTokenManager.Controls.Add(this.textBoxNewPin);
-            this.panelDoiPinTokenManager.Controls.Add(this.label15);
-            this.panelDoiPinTokenManager.Controls.Add(this.textBoxOldPin);
-            this.panelDoiPinTokenManager.Controls.Add(this.label14);
-            this.panelDoiPinTokenManager.Location = new System.Drawing.Point(0, 30);
-            this.panelDoiPinTokenManager.Name = "panelDoiPinTokenManager";
-            this.panelDoiPinTokenManager.Size = new System.Drawing.Size(399, 172);
-            this.panelDoiPinTokenManager.TabIndex = 0;
-            // 
-            // panelDangNhapTokenManager
-            // 
-            this.panelDangNhapTokenManager.Controls.Add(this.label18);
-            this.panelDangNhapTokenManager.Controls.Add(this.buttonLoginTokenManager);
-            this.panelDangNhapTokenManager.Controls.Add(this.textBoxPinCodeLoginTokenManager);
-            this.panelDangNhapTokenManager.Controls.Add(this.label17);
-            this.panelDangNhapTokenManager.Location = new System.Drawing.Point(0, 0);
-            this.panelDangNhapTokenManager.Name = "panelDangNhapTokenManager";
-            this.panelDangNhapTokenManager.Size = new System.Drawing.Size(399, 172);
-            this.panelDangNhapTokenManager.TabIndex = 10;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(34, 73);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(77, 20);
-            this.label18.TabIndex = 3;
-            this.label18.Text = "PIN code";
-            // 
-            // buttonLoginTokenManager
-            // 
-            this.buttonLoginTokenManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLoginTokenManager.ForeColor = System.Drawing.Color.DarkGreen;
-            this.buttonLoginTokenManager.Location = new System.Drawing.Point(254, 118);
-            this.buttonLoginTokenManager.Name = "buttonLoginTokenManager";
-            this.buttonLoginTokenManager.Size = new System.Drawing.Size(119, 36);
-            this.buttonLoginTokenManager.TabIndex = 2;
-            this.buttonLoginTokenManager.Text = "Login";
-            this.buttonLoginTokenManager.UseVisualStyleBackColor = true;
-            this.buttonLoginTokenManager.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBoxPinCodeLoginTokenManager
-            // 
-            this.textBoxPinCodeLoginTokenManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPinCodeLoginTokenManager.Location = new System.Drawing.Point(143, 66);
-            this.textBoxPinCodeLoginTokenManager.Name = "textBoxPinCodeLoginTokenManager";
-            this.textBoxPinCodeLoginTokenManager.Size = new System.Drawing.Size(230, 27);
-            this.textBoxPinCodeLoginTokenManager.TabIndex = 1;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(34, 18);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(98, 20);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Đăng nhập";
-            // 
-            // buttonDoiPinTabQuanLyToken
-            // 
-            this.buttonDoiPinTabQuanLyToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDoiPinTabQuanLyToken.ForeColor = System.Drawing.Color.DarkGreen;
-            this.buttonDoiPinTabQuanLyToken.Location = new System.Drawing.Point(204, 130);
-            this.buttonDoiPinTabQuanLyToken.Name = "buttonDoiPinTabQuanLyToken";
-            this.buttonDoiPinTabQuanLyToken.Size = new System.Drawing.Size(180, 32);
-            this.buttonDoiPinTabQuanLyToken.TabIndex = 9;
-            this.buttonDoiPinTabQuanLyToken.Text = "Chấp nhận";
-            this.buttonDoiPinTabQuanLyToken.UseVisualStyleBackColor = true;
-            this.buttonDoiPinTabQuanLyToken.Click += new System.EventHandler(this.buttonDoiPinTabQuanLyToken_Click);
-            // 
-            // textBoxNewPinConfirm
-            // 
-            this.textBoxNewPinConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNewPinConfirm.Location = new System.Drawing.Point(204, 89);
-            this.textBoxNewPinConfirm.Name = "textBoxNewPinConfirm";
-            this.textBoxNewPinConfirm.Size = new System.Drawing.Size(180, 27);
-            this.textBoxNewPinConfirm.TabIndex = 6;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(14, 96);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(143, 20);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "Xác nhận PIN mới";
-            // 
-            // textBoxNewPin
-            // 
-            this.textBoxNewPin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNewPin.Location = new System.Drawing.Point(204, 49);
-            this.textBoxNewPin.Name = "textBoxNewPin";
-            this.textBoxNewPin.Size = new System.Drawing.Size(180, 27);
-            this.textBoxNewPin.TabIndex = 7;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(14, 56);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(109, 20);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "PIN code mới";
-            // 
-            // textBoxOldPin
-            // 
-            this.textBoxOldPin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxOldPin.Location = new System.Drawing.Point(204, 11);
-            this.textBoxOldPin.Name = "textBoxOldPin";
-            this.textBoxOldPin.Size = new System.Drawing.Size(180, 27);
-            this.textBoxOldPin.TabIndex = 8;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(14, 18);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(100, 20);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "PIN code cũ";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.checkBoxDatTokenMacDinh);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(634, 77);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(400, 74);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Cài đặt token";
-            // 
-            // checkBoxDatTokenMacDinh
-            // 
-            this.checkBoxDatTokenMacDinh.AutoSize = true;
-            this.checkBoxDatTokenMacDinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDatTokenMacDinh.Location = new System.Drawing.Point(23, 40);
-            this.checkBoxDatTokenMacDinh.Name = "checkBoxDatTokenMacDinh";
-            this.checkBoxDatTokenMacDinh.Size = new System.Drawing.Size(230, 24);
-            this.checkBoxDatTokenMacDinh.TabIndex = 0;
-            this.checkBoxDatTokenMacDinh.Text = "Đặt làm lựa chọn mặc định";
-            this.checkBoxDatTokenMacDinh.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBoxGhiChu);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.textBoxTrangThai);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.textBoxSerialNumber);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.textBoxModelToken);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.textBoxManufacture);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.textBoxLabelToken);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 77);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(616, 285);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Thông tin token";
-            // 
-            // textBoxGhiChu
-            // 
-            this.textBoxGhiChu.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxGhiChu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxGhiChu.Location = new System.Drawing.Point(167, 238);
-            this.textBoxGhiChu.Name = "textBoxGhiChu";
-            this.textBoxGhiChu.ReadOnly = true;
-            this.textBoxGhiChu.Size = new System.Drawing.Size(437, 20);
-            this.textBoxGhiChu.TabIndex = 1;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(18, 241);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(67, 20);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Ghi chú";
-            // 
-            // textBoxTrangThai
-            // 
-            this.textBoxTrangThai.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTrangThai.Location = new System.Drawing.Point(167, 196);
-            this.textBoxTrangThai.Name = "textBoxTrangThai";
-            this.textBoxTrangThai.ReadOnly = true;
-            this.textBoxTrangThai.Size = new System.Drawing.Size(437, 20);
-            this.textBoxTrangThai.TabIndex = 1;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(18, 199);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(89, 20);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "Trạng Thái";
-            // 
-            // textBoxSerialNumber
-            // 
-            this.textBoxSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSerialNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSerialNumber.Location = new System.Drawing.Point(167, 153);
-            this.textBoxSerialNumber.Name = "textBoxSerialNumber";
-            this.textBoxSerialNumber.ReadOnly = true;
-            this.textBoxSerialNumber.Size = new System.Drawing.Size(437, 20);
-            this.textBoxSerialNumber.TabIndex = 1;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(18, 156);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(116, 20);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Serial Number";
-            // 
-            // textBoxModelToken
-            // 
-            this.textBoxModelToken.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxModelToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxModelToken.Location = new System.Drawing.Point(167, 112);
-            this.textBoxModelToken.Name = "textBoxModelToken";
-            this.textBoxModelToken.ReadOnly = true;
-            this.textBoxModelToken.Size = new System.Drawing.Size(437, 20);
-            this.textBoxModelToken.TabIndex = 1;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(18, 115);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(54, 20);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Model";
-            // 
-            // textBoxManufacture
-            // 
-            this.textBoxManufacture.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxManufacture.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxManufacture.Location = new System.Drawing.Point(167, 74);
-            this.textBoxManufacture.Name = "textBoxManufacture";
-            this.textBoxManufacture.ReadOnly = true;
-            this.textBoxManufacture.Size = new System.Drawing.Size(437, 20);
-            this.textBoxManufacture.TabIndex = 1;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(18, 77);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 20);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Manufacturer";
-            // 
-            // textBoxLabelToken
-            // 
-            this.textBoxLabelToken.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxLabelToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxLabelToken.Location = new System.Drawing.Point(167, 37);
-            this.textBoxLabelToken.Name = "textBoxLabelToken";
-            this.textBoxLabelToken.ReadOnly = true;
-            this.textBoxLabelToken.Size = new System.Drawing.Size(437, 20);
-            this.textBoxLabelToken.TabIndex = 1;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(18, 40);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 20);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Label";
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Location = new System.Drawing.Point(843, 16);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(180, 31);
-            this.buttonRefresh.TabIndex = 5;
-            this.buttonRefresh.Text = "Refresh";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 21);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(176, 20);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Lựa chọn token reader";
-            // 
-            // comboBoxDanhSachTokenReader
-            // 
-            this.comboBoxDanhSachTokenReader.FormattingEnabled = true;
-            this.comboBoxDanhSachTokenReader.Location = new System.Drawing.Point(273, 19);
-            this.comboBoxDanhSachTokenReader.Name = "comboBoxDanhSachTokenReader";
-            this.comboBoxDanhSachTokenReader.Size = new System.Drawing.Size(541, 28);
-            this.comboBoxDanhSachTokenReader.TabIndex = 0;
             // 
             // TabPageCertificates
             // 
@@ -2131,17 +2134,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MainFormTabControl.ResumeLayout(false);
-            this.TabPageBasicInfo.ResumeLayout(false);
-            this.ContextMenuBasicInfo.ResumeLayout(false);
-            this.tabPageCertNew.ResumeLayout(false);
-            this.panelLogin.ResumeLayout(false);
-            this.panelLogin.PerformLayout();
-            this.tabPageDoiPIN.ResumeLayout(false);
-            this.tabPageDoiPIN.PerformLayout();
-            this.panelLoginDoiPIN.ResumeLayout(false);
-            this.panelLoginDoiPIN.PerformLayout();
-            this.tabPageAbout.ResumeLayout(false);
-            this.tabPageAbout.PerformLayout();
             this.tabPageTokenManger.ResumeLayout(false);
             this.tabPageTokenManger.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2153,6 +2145,17 @@ namespace Net.Pkcs11Admin.WinForms
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPageCertNew.ResumeLayout(false);
+            this.panelLogin.ResumeLayout(false);
+            this.panelLogin.PerformLayout();
+            this.tabPageAbout.ResumeLayout(false);
+            this.tabPageAbout.PerformLayout();
+            this.TabPageBasicInfo.ResumeLayout(false);
+            this.ContextMenuBasicInfo.ResumeLayout(false);
+            this.tabPageDoiPIN.ResumeLayout(false);
+            this.tabPageDoiPIN.PerformLayout();
+            this.panelLoginDoiPIN.ResumeLayout(false);
+            this.panelLoginDoiPIN.PerformLayout();
             this.TabPageCertificates.ResumeLayout(false);
             this.TabPageCertificates.PerformLayout();
             this.ContextMenuCertificates.ResumeLayout(false);
