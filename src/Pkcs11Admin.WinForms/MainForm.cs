@@ -173,10 +173,33 @@ namespace Net.Pkcs11Admin.WinForms
             MenuItemSlot.Enabled = ((_selectedLibrary != null) && (_selectedLibrary.Slots.Count > 0));
         }
 
+        private void InitializeComboboxSlot(List<Pkcs11Slot> slots)
+        {
+            List<Object> items = new List<Object>();
+            String defaultToken = Properties.Settings.Default.defaultTokenAtStartUp;
+            for (int i = 0; i < slots.Count; i++)
+            {
+                items.Add(new { Text = (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot", Value = slots[i], Default = String.Equals(defaultToken, (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot") });
+            }
+
+            comboBoxDanhSachTokenReader.DisplayMember = "Text";
+            comboBoxDanhSachTokenReader.ValueMember = "Value";
+            comboBoxDanhSachTokenReader.DataSource = items;
+            //foreach(Object eachO in items)
+            //{
+            //    var propertyInfo = eachO.GetType().GetProperty("Default");
+            //    bool isDefault = (bool)propertyInfo.GetValue(eachO, null);
+            //    if (isDefault)
+            //    {
+            //        comboBoxDanhSachTokenReader.SelectedItem = eachO;
+            //    }
+            //}
+
+        }
+
         private void InitializeMenuItemSlot(List<Pkcs11Slot> slots)
         {
             ToolStripItem[] menuItems = new ToolStripItem[slots.Count];
-
             for (int i = 0; i < slots.Count; i++)
             {
                 ToolStripMenuItem menuItem = new ToolStripMenuItem();
@@ -184,7 +207,6 @@ namespace Net.Pkcs11Admin.WinForms
                 menuItem.Tag = slots[i];
                 menuItem.CheckOnClick = true;
                 menuItem.Click += new EventHandler(MenuItemSlot_Click);
-
                 menuItems[i] = menuItem;
             }
 
@@ -198,25 +220,19 @@ namespace Net.Pkcs11Admin.WinForms
             else
             {
 
-                //bool isExist = false;
-                List<Object> items = new List<Object>();
+                bool isExist = false;
 
                 foreach (ToolStripItem temp in MenuItemSlot.DropDownItems)
                 {
                     String item = temp.ToString();
-                    items.Add(new { Text = temp.Text, Value = temp });
-                    //if (item.Contains("Precise Biometrics Precise 200"))
-                    //{
-                    //    isExist = true;
-                    //    temp.PerformClick();
-                    //}
+                    if (item.Contains("Precise Biometrics Precise 200"))
+                    {
+                        isExist = true;
+                        temp.PerformClick();
+                    }
                 }
 
-                comboBoxDanhSachTokenReader.DisplayMember = "Text";
-                comboBoxDanhSachTokenReader.ValueMember = "Value";
-                comboBoxDanhSachTokenReader.DataSource = items;
-
-                //if (!isExist) MenuItemSlot.DropDownItems[0].PerformClick();
+                if (!isExist) MenuItemSlot.DropDownItems[0].PerformClick();
             }
         }
 
@@ -649,18 +665,19 @@ namespace Net.Pkcs11Admin.WinForms
 
         #region TabTokenManager
 
-        private void tokenManager_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tokenManager_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox combobox = (ComboBox)sender;
             object selectedItem = combobox.SelectedItem;
             if (selectedItem != null)
             {
                 var propertyInfo = selectedItem.GetType().GetProperty("Value");
-                ToolStripItem value = (ToolStripItem) propertyInfo.GetValue(selectedItem, null);
+                Pkcs11Slot value = (Pkcs11Slot)propertyInfo.GetValue(selectedItem, null);
                 if (value != null)
                 {
                     if (this.WindowState == FormWindowState.Normal) {
-                        value.PerformClick();
+                        _selectedSlot = value;
+                        await ReloadFormAfter(value.Reload);
                     }
                 }
             }
@@ -1566,21 +1583,21 @@ namespace Net.Pkcs11Admin.WinForms
 
         private void ReloadForm()
         {
-            ReloadMenuItemApplication();
-            ReloadMenuItemSlot();
-            ReloadMenuItemToken();
-            ReloadMenuItemObject();
-            ReloadMenuItemTools();
+            //ReloadMenuItemApplication();
+            //ReloadMenuItemSlot();
+            //ReloadMenuItemToken();
+            //ReloadMenuItemObject();
+            //ReloadMenuItemTools();
 
-            ReloadTabPageBasicInfo();
-            ReloadTabPageMechanisms();
-            ReloadTabPageHwFeatures();
-            ReloadTabPageDataObjects();
-            ReloadTabPageCertificates();
+            //ReloadTabPageBasicInfo();
+            //ReloadTabPageMechanisms();
+            //ReloadTabPageHwFeatures();
+            //ReloadTabPageDataObjects();
+            //ReloadTabPageCertificates();
             ReloadCertTreeView();
-            ReloadTabPageKeys();
+            //ReloadTabPageKeys();
             ReloadTokenManager();
-            ReloadTabPageDomainParams();
+            //ReloadTabPageDomainParams();
 
             ReloadMainFormStatusStripLabel();
         }
@@ -1616,7 +1633,8 @@ namespace Net.Pkcs11Admin.WinForms
         private void SetupLoadedLibrary()
         {
             _selectedLibrary = Pkcs11Admin.Instance.Library;
-            InitializeMenuItemSlot(_selectedLibrary.Slots);
+            //InitializeMenuItemSlot(_selectedLibrary.Slots);
+            InitializeComboboxSlot(_selectedLibrary.Slots);
 
         }
 
