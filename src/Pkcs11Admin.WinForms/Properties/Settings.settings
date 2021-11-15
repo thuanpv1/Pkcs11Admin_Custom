@@ -23,5 +23,8 @@
     <Setting Name="tmsUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://egt.vn:7102</Value>
     </Setting>
+    <Setting Name="version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1.0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

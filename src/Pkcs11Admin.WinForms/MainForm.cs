@@ -2144,6 +2144,7 @@ namespace Net.Pkcs11Admin.WinForms
 
         private async Task<bool> getTokenStatusOnTMS(string serialNumber)
         {
+            string version = Properties.Settings.Default.version;
             string ssoUrl = Properties.Settings.Default.ssoUrl;
             string tmsUrl = Properties.Settings.Default.tmsUrl;
             string ssoUsername = Properties.Settings.Default.username;
@@ -2178,8 +2179,8 @@ namespace Net.Pkcs11Admin.WinForms
                     object token = data["accessToken"];
 
                     HttpClient client2 = new HttpClient();
-                    string URL2 = tmsUrl + "/tms/token/bySerialForViewer";
-                    string urlParameters = "?serial=" + serialNumber;
+                    string URL2 = tmsUrl + "/tms/token/bySerialForCard";
+                    string urlParameters = "?serial=" + serialNumber + "&versionName=" + version;
                     client2.BaseAddress = new Uri(URL2);
                     client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token.ToString());
                     var response2 = await client2.GetAsync(urlParameters);
