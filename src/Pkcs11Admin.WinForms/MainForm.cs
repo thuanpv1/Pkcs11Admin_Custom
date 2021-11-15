@@ -40,6 +40,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
+using System.Drawing;
 
 namespace Net.Pkcs11Admin.WinForms
 {
@@ -50,6 +51,8 @@ namespace Net.Pkcs11Admin.WinForms
         private Pkcs11Slot _selectedSlot = null;
 
         private bool ignoreFirstSelection = true;
+
+        private bool tokenIsLocked = true;
 
         #region MainForm
 
@@ -702,9 +705,11 @@ namespace Net.Pkcs11Admin.WinForms
 
         private void ReloadTokenManager()
         {
-            bool controlsEnabled1 = (!((_selectedLibrary == null) || (_selectedSlot == null)));
-            bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null)));
-            tabPageTokenManger.Enabled = controlsEnabled1;
+            bool controlsEnabled1 = (!((_selectedLibrary == null) || (_selectedSlot == null))) && !tokenIsLocked;
+            bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null))) && !tokenIsLocked;
+            groupBoxThongTinToken.Enabled = controlsEnabled1;
+            groupBoxCaiDatToken.Enabled = controlsEnabled1;
+            groupBoxDoiPIN.Enabled = controlsEnabled1;
             textBoxPinCodeLoginTokenManager.Enabled = controlsEnabled;
             buttonLoginTokenManager.Enabled = controlsEnabled;
 
@@ -716,11 +721,13 @@ namespace Net.Pkcs11Admin.WinForms
                 this.textBoxManufacture.Text = _selectedSlot.TokenInfo.ManufacturerId;
                 this.textBoxModelToken.Text = _selectedSlot.TokenInfo.Model;
                 this.textBoxSerialNumber.Text = _selectedSlot.TokenInfo.SerialNumber;
-                this.textBoxTrangThai.Text = "Đang khóa";
-                this.textBoxGhiChu.Text = "Khách hàng chưa nộp tiền";
+                this.textBoxTrangThai.Text = "Not available";
+                this.textBoxGhiChu.Text = "Not available";
+                getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
 
             } else
             {
+                getTokenStatusOnTMS("UndefinedSerialNumber");
                 this.textBoxLabelToken.Text = "Not available";
                 this.textBoxManufacture.Text = "Not available";
                 this.textBoxModelToken.Text = "Not available";
@@ -1127,7 +1134,7 @@ namespace Net.Pkcs11Admin.WinForms
         #region TabPageCertTreeView
         private void ReloadCertTreeView()
         {
-            bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null)));
+            bool controlsEnabled = !tokenIsLocked && (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null)));
             treeViewCerts.Enabled = controlsEnabled;
             textBoxLoginCertTab.Enabled = controlsEnabled;
             buttonLoginCertTab.Enabled = controlsEnabled;
@@ -2135,10 +2142,13 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private async void testingToolStripMenuItem_Click(object sender, EventArgs e)
+        private async Task<bool> getTokenStatusOnTMS(string serialNumber)
         {
-            String URL = "https://egt.vn:7104/tms-sso/api/v1/1/authenticate";
-            Console.WriteLine("testing web");
+            string ssoUrl = Properties.Settings.Default.ssoUrl;
+            string tmsUrl = Properties.Settings.Default.tmsUrl;
+            string ssoUsername = Properties.Settings.Default.username;
+            string ssoPassword = Properties.Settings.Default.password;
+            string URL = ssoUrl + "/tms-sso/api/v1/1/authenticate";
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);
 
@@ -2148,52 +2158,96 @@ namespace Net.Pkcs11Admin.WinForms
             //Create my object
             var json = new
             {
-                username = "sys_admin",
-                password = "Lamgicopass@1234",
+                username = ssoUsername,
+                password = ssoPassword,
                 appName = "app_tms"
             };
             string jsonData = JsonConvert.SerializeObject(json);
 
             var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(URL, stringContent);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                // Parse the response body.
-                string jsonContent = response.Content.ReadAsStringAsync().Result;
-                Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
-                foreach (KeyValuePair<string, object> entry in data)
-                {
-                    Console.WriteLine(entry.Key + " : " + entry.Value);
-                }
+                var response = await client.PostAsync(URL, stringContent);
 
-                object token = data["accessToken"];
-
-                HttpClient client2 = new HttpClient();
-                string URL2 = "https://egt.vn:7102/tms/token/bySerialForViewer";
-                string urlParameters = "?serial=54081507084277";
-                client2.BaseAddress = new Uri(URL2);
-                client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token.ToString());
-                var response2 = await client2.GetAsync(urlParameters);
-                if (response2.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    string jsonContent2 = response2.Content.ReadAsStringAsync().Result;
-                    Dictionary<string, object> data2 = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent2);
-                    foreach (KeyValuePair<string, object> entry in data2)
+                    // Parse the response body.
+                    string jsonContent = response.Content.ReadAsStringAsync().Result;
+                    Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
+                    int flag = 0;
+                    object token = data["accessToken"];
+
+                    HttpClient client2 = new HttpClient();
+                    string URL2 = tmsUrl + "/tms/token/bySerialForViewer";
+                    string urlParameters = "?serial=" + serialNumber;
+                    client2.BaseAddress = new Uri(URL2);
+                    client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token.ToString());
+                    var response2 = await client2.GetAsync(urlParameters);
+                    if (response2.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(entry.Key + " : " + entry.Value);
+                        string jsonContent2 = response2.Content.ReadAsStringAsync().Result;
+                        Dictionary<string, object> data2 = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent2);
+                        foreach (KeyValuePair<string, object> entry in data2)
+                        {
+                            Console.WriteLine(entry.Key + " : " + entry.Value);
+                            if (String.Equals(entry.Key, "isLock"))
+                            {
+                                this.textBoxTrangThai.Text = (bool) entry.Value ? "Đang bị khóa" : "Bình thường";
+                                this.tokenIsLocked = (bool)entry.Value;
+                                flag = 1;
+                            }
+                            if (String.Equals(entry.Key, "lockReason"))
+                            {
+                                this.textBoxGhiChu.Text = (String) entry.Value;
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                    else
+                    {
+                        this.tokenIsLocked = true;
+                        Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                    }
+                    this.textBoxTrangThai.ForeColor = this.tokenIsLocked ? Color.Red : Color.Green;
+                    this.textBoxTrangThai.BackColor = this.textBoxTrangThai.BackColor;
+
+                    if (this.tokenIsLocked && flag == 1)
+                    {
+                        MessageBox.Show("Thẻ của bạn đã bị khóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    if (this.tokenIsLocked && flag == 0 && !String.Equals(serialNumber, "UndefinedSerialNumber"))
+                    {
+                        MessageBox.Show("Token này không được quản lý bởi TMS, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    // update control status
+                    // tab token manager
+                    bool controlsEnabled1 = (!((_selectedLibrary == null) || (_selectedSlot == null))) && !tokenIsLocked;
+                    bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null))) && !tokenIsLocked;
+                    groupBoxThongTinToken.Enabled = controlsEnabled1;
+                    groupBoxCaiDatToken.Enabled = controlsEnabled1;
+                    groupBoxDoiPIN.Enabled = controlsEnabled1;
+                    textBoxPinCodeLoginTokenManager.Enabled = controlsEnabled;
+                    buttonLoginTokenManager.Enabled = controlsEnabled;
+                    // tab cert manager
+                    controlsEnabled = !tokenIsLocked && (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null)));
+                    treeViewCerts.Enabled = controlsEnabled;
+                    textBoxLoginCertTab.Enabled = controlsEnabled;
+                    buttonLoginCertTab.Enabled = controlsEnabled;
+                    buttonCancelCertTab.Enabled = controlsEnabled;
+
+
+                    client.Dispose();
                 }
 
-                // Make any other calls using HttpClient here.
-
-                // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
-                client.Dispose();
+            } catch(Exception ex)
+            {
+                this.tokenIsLocked = true;
+                this.textBoxTrangThai.ForeColor = Color.Red;
+                this.textBoxTrangThai.BackColor = this.textBoxTrangThai.BackColor;
+                if (!ignoreFirstSelection) MessageBox.Show("Vui lòng kiểm tra lại kết nối mạng!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            return true;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -2211,8 +2265,11 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
+            await getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
+            if (this.tokenIsLocked) return;
+
             Button btn = (Button)sender;           
             String pinCode = textBoxLoginCertTab.Text;
             if (String.Equals(btn.Name, "buttonLoginDoiPINTab"))
@@ -2389,8 +2446,11 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private void buttonDoiPinTabQuanLyToken_Click(object sender, EventArgs e)
+        private async void buttonDoiPinTabQuanLyToken_Click(object sender, EventArgs e)
         {
+            await getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
+            if (this.tokenIsLocked) return;
+
             string oldPIN = this.textBoxOldPin.Text;
             string newPIN = this.textBoxNewPin.Text;
             string newPINConfirm = this.textBoxNewPinConfirm.Text;
@@ -2462,6 +2522,11 @@ namespace Net.Pkcs11Admin.WinForms
         private void checkBoxDatTokenMacDinh_CheckedChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

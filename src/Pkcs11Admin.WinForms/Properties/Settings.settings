@@ -11,5 +11,17 @@
     <Setting Name="defaultTokenAtStartUp" Type="System.String" Scope="User">
       <Value Profile="(Default)">Precise Biometrics Precise 200 MC 0</Value>
     </Setting>
+    <Setting Name="ssoUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://egt.vn:7104</Value>
+    </Setting>
+    <Setting Name="username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sys_admin1</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lamgicopass@1234</Value>
+    </Setting>
+    <Setting Name="tmsUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://egt.vn:7102</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
