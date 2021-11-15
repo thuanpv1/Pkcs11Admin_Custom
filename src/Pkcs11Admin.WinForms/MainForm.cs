@@ -50,6 +50,7 @@ namespace Net.Pkcs11Admin.WinForms
         private Pkcs11Slot _selectedSlot = null;
 
         private bool ignoreFirstSelection = true;
+
         #region MainForm
 
         public MainForm()
@@ -678,6 +679,13 @@ namespace Net.Pkcs11Admin.WinForms
             {
                 var propertyInfo = selectedItem.GetType().GetProperty("Value");
                 Pkcs11Slot value = propertyInfo != null ? (Pkcs11Slot)propertyInfo.GetValue(selectedItem, null) : null;
+
+                var propertyInfo2 = selectedItem.GetType().GetProperty("Text");
+                String value2 = propertyInfo2 != null ? (String)propertyInfo2.GetValue(selectedItem, null) : null;
+
+                String defaultToken = Properties.Settings.Default.defaultTokenAtStartUp;
+                this.checkBoxDatTokenMacDinh.Checked = value2 == defaultToken;
+
                 if (value != null && !ignoreFirstSelection)
                 {
                     if (this.WindowState == FormWindowState.Normal) {
@@ -2429,8 +2437,7 @@ namespace Net.Pkcs11Admin.WinForms
         {
             this.MenuItemRefreshSlot_Click(sender, e);
         }
-
-        private void checkBoxDatTokenMacDinh_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxDatTokenMacDinh_MouseClick(object sender, EventArgs e)
         {
             String defaultToken = Properties.Settings.Default.defaultTokenAtStartUp;
             CheckBox senderBinding = (CheckBox)sender;
@@ -2440,14 +2447,20 @@ namespace Net.Pkcs11Admin.WinForms
                 if (selectedItem != null)
                 {
                     var propertyInfo = selectedItem.GetType().GetProperty("Text");
-                    String value = (String) propertyInfo.GetValue(selectedItem, null);
+                    String value = (String)propertyInfo.GetValue(selectedItem, null);
 
                     Properties.Settings.Default.defaultTokenAtStartUp = value;
+                    Properties.Settings.Default.Save();
                 }
-            } else
+            }
+            else
             {
                 Properties.Settings.Default.defaultTokenAtStartUp = "Unknown";
+                Properties.Settings.Default.Save();
             }
+        }
+        private void checkBoxDatTokenMacDinh_CheckedChanged(object sender, EventArgs e)
+        {
             
         }
     }

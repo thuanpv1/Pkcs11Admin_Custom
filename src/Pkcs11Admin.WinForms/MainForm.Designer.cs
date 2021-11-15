@@ -997,6 +997,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.checkBoxDatTokenMacDinh.Text = "Đặt làm lựa chọn mặc định";
             this.checkBoxDatTokenMacDinh.UseVisualStyleBackColor = true;
             this.checkBoxDatTokenMacDinh.CheckedChanged += new System.EventHandler(this.checkBoxDatTokenMacDinh_CheckedChanged);
+            this.checkBoxDatTokenMacDinh.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxDatTokenMacDinh_MouseClick);
             // 
             // groupBox1
             // 
