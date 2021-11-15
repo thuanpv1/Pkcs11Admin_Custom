@@ -2231,7 +2231,6 @@ namespace Net.Pkcs11Admin.WinForms
                         Dictionary<string, object> data2 = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent2);
                         foreach (KeyValuePair<string, object> entry in data2)
                         {
-                            Console.WriteLine(entry.Key + " : " + entry.Value);
                             if (String.Equals(entry.Key, "isLock"))
                             {
                                 this.textBoxTrangThai.Text = (bool) entry.Value ? "Đang bị khóa" : "Bình thường";
@@ -2331,7 +2330,7 @@ namespace Net.Pkcs11Admin.WinForms
             }
 
             byte[] pin = null;
-            Console.WriteLine("pinCode ==== " + pinCode);
+  
             try
             {
                 pin = ConvertUtils.Utf8StringToBytes(pinCode);
