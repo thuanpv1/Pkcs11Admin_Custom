@@ -49,8 +49,7 @@ namespace Net.Pkcs11Admin.WinForms
 
         private Pkcs11Slot _selectedSlot = null;
 
-        private bool isLoaded = false;
-
+        private bool ignoreFirstSelection = true;
         #region MainForm
 
         public MainForm()
@@ -182,18 +181,24 @@ namespace Net.Pkcs11Admin.WinForms
                 items.Add(new { Text = (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot", Value = slots[i], Default = String.Equals(defaultToken, (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot") });
             }
 
+            Object selectedItem = items[0];
+            foreach (Object element in items)
+            {
+                var propertyInfo = element.GetType().GetProperty("Default");
+                bool isDefault = (bool)propertyInfo.GetValue(element, null);
+                if (isDefault)
+                {
+                    selectedItem = element;
+                }
+            }
+
             comboBoxDanhSachTokenReader.DisplayMember = "Text";
             comboBoxDanhSachTokenReader.ValueMember = "Value";
             comboBoxDanhSachTokenReader.DataSource = items;
-            //foreach(Object eachO in items)
-            //{
-            //    var propertyInfo = eachO.GetType().GetProperty("Default");
-            //    bool isDefault = (bool)propertyInfo.GetValue(eachO, null);
-            //    if (isDefault)
-            //    {
-            //        comboBoxDanhSachTokenReader.SelectedItem = eachO;
-            //    }
-            //}
+
+            comboBoxDanhSachTokenReader.SelectedItem = null; // reset the selected item
+            comboBoxDanhSachTokenReader.SelectedItem = selectedItem; // init it again
+
 
         }
 
@@ -672,13 +677,16 @@ namespace Net.Pkcs11Admin.WinForms
             if (selectedItem != null)
             {
                 var propertyInfo = selectedItem.GetType().GetProperty("Value");
-                Pkcs11Slot value = (Pkcs11Slot)propertyInfo.GetValue(selectedItem, null);
-                if (value != null)
+                Pkcs11Slot value = propertyInfo != null ? (Pkcs11Slot)propertyInfo.GetValue(selectedItem, null) : null;
+                if (value != null && !ignoreFirstSelection)
                 {
                     if (this.WindowState == FormWindowState.Normal) {
                         _selectedSlot = value;
                         await ReloadFormAfter(value.Reload);
                     }
+                } else
+                {
+                    ignoreFirstSelection = false;
                 }
             }
 

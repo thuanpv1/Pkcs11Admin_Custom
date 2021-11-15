@@ -155,6 +155,16 @@ namespace Net.Pkcs11Admin
             Reload(true);
         }
 
+        public Pkcs11Slot()
+        {
+            _slot = null;
+        }
+
+        public ISlot getSlot()
+        {
+            return _slot;
+        }
+
         #endregion
 
         #region Slot information gathering
