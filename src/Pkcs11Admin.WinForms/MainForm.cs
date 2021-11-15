@@ -54,11 +54,20 @@ namespace Net.Pkcs11Admin.WinForms
 
         private bool tokenIsLocked = true;
 
+        private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
+
+        private Color selectedTabColor = Color.FromArgb(250, 166, 26);
+        private Color unSelectedTabColor = Color.LightGray;
+
         #region MainForm
 
         public MainForm()
         {
             InitializeComponent();
+
+            String logo = Environment.CurrentDirectory + "\\SmartSign_logo.png";
+            this.pictureBox1.ImageLocation = logo;
+
             this.Icon = Properties.Resources.Pkcs11Admin;
 
             Text = string.Format("{0} {1} {2} on {3}", Pkcs11AdminInfo.AppTitle, Pkcs11AdminInfo.AppVersion, Pkcs11AdminInfo.RuntimeBitness, Pkcs11AdminInfo.OperatingSystem);
@@ -670,6 +679,29 @@ namespace Net.Pkcs11Admin.WinForms
         private void MainFormTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             ReloadMainFormStatusStripLabel();
+        }
+
+        private void SetTabHeader(TabPage page, Color color)
+        {
+            TabColors[page] = color;
+            this.MainFormTabControl.Invalidate();
+        }
+
+        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //e.DrawBackground();
+            using (Brush br = new SolidBrush(TabColors[MainFormTabControl.TabPages[e.Index]]))
+            {
+                e.Graphics.FillRectangle(br, e.Bounds);
+                SizeF sz = e.Graphics.MeasureString(MainFormTabControl.TabPages[e.Index].Text, e.Font);
+                e.Graphics.DrawString(MainFormTabControl.TabPages[e.Index].Text, e.Font, Brushes.Black, e.Bounds.Left + (e.Bounds.Width - sz.Width) / 2, e.Bounds.Top + (e.Bounds.Height - sz.Height) / 2 + 1);
+
+                Rectangle rect = e.Bounds;
+                rect.Offset(0, 1);
+                rect.Inflate(0, -1);
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect);
+                e.DrawFocusRectangle();
+            }
         }
 
         #region TabTokenManager
@@ -1534,6 +1566,9 @@ namespace Net.Pkcs11Admin.WinForms
             }
             else if (MainFormTabControl.SelectedTab == tabPageAbout)
             {
+                SetTabHeader(tabPageAbout, selectedTabColor);
+                SetTabHeader(tabPageTokenManger, unSelectedTabColor);
+                SetTabHeader(tabPageCertNew, unSelectedTabColor);
                 if (_selectedSlot != null && _selectedSlot.TokenInfoException != null)
                     ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
                 else
@@ -1541,6 +1576,9 @@ namespace Net.Pkcs11Admin.WinForms
             }
             else if (MainFormTabControl.SelectedTab == tabPageCertNew)
             {
+                SetTabHeader(tabPageAbout, unSelectedTabColor);
+                SetTabHeader(tabPageTokenManger, unSelectedTabColor);
+                SetTabHeader(tabPageCertNew, selectedTabColor);
                 if (_selectedSlot != null && _selectedSlot.TokenInfoException != null)
                     ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
                 else
@@ -1555,6 +1593,9 @@ namespace Net.Pkcs11Admin.WinForms
             }
             else if (MainFormTabControl.SelectedTab == tabPageTokenManger)
             {
+                SetTabHeader(tabPageAbout, unSelectedTabColor);
+                SetTabHeader(tabPageTokenManger, selectedTabColor);
+                SetTabHeader(tabPageCertNew, unSelectedTabColor);
                 if (_selectedSlot != null && _selectedSlot.TokenInfoException != null)
                     ShowExceptionInStatusStrip(_selectedSlot.TokenInfoException);
                 else

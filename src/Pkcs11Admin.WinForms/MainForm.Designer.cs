@@ -773,6 +773,7 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // MainFormPanel
             // 
+            this.MainFormPanel.BackColor = System.Drawing.Color.White;
             this.MainFormPanel.Controls.Add(this.pictureBox1);
             this.MainFormPanel.Controls.Add(this.MainFormTabControl);
             this.MainFormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -785,10 +786,9 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // pictureBox1
             // 
-            this.pictureBox1.ImageLocation = "https://egt.vn:8998/uploads/i_Green_Logo_2818ef9c70.png";
-            this.pictureBox1.Location = new System.Drawing.Point(16, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(391, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1011, 149);
+            this.pictureBox1.Size = new System.Drawing.Size(300, 150);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -811,6 +811,14 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.Size = new System.Drawing.Size(1045, 420);
             this.MainFormTabControl.TabIndex = 1;
             this.MainFormTabControl.SelectedIndexChanged += new System.EventHandler(this.MainFormTabControl_SelectedIndexChanged);
+
+            TabColors.Add(this.tabPageTokenManger, selectedTabColor);
+            TabColors.Add(this.tabPageCertNew, unSelectedTabColor);
+            TabColors.Add(this.tabPageAbout, unSelectedTabColor);
+            this.MainFormTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.MainFormTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+
+
             // 
             // tabPageTokenManger
             // 
