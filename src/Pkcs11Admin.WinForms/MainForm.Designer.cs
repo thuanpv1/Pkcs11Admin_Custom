@@ -116,6 +116,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainFormTabControl = new System.Windows.Forms.TabControl();
             this.tabPageTokenManger = new System.Windows.Forms.TabPage();
+            this.buttonRegister = new System.Windows.Forms.Button();
             this.groupBoxDoiPIN = new System.Windows.Forms.GroupBox();
             this.panelDoiPinTokenManager = new System.Windows.Forms.Panel();
             this.panelDangNhapTokenManager = new System.Windows.Forms.Panel();
@@ -819,6 +820,7 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // tabPageTokenManger
             // 
+            this.tabPageTokenManger.Controls.Add(this.buttonRegister);
             this.tabPageTokenManger.Controls.Add(this.groupBoxDoiPIN);
             this.tabPageTokenManger.Controls.Add(this.groupBoxCaiDatToken);
             this.tabPageTokenManger.Controls.Add(this.groupBoxThongTinToken);
@@ -832,6 +834,16 @@ namespace Net.Pkcs11Admin.WinForms
             this.tabPageTokenManger.TabIndex = 11;
             this.tabPageTokenManger.Text = "Quản lý token";
             this.tabPageTokenManger.UseVisualStyleBackColor = true;
+            // 
+            // buttonRegister
+            // 
+            this.buttonRegister.Location = new System.Drawing.Point(838, 16);
+            this.buttonRegister.Name = "buttonRegister";
+            this.buttonRegister.Size = new System.Drawing.Size(180, 31);
+            this.buttonRegister.TabIndex = 9;
+            this.buttonRegister.Text = "Register Card";
+            this.buttonRegister.UseVisualStyleBackColor = true;
+            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
             // 
             // groupBoxDoiPIN
             // 
@@ -1150,9 +1162,9 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Location = new System.Drawing.Point(840, 16);
+            this.buttonRefresh.Location = new System.Drawing.Point(684, 16);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(193, 31);
+            this.buttonRefresh.Size = new System.Drawing.Size(126, 31);
             this.buttonRefresh.TabIndex = 5;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
@@ -1172,7 +1184,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.comboBoxDanhSachTokenReader.FormattingEnabled = true;
             this.comboBoxDanhSachTokenReader.Location = new System.Drawing.Point(273, 19);
             this.comboBoxDanhSachTokenReader.Name = "comboBoxDanhSachTokenReader";
-            this.comboBoxDanhSachTokenReader.Size = new System.Drawing.Size(541, 28);
+            this.comboBoxDanhSachTokenReader.Size = new System.Drawing.Size(394, 28);
             this.comboBoxDanhSachTokenReader.TabIndex = 0;
             this.comboBoxDanhSachTokenReader.SelectedIndexChanged += new System.EventHandler(this.tokenManager_SelectedIndexChanged);
             // 
@@ -2401,5 +2413,6 @@ namespace Net.Pkcs11Admin.WinForms
         private Color unSelectedTabColor = Color.LightGray;
         private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
         private Button button2;
+        private Button buttonRegister;
     }
 }
