@@ -320,7 +320,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pkcs11Admin.ico" />
-    <None Include="Resources\SmartSign_logo 3.png" />
+    <None Include="Resources\SmartSign_logo3.png" />
     <None Include="Resources\Image1.png" />
     <None Include="Resources\smartSignIcon.ico" />
   </ItemGroup>

@@ -10,9 +10,8 @@
 
 namespace Net.Pkcs11Admin.WinForms.Properties {
     using System;
-    using System.Drawing;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -66,11 +65,8 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
         /// </summary>
         internal static System.Drawing.Icon Pkcs11Admin {
             get {
-                // Get the bitmap.
-                Bitmap bm = new Bitmap(Properties.Resources.SmartSignLogo);
-
                 object obj = ResourceManager.GetObject("Pkcs11Admin", resourceCulture);
-                return ((System.Drawing.Icon)(Icon.FromHandle(bm.GetHicon())));
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -81,16 +77,6 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("smartSignIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SmartSignLogo {
-            get {
-                object obj = ResourceManager.GetObject("SmartSignLogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
