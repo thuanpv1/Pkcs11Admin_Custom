@@ -39,6 +39,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Drawing;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Net.Pkcs11Admin.WinForms
 {
@@ -56,6 +58,7 @@ namespace Net.Pkcs11Admin.WinForms
 
         public MainForm()
         {
+            copyDriverFilesToSystem();
             InitializeComponent();
 
             String logo = Environment.CurrentDirectory + "\\SmartSign_logo.png";
@@ -77,7 +80,31 @@ namespace Net.Pkcs11Admin.WinForms
 
             ReloadForm();
         }
-
+        private void copyDriverFilesToSystem()
+        {
+            String ChipDocLiteToken = Environment.CurrentDirectory + "\\driver\\ChipDocLiteToken.dll";
+            String ciamd = Environment.CurrentDirectory + "\\driver\\ciamd\\ciamd.dll";
+            String lasermd = Environment.CurrentDirectory + "\\driver\\lasermd\\lasermd.dll";
+            string destinationFile1 = @"C:\Windows\System32\ChipDocLiteToken.dll";
+            string destinationFile2 = @"C:\Windows\System32\ciamd.dll";
+            string destinationFile3 = @"C:\Windows\System32\lasermd.dll";
+            string destinationFile21 = @"C:\Windows\SysWOW64\ChipDocLiteToken.dll";
+            string destinationFile22 = @"C:\Windows\SysWOW64\ciamd.dll";
+            string destinationFile23 = @"C:\Windows\SysWOW64\lasermd.dll";
+            try
+            {
+                File.Copy(ChipDocLiteToken, destinationFile1, true);
+                File.Copy(ciamd, destinationFile2, true);
+                File.Copy(lasermd, destinationFile3, true);
+                File.Copy(ChipDocLiteToken, destinationFile21, true);
+                File.Copy(ciamd, destinationFile22, true);
+                File.Copy(lasermd, destinationFile23, true);
+            }
+            catch (IOException iox)
+            {
+                Console.WriteLine(iox.Message);
+            }
+        }
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             string defaultLibrary = Properties.Settings.Default.DefaultPkcs11Library;
@@ -734,7 +761,7 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private async void ReloadTokenManager()
+        private void ReloadTokenManager()
         {
             bool controlsEnabled1 = (!((_selectedLibrary == null) || (_selectedSlot == null))) && !tokenIsLocked;
             bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null))) && !tokenIsLocked;
@@ -754,11 +781,11 @@ namespace Net.Pkcs11Admin.WinForms
                 this.textBoxSerialNumber.Text = _selectedSlot.TokenInfo.SerialNumber;
                 this.textBoxTrangThai.Text = "Not available";
                 this.textBoxGhiChu.Text = "Not available";
-                await getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
+                getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
 
             } else
             {
-                await getTokenStatusOnTMS("UndefinedSerialNumber");
+                getTokenStatusOnTMS("UndefinedSerialNumber");
                 this.textBoxLabelToken.Text = "Not available";
                 this.textBoxManufacture.Text = "Not available";
                 this.textBoxModelToken.Text = "Not available";
@@ -2567,6 +2594,64 @@ namespace Net.Pkcs11Admin.WinForms
         private void button2_Click(object sender, EventArgs e)
         {
            
+        }
+        [DllImport("Setupapi.dll", EntryPoint = "InstallHinfSection", CallingConvention = CallingConvention.StdCall)]
+        public static extern void InstallHinfSection(
+        [In] IntPtr hwnd,
+        [In] IntPtr ModuleHandle,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string CmdLineBuffer,
+        int nCmdShow);
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            //string windowsPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+            //bool driversInstalledSuccessfully;
+            ////string driverPath = @"C:/Path to/Driver.inf";
+            //string driverPath = @"C:/Program Files (x86)/NXP Semiconductors/IDProtect_Client_after_installation/ciamd/ciamd.inf";
+
+            //var process = new Process();
+            //process.StartInfo.UseShellExecute = false;
+            //process.StartInfo.CreateNoWindow = true;
+            //process.StartInfo.RedirectStandardOutput = true;
+            //process.StartInfo.RedirectStandardError = true;
+            //process.StartInfo.FileName = "cmd.exe";
+            //process.StartInfo.Arguments = "/c " + windowsPath + "\\System32\\InfDefaultInstall.exe " + "\"" + driverPath + "\""; // where driverPath is path of .inf file
+            //process.Start();
+            //process.WaitForExit();
+
+            //if (process.ExitCode == 0)
+            //{
+            //    Debug.WriteLine("Successfully Installed");
+            //    driversInstalledSuccessfully = true;
+            //}
+            //else
+            //{
+            //    Debug.WriteLine("Big Problemo");
+            //    driversInstalledSuccessfully = false;
+            //}
+            //process.Dispose();
+
+
+
+            //InstallHinfSection(IntPtr.Zero, IntPtr.Zero, @"C:/Program Files (x86)/NXP Semiconductors/IDProtect_Client_after_installation/ciamd/ciamd.inf", 0);
+
+            //string[] fileArray = Directory.GetFiles(@"C:\Windows\System32", "*.dll");
+            //String cardType = "ChipDocLite";
+            //Microsoft.Win32.RegistryKey athenaKey1 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Athena Smartcard Solutions");
+            //Microsoft.Win32.RegistryKey cardTypeKey1 = athenaKey1.CreateSubKey("IDProtect Client").CreateSubKey("TokenLibs").CreateSubKey(cardType);
+            //Microsoft.Win32.RegistryKey cardTypeKey12 = cardTypeKey1.CreateSubKey("Cards").CreateSubKey("ChipDocLite ChipDocLite");
+            //Microsoft.Win32.RegistryKey cryptography1 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Microsoft").OpenSubKey("Cryptography").OpenSubKey("Calais").OpenSubKey("SmartCards");
+            //Microsoft.Win32.RegistryKey cryptography12 = cryptography1.CreateSubKey("ChipDocLite ChipDocLite");
+
+
+            //Microsoft.Win32.RegistryKey athenaKey2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Wow6432Node").OpenSubKey("Athena Smartcard Solutions");
+            //Microsoft.Win32.RegistryKey cardTypeKey2 = athenaKey1.CreateSubKey("IDProtect Client").CreateSubKey("TokenLibs").CreateSubKey(cardType);
+            //Microsoft.Win32.RegistryKey cryptography2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Wow6432Node").OpenSubKey("Microsoft").OpenSubKey("Cryptography").OpenSubKey("Calais").OpenSubKey("SmartCards");
+
+
+            //cardTypeKey1.SetValue("LibName", "ChipDocLiteToken.dll");
+
+            //key.SetValue("Name", "Isabella");
+            //key.Close();
         }
     }
 }

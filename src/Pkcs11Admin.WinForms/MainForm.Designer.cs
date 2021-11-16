@@ -157,6 +157,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.buttonLoginCertTab = new System.Windows.Forms.Button();
             this.treeViewCerts = new System.Windows.Forms.TreeView();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.textBoxAbout = new System.Windows.Forms.TextBox();
             this.TabPageBasicInfo = new System.Windows.Forms.TabPage();
             this.ListViewBasicInfo = new Net.Pkcs11Admin.WinForms.Controls.EnhancedListView();
@@ -804,6 +805,7 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.Controls.Add(this.tabPageTokenManger);
             this.MainFormTabControl.Controls.Add(this.tabPageCertNew);
             this.MainFormTabControl.Controls.Add(this.tabPageAbout);
+            this.MainFormTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.MainFormTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainFormTabControl.ItemSize = new System.Drawing.Size(106, 30);
             this.MainFormTabControl.Location = new System.Drawing.Point(0, 159);
@@ -812,12 +814,8 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.SelectedIndex = 0;
             this.MainFormTabControl.Size = new System.Drawing.Size(1045, 420);
             this.MainFormTabControl.TabIndex = 1;
-            this.MainFormTabControl.SelectedIndexChanged += new System.EventHandler(this.MainFormTabControl_SelectedIndexChanged);
-
-            this.MainFormTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.MainFormTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
-
-
+            this.MainFormTabControl.SelectedIndexChanged += new System.EventHandler(this.MainFormTabControl_SelectedIndexChanged);
             // 
             // tabPageTokenManger
             // 
@@ -1265,6 +1263,7 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // tabPageAbout
             // 
+            this.tabPageAbout.Controls.Add(this.button2);
             this.tabPageAbout.Controls.Add(this.textBoxAbout);
             this.tabPageAbout.Location = new System.Drawing.Point(4, 34);
             this.tabPageAbout.Name = "tabPageAbout";
@@ -1272,6 +1271,17 @@ namespace Net.Pkcs11Admin.WinForms
             this.tabPageAbout.TabIndex = 9;
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(590, 156);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(248, 41);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // textBoxAbout
             // 
@@ -2390,5 +2400,6 @@ namespace Net.Pkcs11Admin.WinForms
         private Color selectedTabColor = Color.FromArgb(250, 166, 26);
         private Color unSelectedTabColor = Color.LightGray;
         private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
+        private Button button2;
     }
 }
