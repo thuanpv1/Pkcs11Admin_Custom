@@ -52,11 +52,6 @@ namespace Net.Pkcs11Admin.WinForms
 
         private bool tokenIsLocked = true;
 
-        private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
-
-        private Color selectedTabColor = Color.FromArgb(250, 166, 26);
-        private Color unSelectedTabColor = Color.LightGray;
-
         #region MainForm
 
         public MainForm()
@@ -687,6 +682,12 @@ namespace Net.Pkcs11Admin.WinForms
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
+            if (TabColors.Count == 0)
+            {
+                TabColors.Add(this.tabPageTokenManger, selectedTabColor);
+                TabColors.Add(this.tabPageCertNew, unSelectedTabColor);
+                TabColors.Add(this.tabPageAbout, unSelectedTabColor);
+            }
             //e.DrawBackground();
             using (Brush br = new SolidBrush(TabColors[MainFormTabControl.TabPages[e.Index]]))
             {

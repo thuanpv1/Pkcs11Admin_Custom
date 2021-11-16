@@ -15,6 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Net.Pkcs11Admin.WinForms
@@ -812,9 +814,6 @@ namespace Net.Pkcs11Admin.WinForms
             this.MainFormTabControl.TabIndex = 1;
             this.MainFormTabControl.SelectedIndexChanged += new System.EventHandler(this.MainFormTabControl_SelectedIndexChanged);
 
-            TabColors.Add(this.tabPageTokenManger, selectedTabColor);
-            TabColors.Add(this.tabPageCertNew, unSelectedTabColor);
-            TabColors.Add(this.tabPageAbout, unSelectedTabColor);
             this.MainFormTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.MainFormTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
 
@@ -2388,5 +2387,8 @@ namespace Net.Pkcs11Admin.WinForms
         private Button buttonLoginTokenManager;
         private TextBox textBoxPinCodeLoginTokenManager;
         private Label label17;
+        private Color selectedTabColor = Color.FromArgb(250, 166, 26);
+        private Color unSelectedTabColor = Color.LightGray;
+        private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
     }
 }
