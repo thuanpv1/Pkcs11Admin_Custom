@@ -112,5 +112,17 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
                 this["version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool runFirstTime {
+            get {
+                return ((bool)(this["runFirstTime"]));
+            }
+            set {
+                this["runFirstTime"] = value;
+            }
+        }
     }
 }

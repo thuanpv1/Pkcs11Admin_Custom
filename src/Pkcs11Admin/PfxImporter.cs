@@ -311,5 +311,96 @@ public class PfxImporter
                 return false;
             }
         }
-		
-	}
+
+    public static bool ImportPfxFileToCard(X509Certificate2 x509)
+    {
+        if (x509.HasPrivateKey)
+        {
+            if (x509.PublicKey.Oid.FriendlyName.Contains("RSA"))
+            {
+                RSACryptoServiceProvider key = (RSACryptoServiceProvider)x509.PrivateKey;
+                //byte[] pBlob = key.ExportCspBlob(true);
+                byte[] pbCert = x509.RawData;
+
+                //Console.WriteLine("Found {0} bits RSA private key. Loading into the smart card.\n", key.KeySize);
+                Console.WriteLine("For the MS Base Smart Card CSP, two registry values must first be set to 1 : ");
+                Console.WriteLine("\tAllowPrivateExchangeKeyImport.\n\tAllowPrivateSignatureKeyImport.\n");
+
+                IntPtr hProv = IntPtr.Zero;
+                string szMSBaseCsp = "Microsoft Base Smart Card Crypto Provider";
+                //string szMSBaseCsp = "Microsoft Strong Cryptographic Provider";
+
+                bool bStatus = CryptAcquireContext(ref hProv, "", szMSBaseCsp, ProviderType.PROV_RSA_FULL, ContextFlags.CRYPT_NEWKEYSET);
+                if (bStatus)
+                {
+                    // Get the container name
+                    string szContainerName = "";
+                    StringBuilder szVal = new StringBuilder(1024);
+                    uint dwDataLen = 1024;
+
+                    bStatus = CryptGetProvParam(hProv, ProviderParamType.PP_CONTAINER, szVal, ref dwDataLen, 0);
+                    if (bStatus)
+                        szContainerName = szVal.ToString();
+
+                    IntPtr hKey = IntPtr.Zero;
+                    //bStatus = CryptImportKey(hProv, pBlob, (UInt32)pBlob.Length, IntPtr.Zero, 0, ref hKey);
+                    if (bStatus)
+                    {
+                        bStatus = CryptSetKeyParam(hKey, KeyParameter.KP_CERTIFICATE, pbCert, 0);
+                        if (bStatus)
+                        {
+                            Console.WriteLine("Key and certificate loaded successfully into the card");
+                            if (szContainerName.Length > 0)
+                            {
+                                Console.WriteLine("\tUsed container = \"{0}\"", szContainerName);
+                            }
+                        }
+                        else
+                        {
+                            //Win32Exception ex = new Win32Exception();
+                            //Console.WriteLine("Private key imported into the card but certificate loading failed with error 0x" + ex.NativeErrorCode.ToString("X8") + "\nDescription : " + ex.Message);
+                        }
+                        CryptDestroyKey(hKey);
+                    }
+                    else
+                    {
+                        //Win32Exception ex = new Win32Exception();
+                        //Console.WriteLine("CryptImportKey failed with error 0x" + ex.NativeErrorCode.ToString("X8") + "\n\tDescription : " + ex.Message);
+                    }
+
+                    CryptReleaseContext(hProv, 0);
+
+                    if (!bStatus && szContainerName.Length > 0)
+                    {
+                        // delete the container because there was an error
+                        CryptAcquireContext(ref hProv, szContainerName, szMSBaseCsp, ProviderType.PROV_RSA_FULL, ContextFlags.CRYPT_DELETEKEYSET);
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    //Win32Exception ex = new Win32Exception();
+                    //Console.WriteLine("CryptAcquireContext failed with error 0x" + ex.NativeErrorCode.ToString("X8") + "\n\tDescription : " + ex.Message);
+
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("PFX file contains an unsupported key type ({0})", x509.PublicKey.Oid.FriendlyName);
+                return false;
+            }
+        }
+        else
+        {
+            Console.WriteLine("No private key found in the PFX file");
+            X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            store.Open(OpenFlags.ReadWrite);
+            store.Add(x509);
+            store.Close();
+            return false;
+        }
+    }
+
+}

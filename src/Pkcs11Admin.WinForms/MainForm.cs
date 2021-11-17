@@ -32,6 +32,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static PfxImporter;
+using static EnableWindowService;
 
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -825,7 +826,7 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private void ReloadTokenManager()
+        private async void ReloadTokenManager()
         {
             bool controlsEnabled1 = (!((_selectedLibrary == null) || (_selectedSlot == null))) && !tokenIsLocked;
             bool controlsEnabled = (!((_selectedSlot == null) || (_selectedSlot.Certificates == null) || (_selectedSlot.CertificatesException != null))) && !tokenIsLocked;
@@ -845,11 +846,11 @@ namespace Net.Pkcs11Admin.WinForms
                 this.textBoxSerialNumber.Text = _selectedSlot.TokenInfo.SerialNumber;
                 this.textBoxTrangThai.Text = "Not available";
                 this.textBoxGhiChu.Text = "Not available";
-                getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
+                await getTokenStatusOnTMS(_selectedSlot.TokenInfo.SerialNumber);
 
             } else
             {
-                getTokenStatusOnTMS("UndefinedSerialNumber");
+                await getTokenStatusOnTMS("UndefinedSerialNumber");
                 this.textBoxLabelToken.Text = "Not available";
                 this.textBoxManufacture.Text = "Not available";
                 this.textBoxModelToken.Text = "Not available";
