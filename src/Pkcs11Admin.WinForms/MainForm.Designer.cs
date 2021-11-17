@@ -837,9 +837,9 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             // buttonRegister
             // 
-            this.buttonRegister.Location = new System.Drawing.Point(838, 16);
+            this.buttonRegister.Location = new System.Drawing.Point(864, 16);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(180, 31);
+            this.buttonRegister.Size = new System.Drawing.Size(164, 31);
             this.buttonRegister.TabIndex = 9;
             this.buttonRegister.Text = "Register Card";
             this.buttonRegister.UseVisualStyleBackColor = true;
@@ -1164,7 +1164,7 @@ namespace Net.Pkcs11Admin.WinForms
             // 
             this.buttonRefresh.Location = new System.Drawing.Point(684, 16);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(126, 31);
+            this.buttonRefresh.Size = new System.Drawing.Size(164, 31);
             this.buttonRefresh.TabIndex = 5;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
