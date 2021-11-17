@@ -2717,6 +2717,8 @@ namespace Net.Pkcs11Admin.WinForms
 
             //key.SetValue("Name", "Isabella");
             //key.Close();
+
+            ChangeServiceStartType("CertPropSvc", ServiceStartupType.Automatic);
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
