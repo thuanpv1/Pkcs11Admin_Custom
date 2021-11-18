@@ -1287,22 +1287,29 @@ namespace Net.Pkcs11Admin
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this._disposed)
+            try
             {
-                if (disposing)
+                if (!this._disposed)
                 {
-                    // Dispose managed objects
-
-                    if (_authenticatedSession != null)
+                    if (disposing)
                     {
-                        _authenticatedSession.Dispose();
-                        _authenticatedSession = null;
+                        // Dispose managed objects
+
+                        if (_authenticatedSession != null)
+                        {
+                            _authenticatedSession.Dispose();
+                            _authenticatedSession = null;
+                        }
                     }
+
+                    // Dispose unmanaged objects
+
+                    _disposed = true;
                 }
+            }
+            catch(Exception)
+            {
 
-                // Dispose unmanaged objects
-
-                _disposed = true;
             }
         }
 

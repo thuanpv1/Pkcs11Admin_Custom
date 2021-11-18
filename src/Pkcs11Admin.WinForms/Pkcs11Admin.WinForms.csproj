@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Net.Pkcs11Admin.WinForms</RootNamespace>
-    <AssemblyName>Pkcs11Admin.WinForms</AssemblyName>
+    <AssemblyName>TokenManager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -73,11 +73,6 @@
     <ApplicationIcon>Pkcs11Admin.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Sparkline.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Interop.CERTCLILib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
