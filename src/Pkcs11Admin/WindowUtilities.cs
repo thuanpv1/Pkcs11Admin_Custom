@@ -6,8 +6,14 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.ComponentModel;
 
-public class EnableWindowService
+public class WindowUtilities
 {
+    [DllImport("Setupapi.dll", EntryPoint = "InstallHinfSection", CallingConvention = CallingConvention.StdCall)]
+    public static extern void InstallHinfSection(
+    [In] IntPtr hwnd,
+    [In] IntPtr ModuleHandle,
+    [In, MarshalAs(UnmanagedType.LPWStr)] string CmdLineBuffer,
+    int nCmdShow);
     public static void ChangeServiceStartType(string serviceName, ServiceStartupType startType)
     {
         //Obtain a handle to the service control manager database

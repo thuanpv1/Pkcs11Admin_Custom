@@ -32,7 +32,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static PfxImporter;
-using static EnableWindowService;
+using static WindowUtilities;
 
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -83,6 +83,14 @@ namespace Net.Pkcs11Admin.WinForms
         }
         private void CopyDriverFilesToSystem()
         {
+            bool runFirstTime = Properties.Settings.Default.runFirstTime;
+            if (!runFirstTime)
+            {
+                InstallHinfSection(IntPtr.Zero, IntPtr.Zero, Environment.CurrentDirectory + "\\driver\\\athenaSmartCardDriver_ciamd\\ciamd.inf", 0);
+                Properties.Settings.Default.runFirstTime = true;
+                Properties.Settings.Default.Save();
+            }
+
             String ChipDocLiteToken = Environment.CurrentDirectory + "\\driver\\ChipDocLiteToken.dll";
             String ciamd = Environment.CurrentDirectory + "\\driver\\ciamd\\ciamd.dll";
             String lasermd = Environment.CurrentDirectory + "\\driver\\lasermd\\lasermd.dll";
@@ -2660,12 +2668,6 @@ namespace Net.Pkcs11Admin.WinForms
         {
            
         }
-        [DllImport("Setupapi.dll", EntryPoint = "InstallHinfSection", CallingConvention = CallingConvention.StdCall)]
-        public static extern void InstallHinfSection(
-        [In] IntPtr hwnd,
-        [In] IntPtr ModuleHandle,
-        [In, MarshalAs(UnmanagedType.LPWStr)] string CmdLineBuffer,
-        int nCmdShow);
         private void button2_Click_1(object sender, EventArgs e)
         {
             //string windowsPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
@@ -2695,9 +2697,6 @@ namespace Net.Pkcs11Admin.WinForms
             //}
             //process.Dispose();
 
-
-
-            //InstallHinfSection(IntPtr.Zero, IntPtr.Zero, @"C:/Program Files (x86)/NXP Semiconductors/IDProtect_Client_after_installation/ciamd/ciamd.inf", 0);
 
             //string[] fileArray = Directory.GetFiles(@"C:\Windows\System32", "*.dll");
             //String cardType = "ChipDocLite";
