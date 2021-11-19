@@ -2440,22 +2440,30 @@ namespace Net.Pkcs11Admin.WinForms
                 return;
             }
             string loginResult = _selectedSlot.Login(CKU.CKU_USER, pin);
-            if (String.Equals(loginResult, "authenticatedSuccessfully"))
+            if (String.Equals(loginResult, _selectedSlot.authenticatedSuccessfully))
             {
                 _selectedSlot.Reload();
                 ReloadForm();
             } else
             {
-                if (String.Equals(loginResult, "authenticatedUnSuccessfully"))
+                if (String.Equals(loginResult, _selectedSlot.authenticatedUnSuccessfully))
                 {
-                    MessageBox.Show("Mật khẩu không chính xác! \nBạn còn " + _selectedSlot.getCurrentAllowLogin() + " lần thử.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Login không thành công, vui lòng thử lại!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (String.Equals(loginResult, "authenticatedAlready"))
+                if (String.Equals(loginResult, _selectedSlot.theCardIsBlocked))
+                {
+                    MessageBox.Show("Thẻ của bạn đã bị khóa, vui lòng liên hệ quản trị viên!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (String.Equals(loginResult, _selectedSlot.thePINIsInCorrect))
+                {
+                    MessageBox.Show("Mật khẩu không chính xác, hãy chú ý bạn chỉ có tối đa 10 lần nhập sai!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (String.Equals(loginResult, _selectedSlot.authenticatedAlready))
                 {
                     MessageBox.Show("Bạn đã login rồi", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                    
                 }
-                if (String.Equals(loginResult, "connectToCardUnsuccessfully"))
+                if (String.Equals(loginResult, _selectedSlot.connectToCardUnsuccessfully))
                 {
                     MessageBox.Show("Không thể kết nối với smartcard", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -2717,7 +2725,62 @@ namespace Net.Pkcs11Admin.WinForms
             //key.SetValue("Name", "Isabella");
             //key.Close();
 
-            ChangeServiceStartType("CertPropSvc", ServiceStartupType.Automatic);
+            //ChangeServiceStartType("CertPropSvc", ServiceStartupType.Automatic);
+
+            // init token
+            // logout
+            // login with sso token
+            // init user token with new PIN
+            // show dialog to inform user to connect with administrator to get new PIN
+
+            lockTokenByEnteringWrongPINCode();
+            unlockTokenByInitUserPINCode("33333333");
+
+        }
+
+        private bool lockTokenByEnteringWrongPINCode()
+        {
+            // 1. if authenticated, logout
+            bool logoutUser = _selectedSlot.LogoutUser();
+            // 2. try login 20 time to make the card blocked
+            for (int i = 0; i < 20; i++)
+            {
+                Console.WriteLine("Try login : " + i.ToString());
+                string resultLogin = _selectedSlot.Login(CKU.CKU_USER, ConvertUtils.Utf8StringToBytes("invalidPIN"));
+                if (String.Equals(resultLogin, _selectedSlot.theCardIsBlocked))
+                {
+                    break;
+                }
+            }
+            // 3. show message for user
+            MessageBox.Show("Thẻ của bạn đã bị khóa, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return true;
+
+        }
+
+        private bool unlockTokenByInitUserPINCode(String initPIN)
+        {
+            // 1. if authenticated, logout
+            bool logoutUser = _selectedSlot.LogoutUser();
+            // 2. login with SO PIN
+            string resultLogin = _selectedSlot.Login(CKU.CKU_SO, ConvertUtils.Utf8StringToBytes("00000000"));
+            // 3. init user PIN with default value get from TMS
+            if (String.Equals(resultLogin, _selectedSlot.authenticatedSuccessfully))
+            {
+                bool initPINResult = _selectedSlot.InitPinUser(initPIN);
+                if (initPINResult)
+                {
+                    MessageBox.Show("Thẻ của bạn đã được mở khóa, vui lòng liên hệ quản trị để lấy mật khẩu mặc định!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } else
+                {
+                    MessageBox.Show("Đã có lỗi xảy ra trong quá trình mở khóa thẻ, vui lòng liên hệ quản trị", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                _selectedSlot.LogoutUser();
+            }
+            // 4. inform client
+
+            return true;
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)

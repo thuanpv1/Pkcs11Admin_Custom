@@ -22,17 +22,18 @@ namespace Net.Pkcs11Admin
 {
     public class Pkcs11Slot : IDisposable
     {
+        public string authenticatedAlready = "authenticatedAlready";
+        public string connectToCardUnsuccessfully = "connectToCardUnsuccessfully";
+        public string authenticatedSuccessfully = "authenticatedSuccessfully";
+        public string theCardIsBlocked = "theCardIsBlocked";
+        public string thePINIsInCorrect = "thePINIsInCorrect";
+        public string authenticatedUnSuccessfully = "authenticatedUnSuccessfully";
+
         private bool _disposed = false;
 
         private ISlot _slot = null;
 
         private ISession _authenticatedSession = null;
-        private int currentAllowLogin = 10;
-
-        public int getCurrentAllowLogin ()
-        {
-            return currentAllowLogin;
-        }
 
         #region Properties
 
@@ -762,7 +763,7 @@ namespace Net.Pkcs11Admin
 
             if (_authenticatedSession != null)
             {
-                return "authenticatedAlready";
+                return authenticatedAlready;
                 //throw new Exception("Authenticated session already exists");
             }
 
@@ -771,22 +772,23 @@ namespace Net.Pkcs11Admin
                 _authenticatedSession = _slot.OpenSession(SessionType.ReadWrite);
             } catch (Exception ex)
             {
-                return "connectToCardUnsuccessfully";
+                return connectToCardUnsuccessfully;
             }
 
             try
             {
                 _authenticatedSession.Login(userType, pin);
-                currentAllowLogin = 10;
-                return "authenticatedSuccessfully";
+                return authenticatedSuccessfully;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                bool isPINLocked = ex.Message.Contains("CKR_PIN_LOCKED");
+                bool isPINIncorrected = ex.Message.Contains("CKR_PIN_INCORRECT");
                 _authenticatedSession.Dispose();
                 _authenticatedSession = null;
 
-                currentAllowLogin--;
-                return "authenticatedUnSuccessfully";
+                return isPINLocked ? theCardIsBlocked : isPINIncorrected ? thePINIsInCorrect : authenticatedUnSuccessfully;
                 //[thuan] update here
                 //throw;
             }
@@ -816,6 +818,28 @@ namespace Net.Pkcs11Admin
                 session.InitPin(pin);
         }
 
+        public bool InitPinUser(string pin)
+        {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            if (_authenticatedSession == null)
+            {
+                //throw new Exception("Authenticated session does not exist");
+                return false;
+            }
+            try
+            {
+                using (ISession session = _slot.OpenSession(SessionType.ReadWrite))
+                session.InitPin(pin);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void Logout()
         {
             if (this._disposed)
@@ -833,6 +857,36 @@ namespace Net.Pkcs11Admin
                 _authenticatedSession.Dispose();
                 _authenticatedSession = null;
             }
+        }
+
+        public bool LogoutUser()
+        {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            if (_authenticatedSession == null)
+            {
+                //throw new Exception("Authenticated session does not exist");
+                return true;
+            }
+
+            try
+            {
+                _authenticatedSession.Logout();
+            }
+            catch(Exception)
+            {
+                try
+                {
+                    _authenticatedSession.Dispose();
+                    _authenticatedSession = null;
+                    return true;
+                } catch(Exception)
+                {
+                    return true;
+                }
+            }
+            return true;
         }
 
         public void SaveObjectAttributes(Pkcs11ObjectInfo objectInfo, List<IObjectAttribute> objectAttributes)
