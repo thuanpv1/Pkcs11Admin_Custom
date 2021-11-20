@@ -82,7 +82,7 @@ namespace Net.Pkcs11Admin.WinForms.Dialogs
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Dang ket noi thiet bi...";
+            this.Text = "Đang xử lý...";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WaitDialog_FormClosing);
             this.Load += new System.EventHandler(this.WaitDialog_Load);
             this.WaitDialogPanel.ResumeLayout(false);

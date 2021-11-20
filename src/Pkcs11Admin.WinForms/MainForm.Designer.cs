@@ -2381,21 +2381,8 @@ namespace Net.Pkcs11Admin.WinForms
         private ComboBox comboBoxDanhSachTokenReader;
         private Button buttonRefresh;
         private GroupBox groupBoxCaiDatToken;
-        private GroupBox groupBoxThongTinToken;
-        private TextBox textBoxLabelToken;
-        private Label label8;
-        private TextBox textBoxSerialNumber;
-        private Label label11;
-        private TextBox textBoxModelToken;
-        private Label label10;
-        private TextBox textBoxManufacture;
-        private Label label9;
         private GroupBox groupBoxDoiPIN;
         private CheckBox checkBoxDatTokenMacDinh;
-        private TextBox textBoxGhiChu;
-        private Label label13;
-        private TextBox textBoxTrangThai;
-        private Label label12;
         private Panel panelDoiPinTokenManager;
         private Panel panelDangNhapTokenManager;
         private Button buttonDoiPinTabQuanLyToken;
@@ -2414,5 +2401,18 @@ namespace Net.Pkcs11Admin.WinForms
         private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
         private Button button2;
         private Button buttonRegister;
+        private GroupBox groupBoxThongTinToken;
+        private TextBox textBoxGhiChu;
+        private Label label13;
+        private TextBox textBoxTrangThai;
+        private Label label12;
+        private TextBox textBoxSerialNumber;
+        private Label label11;
+        private TextBox textBoxModelToken;
+        private Label label10;
+        private TextBox textBoxManufacture;
+        private Label label9;
+        private TextBox textBoxLabelToken;
+        private Label label8;
     }
 }

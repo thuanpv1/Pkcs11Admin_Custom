@@ -124,5 +124,17 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
                 this["runFirstTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string listCardToUnlock {
+            get {
+                return ((string)(this["listCardToUnlock"]));
+            }
+            set {
+                this["listCardToUnlock"] = value;
+            }
+        }
     }
 }

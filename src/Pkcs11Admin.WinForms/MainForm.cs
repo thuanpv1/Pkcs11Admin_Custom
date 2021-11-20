@@ -42,6 +42,7 @@ using System.Configuration;
 using System.Drawing;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.Win32;
 
 namespace Net.Pkcs11Admin.WinForms
 {
@@ -55,10 +56,15 @@ namespace Net.Pkcs11Admin.WinForms
 
         private bool tokenIsLocked = true;
 
+        private bool isBusyOnLockUnlock = false;
+
+        private String software = "TokenManager";
+        private String subkey = "listCardToUnlock";
         #region MainForm
 
         public MainForm()
         {
+            CreateKey(software, subkey);
             CopyDriverFilesToSystem();
             InitializeComponent();
 
@@ -1287,19 +1293,26 @@ namespace Net.Pkcs11Admin.WinForms
                     treeViewCerts.Nodes[index].Nodes[0].ContextMenuStrip = this.contextMenuStripForViewDetailCertKeys;
                     treeViewCerts.Nodes[index].Nodes[1].ContextMenuStrip = this.contextMenuStripForViewDetailCertKeys;
 
-                    if (_selectedSlot.Keys != null && _selectedSlot.Keys.Count > 0)
-                    {
-                        panelLogin.Dispose();
-                        panelLoginDoiPIN.Dispose();
-                        panelDangNhapTokenManager.Dispose();
-                    } else
-                    {
-                        panelLogin.Show();
-                        panelLoginDoiPIN.Show();
-                    }
                 }
 
+                if (_selectedSlot.isAuthenticated() && _selectedSlot.Keys != null && _selectedSlot.Keys.Count > 0)
+                {
+                    panelLogin.Visible = false;
+                    panelLoginDoiPIN.Visible = false;
+                    panelDangNhapTokenManager.Visible = false;
+
+                }
+                else
+                {
+                    textBoxLoginCertTab.Text = "";
+                    textBoxLoginDoiPINTab.Text = "";
+                    textBoxPinCodeLoginTokenManager.Text = "";
+                    panelLogin.Visible = true;
+                    panelLoginDoiPIN.Visible = true;
+                    panelDangNhapTokenManager.Visible = true;
+                }
             }
+
         }
         #endregion
         #region TabPageCertificates
@@ -2352,11 +2365,16 @@ namespace Net.Pkcs11Admin.WinForms
 
                     if (this.tokenIsLocked && flag == 1)
                     {
-                        MessageBox.Show("Thẻ của bạn đã bị khóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("Thẻ của bạn đã bị khóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (!isBusyOnLockUnlock) await lockTokenByEnteringWrongPINCode(serialNumber);
                     }
                     if (this.tokenIsLocked && flag == 0 && !String.Equals(serialNumber, "UndefinedSerialNumber"))
                     {
                         MessageBox.Show("Token này không được quản lý bởi TMS, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    if (!this.tokenIsLocked)
+                    {
+                        if (!isBusyOnLockUnlock) await unlockTokenByInitUserPINCode(serialNumber, "33333333");
                     }
 
                     // update control status
@@ -2643,6 +2661,7 @@ namespace Net.Pkcs11Admin.WinForms
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
+            isBusyOnLockUnlock = false;
             this.MenuItemRefreshSlot_Click(sender, e);
         }
         private void checkBoxDatTokenMacDinh_MouseClick(object sender, EventArgs e)
@@ -2676,7 +2695,7 @@ namespace Net.Pkcs11Admin.WinForms
         {
            
         }
-        private void button2_Click_1(object sender, EventArgs e)
+        private async void button2_Click_1(object sender, EventArgs e)
         {
             //string windowsPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
             //bool driversInstalledSuccessfully;
@@ -2726,67 +2745,122 @@ namespace Net.Pkcs11Admin.WinForms
             //key.Close();
 
             //ChangeServiceStartType("CertPropSvc", ServiceStartupType.Automatic);
-
-            // init token
-            // logout
-            // login with sso token
-            // init user token with new PIN
-            // show dialog to inform user to connect with administrator to get new PIN
-
-            lockTokenByEnteringWrongPINCode();
-            unlockTokenByInitUserPINCode("33333333");
-
         }
 
-        private bool lockTokenByEnteringWrongPINCode()
+        private async Task lockTokenByEnteringWrongPINCode(String serialNumber)
         {
-            // 1. if authenticated, logout
-            bool logoutUser = _selectedSlot.LogoutUser();
-            // 2. try login 20 time to make the card blocked
-            for (int i = 0; i < 20; i++)
+            String listCardToUnlock = getRegKeyValue();
+            if (!listCardToUnlock.Contains(serialNumber + "#;#"))
             {
-                Console.WriteLine("Try login : " + i.ToString());
-                string resultLogin = _selectedSlot.Login(CKU.CKU_USER, ConvertUtils.Utf8StringToBytes("invalidPIN"));
-                if (String.Equals(resultLogin, _selectedSlot.theCardIsBlocked))
+                isBusyOnLockUnlock = true;
+                // 1. if authenticated, logout
+                await LogoutByReloadAgain();
+                // 2. try login 20 time to make the card blocked
+                for (int i = 0; i < 20; i++)
                 {
-                    break;
+                    Console.WriteLine("Try login : " + i.ToString());
+                    string resultLogin = _selectedSlot.Login(CKU.CKU_USER, ConvertUtils.Utf8StringToBytes("invalidPIN"));
+                    if (String.Equals(resultLogin, _selectedSlot.theCardIsBlocked))
+                    {
+                        break;
+                    }
                 }
+
+                updateRegKeyValue(listCardToUnlock + serialNumber + "#;#");
+                // 3. show message for user
+                MessageBox.Show("Thẻ của bạn đã bị khóa, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // 3. show message for user
-            MessageBox.Show("Thẻ của bạn đã bị khóa, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return true;
-
+            else
+            {
+                isBusyOnLockUnlock = false;
+            }
         }
 
-        private bool unlockTokenByInitUserPINCode(String initPIN)
+        private async Task unlockTokenByInitUserPINCode(String serialNumber, String initPIN)
         {
-            // 1. if authenticated, logout
-            bool logoutUser = _selectedSlot.LogoutUser();
-            // 2. login with SO PIN
-            string resultLogin = _selectedSlot.Login(CKU.CKU_SO, ConvertUtils.Utf8StringToBytes("00000000"));
-            // 3. init user PIN with default value get from TMS
-            if (String.Equals(resultLogin, _selectedSlot.authenticatedSuccessfully))
+            String listCardToUnlock = getRegKeyValue();
+ 
+            if (listCardToUnlock.Contains(serialNumber + "#;#"))
             {
-                bool initPINResult = _selectedSlot.InitPinUser(initPIN);
-                if (initPINResult)
+                isBusyOnLockUnlock = true;
+                // 1. if authenticated, logout
+                await LogoutByReloadAgain();
+                // 2. login with SO PIN
+                string resultLogin = _selectedSlot.Login(CKU.CKU_SO, ConvertUtils.Utf8StringToBytes("00000000"));
+                await ReloadFormAfter(_selectedSlot.Reload);
+                // 3. init user PIN with default value get from TMS
+                if (String.Equals(resultLogin, _selectedSlot.authenticatedSuccessfully))
                 {
-                    MessageBox.Show("Thẻ của bạn đã được mở khóa, vui lòng liên hệ quản trị để lấy mật khẩu mặc định!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else
-                {
-                    MessageBox.Show("Đã có lỗi xảy ra trong quá trình mở khóa thẻ, vui lòng liên hệ quản trị", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    bool initPINResult = _selectedSlot.InitPinUser(initPIN);
+                    if (initPINResult)
+                    {
+                        MessageBox.Show("Thẻ của bạn đã được mở khóa, vui lòng liên hệ quản trị để lấy mật khẩu mặc định!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } else
+                    {
+                        MessageBox.Show("Đã có lỗi xảy ra trong quá trình mở khóa thẻ, vui lòng liên hệ quản trị", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    updateRegKeyValue(listCardToUnlock.Replace(serialNumber + "#;#", ""));
+                    restartApp();
                 }
-
-                _selectedSlot.LogoutUser();
+            } else
+            {
+                isBusyOnLockUnlock = false;
             }
             // 4. inform client
-
-            return true;
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             String registerExe = Environment.CurrentDirectory + "\\driver\\IDProtectRegisterSmartCard.exe";
             System.Diagnostics.Process.Start(registerExe);
+        }
+
+        private async Task LogoutByReloadAgain(bool reloadLib = true)
+        {
+            ignoreFirstSelection = true;
+            try
+            {
+               if (reloadLib) await WaitDialog.Execute(this, Pkcs11Admin.Instance.ReloadLibrary);
+            }
+            catch (Exception ex)
+            {
+                WinFormsUtils.ShowError(this, ex);
+            }
+
+            SetupLoadedLibrary();
+            await Task.Delay(500);
+        }
+
+        private void restartApp()
+        {
+            Application.Restart();
+            Application.ExitThread();
+        }
+
+        private void CreateKey(String softwarename, String subkey)
+        {
+            String[] key = Registry.LocalMachine.OpenSubKey("SOFTWARE").GetSubKeyNames();
+            foreach(String each in key)
+            {
+                if (String.Equals(each, softwarename))
+                {
+                    return;
+                }
+            }
+
+            Registry.LocalMachine.CreateSubKey("SOFTWARE\\" + softwarename + "\\" + subkey);
+        }
+
+        private void updateRegKeyValue(String value)
+        {
+            RegistryKey listOfCardToUnlock = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + software + "\\" + subkey, true);
+            listOfCardToUnlock.SetValue("listOfCardToUnlock", value);
+        }
+
+        private String getRegKeyValue()
+        {
+            RegistryKey listOfCardToUnlock = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + software + "\\" + subkey, true);
+            return (String) listOfCardToUnlock.GetValue("listOfCardToUnlock");
         }
     }
 }

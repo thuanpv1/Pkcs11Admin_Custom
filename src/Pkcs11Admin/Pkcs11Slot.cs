@@ -37,6 +37,12 @@ namespace Net.Pkcs11Admin
 
         #region Properties
 
+        public bool isAuthenticated ()
+        {
+            if (_authenticatedSession != null) return true;
+            return false;
+        }
+
         public Pkcs11SlotInfo SlotInfo
         {
             get;
@@ -883,6 +889,8 @@ namespace Net.Pkcs11Admin
                     return true;
                 } catch(Exception)
                 {
+                    _slot = null;
+                    _authenticatedSession = null;
                     return true;
                 }
             }
