@@ -29,7 +29,7 @@
     <Setting Name="runFirstTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="listCardToUnlock" Type="System.String" Scope="User">
+    <Setting Name="accessToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

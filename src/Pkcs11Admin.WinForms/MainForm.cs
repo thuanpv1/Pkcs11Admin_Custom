@@ -58,13 +58,15 @@ namespace Net.Pkcs11Admin.WinForms
 
         private bool isBusyOnLockUnlock = false;
 
-        private String software = "TokenManager";
-        private String subkey = "listCardToUnlock";
+        private String softwareKey = "TokenManager";
+        private String softwareKeyChild1Key = "listCardToUnlock";
+        private String softwareKeyChild1KeyChild1Key = "listOfCardToUnlock";
         #region MainForm
 
         public MainForm()
         {
-            CreateKey(software, subkey);
+            logfile("=====Open New Instance of token manager=====", false);
+            CreateKey(softwareKey, softwareKeyChild1Key);
             CopyDriverFilesToSystem();
             InitializeComponent();
 
@@ -2295,14 +2297,34 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
+        private void logfile(string msg, bool appendMode = true)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(msg + "\n");
+            // flush every 20 seconds as you do it
+            if (appendMode) File.AppendAllText("log.txt", sb.ToString());
+            else
+            {
+                File.WriteAllText("log.txt", sb.ToString());
+            }
+            sb.Clear();
+         }
+
         private async Task<bool> getTokenStatusOnTMS(string serialNumber)
         {
+            logfile("=====getTokenStatusOnTMS======Started");
+            String savedToken = Properties.Settings.Default.accessToken;
             string version = Properties.Settings.Default.version;
             string ssoUrl = Properties.Settings.Default.ssoUrl;
             string tmsUrl = Properties.Settings.Default.tmsUrl;
             string ssoUsername = Properties.Settings.Default.username;
             string ssoPassword = Properties.Settings.Default.password;
             string URL = ssoUrl + "/tms-sso/api/v1/1/authenticate";
+            logfile(version);
+            logfile(savedToken);
+            logfile(ssoUrl);
+            logfile(tmsUrl);
+
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);
 
@@ -2321,24 +2343,40 @@ namespace Net.Pkcs11Admin.WinForms
             var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             try
             {
-                var response = await client.PostAsync(URL, stringContent);
-
-                if (response.IsSuccessStatusCode)
+                var response = !(String.IsNullOrEmpty(savedToken)) ? null : await client.PostAsync(URL, stringContent);
+                if (!(String.IsNullOrEmpty(savedToken)))
                 {
-                    // Parse the response body.
-                    string jsonContent = response.Content.ReadAsStringAsync().Result;
-                    Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
-                    int flag = 0;
-                    object token = data["accessToken"];
+                    logfile("========Use saved token to authenticate, no need to authenticate again ==========");
+                }
+                else
+                {
+                    logfile("========Pass through the login request ==========");
+                }
 
+                if ((response != null && response.IsSuccessStatusCode && response.StatusCode == System.Net.HttpStatusCode.OK) || !(String.IsNullOrEmpty(savedToken)))
+                {
+                    logfile("=========login request return success code========");
+                    int flag = 0;
+                    if ((String.IsNullOrEmpty(savedToken)))
+                    {
+                        // Parse the response body.
+                        string jsonContent = response.Content.ReadAsStringAsync().Result;
+                        logfile("login response====" + jsonContent);
+                        Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
+                        object token = data["accessToken"];
+                        savedToken = token.ToString();
+                        Properties.Settings.Default.accessToken = token.ToString();
+                        Properties.Settings.Default.Save();
+                    }
                     HttpClient client2 = new HttpClient();
                     string URL2 = tmsUrl + "/tms/token/bySerialForCard";
                     string urlParameters = "?serial=" + serialNumber + "&versionName=" + version;
                     client2.BaseAddress = new Uri(URL2);
-                    client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token.ToString());
+                    client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(savedToken);
                     var response2 = await client2.GetAsync(urlParameters);
-                    if (response2.IsSuccessStatusCode)
+                    if (response2.IsSuccessStatusCode && response2.StatusCode == System.Net.HttpStatusCode.OK)
                     {
+                        logfile("======== the request /tms/token/bySerialForCard return success code ========");
                         string jsonContent2 = response2.Content.ReadAsStringAsync().Result;
                         Dictionary<string, object> data2 = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent2);
                         foreach (KeyValuePair<string, object> entry in data2)
@@ -2348,6 +2386,7 @@ namespace Net.Pkcs11Admin.WinForms
                                 this.textBoxTrangThai.Text = (bool) entry.Value ? "Đang bị khóa" : "Bình thường";
                                 this.tokenIsLocked = (bool)entry.Value;
                                 flag = 1;
+                                logfile("======== the status of the card return by TMS is========" + tokenIsLocked.ToString());
                             }
                             if (String.Equals(entry.Key, "lockReason"))
                             {
@@ -2355,25 +2394,35 @@ namespace Net.Pkcs11Admin.WinForms
                             }
                         }
                     }
+                    else if (response2.IsSuccessStatusCode && response2.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        logfile("======== the saved token expired, login again========");
+                        Properties.Settings.Default.accessToken = "";
+                        Properties.Settings.Default.Save();
+                        return await getTokenStatusOnTMS(serialNumber);
+                    }
                     else
                     {
+                        logfile("======== the request /tms/token/bySerialForCard return failed code ========" + response.StatusCode.ToString() + "====" + response.ReasonPhrase);
                         this.tokenIsLocked = true;
                         Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
                     }
                     this.textBoxTrangThai.ForeColor = this.tokenIsLocked ? Color.Red : Color.Green;
                     this.textBoxTrangThai.BackColor = this.textBoxTrangThai.BackColor;
-
                     if (this.tokenIsLocked && flag == 1)
                     {
+                        logfile("======== the token is locked by TMS========");
                         //MessageBox.Show("Thẻ của bạn đã bị khóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         if (!isBusyOnLockUnlock) await lockTokenByEnteringWrongPINCode(serialNumber);
                     }
                     if (this.tokenIsLocked && flag == 0 && !String.Equals(serialNumber, "UndefinedSerialNumber"))
                     {
+                        logfile("========the token is not managed by TMS========");
                         MessageBox.Show("Token này không được quản lý bởi TMS, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     if (!this.tokenIsLocked)
                     {
+                        logfile("========the token is unlocked by TMS ========");
                         if (!isBusyOnLockUnlock) await unlockTokenByInitUserPINCode(serialNumber, "33333333");
                     }
 
@@ -2392,17 +2441,27 @@ namespace Net.Pkcs11Admin.WinForms
                     textBoxLoginCertTab.Enabled = controlsEnabled;
                     buttonLoginCertTab.Enabled = controlsEnabled;
                     buttonCancelCertTab.Enabled = controlsEnabled;
-
+                    logfile("=====getTokenStatusOnTMS======Ended");
 
                     client.Dispose();
                 }
+                else
+                {
+                    logfile("=====Login TMS failed======");
+                    this.tokenIsLocked = true;
+                    this.textBoxTrangThai.ForeColor = Color.Red;
+                    this.textBoxTrangThai.BackColor = this.textBoxTrangThai.BackColor;
+                    if (!ignoreFirstSelection) MessageBox.Show("Không thể kết nối TMS, vui lòng liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-            } catch (Exception)
+            } catch (Exception ex)
             {
+                logfile("=====getTokenStatusOnTMS======exception occurred:");
+                logfile(ex.ToString());
                 this.tokenIsLocked = true;
                 this.textBoxTrangThai.ForeColor = Color.Red;
                 this.textBoxTrangThai.BackColor = this.textBoxTrangThai.BackColor;
-                if (!ignoreFirstSelection) MessageBox.Show("Vui lòng kiểm tra lại kết nối mạng!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ignoreFirstSelection) MessageBox.Show("Đã có lỗi xảy ra, vui lòng kiểm tra lại kết nối hoặc liên hệ quản trị!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return true;
@@ -2750,6 +2809,8 @@ namespace Net.Pkcs11Admin.WinForms
         private async Task lockTokenByEnteringWrongPINCode(String serialNumber)
         {
             String listCardToUnlock = getRegKeyValue();
+            if (listCardToUnlock == null) listCardToUnlock = "";
+            logfile("lockTokenByEnteringWrongPINCode listCardToUnlock===" + listCardToUnlock);
             if (!listCardToUnlock.Contains(serialNumber + "#;#"))
             {
                 isBusyOnLockUnlock = true;
@@ -2779,7 +2840,8 @@ namespace Net.Pkcs11Admin.WinForms
         private async Task unlockTokenByInitUserPINCode(String serialNumber, String initPIN)
         {
             String listCardToUnlock = getRegKeyValue();
- 
+            if (listCardToUnlock == null) listCardToUnlock = "";
+            logfile("unlockTokenByInitUserPINCode listCardToUnlock===" + listCardToUnlock);
             if (listCardToUnlock.Contains(serialNumber + "#;#"))
             {
                 isBusyOnLockUnlock = true;
@@ -2844,23 +2906,39 @@ namespace Net.Pkcs11Admin.WinForms
             {
                 if (String.Equals(each, softwarename))
                 {
-                    return;
+                    RegistryKey softKey = Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey(softwarename);
+                    String[] softKeyStrs = softKey.GetSubKeyNames();
+                    foreach (String eachSoftKey in softKeyStrs)
+                    {
+                        if (String.Equals(eachSoftKey, subkey))
+                        {
+                            RegistryKey subKeyTemp = Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey(softwarename).OpenSubKey(subkey, true);
+                            String check = (String) subKeyTemp.GetValue(softwareKeyChild1KeyChild1Key);
+                            if (check == null)
+                            {
+                                subKeyTemp.SetValue(softwareKeyChild1KeyChild1Key, "");
+                            }
+                            return;
+                        }
+                    }
                 }
             }
 
-            Registry.LocalMachine.CreateSubKey("SOFTWARE\\" + softwarename + "\\" + subkey);
+            RegistryKey tempKey = Registry.LocalMachine.CreateSubKey("SOFTWARE\\" + softwarename + "\\" + subkey);
+            tempKey.SetValue(softwareKeyChild1KeyChild1Key, "");
+
         }
 
         private void updateRegKeyValue(String value)
         {
-            RegistryKey listOfCardToUnlock = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + software + "\\" + subkey, true);
-            listOfCardToUnlock.SetValue("listOfCardToUnlock", value);
+            RegistryKey listOfCardToUnlock = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + softwareKey + "\\" + softwareKeyChild1Key, true);
+            listOfCardToUnlock.SetValue(softwareKeyChild1KeyChild1Key, value);
         }
 
         private String getRegKeyValue()
         {
-            RegistryKey listOfCardToUnlock = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + software + "\\" + subkey, true);
-            return (String) listOfCardToUnlock.GetValue("listOfCardToUnlock");
+            RegistryKey listOfCardToUnlock = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + softwareKey + "\\" + softwareKeyChild1Key, true);
+            return (String) listOfCardToUnlock.GetValue(softwareKeyChild1KeyChild1Key);
         }
     }
 }

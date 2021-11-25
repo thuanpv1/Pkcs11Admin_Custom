@@ -128,12 +128,12 @@ namespace Net.Pkcs11Admin.WinForms.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string listCardToUnlock {
+        public string accessToken {
             get {
-                return ((string)(this["listCardToUnlock"]));
+                return ((string)(this["accessToken"]));
             }
             set {
-                this["listCardToUnlock"] = value;
+                this["accessToken"] = value;
             }
         }
     }
