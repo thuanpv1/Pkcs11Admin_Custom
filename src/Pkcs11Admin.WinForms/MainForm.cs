@@ -2394,7 +2394,7 @@ namespace Net.Pkcs11Admin.WinForms
                             }
                         }
                     }
-                    else if (response2.IsSuccessStatusCode && response2.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    else if (!response2.IsSuccessStatusCode && response2.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
                         logfile("======== the saved token expired, login again========");
                         Properties.Settings.Default.accessToken = "";
