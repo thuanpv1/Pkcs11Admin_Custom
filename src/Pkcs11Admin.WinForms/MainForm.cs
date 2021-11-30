@@ -299,7 +299,7 @@ namespace Net.Pkcs11Admin.WinForms
                 items.Add(new { Text = (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot", Value = slots[i], Default = String.Equals(defaultToken, (slots[i].SlotInfo != null) ? slots[i].SlotInfo.SlotDescription : "Unknown slot") });
             }
 
-            Object selectedItem = items[0];
+            Object selectedItem = slots.Count > 0 ? items[0] : null;
             foreach (Object element in items)
             {
                 var propertyInfo = element.GetType().GetProperty("Default");
@@ -2722,10 +2722,12 @@ namespace Net.Pkcs11Admin.WinForms
 
         }
 
-        private void buttonRefresh_Click(object sender, EventArgs e)
+        private async void buttonRefresh_Click(object sender, EventArgs e)
         {
             isBusyOnLockUnlock = false;
-            this.MenuItemRefreshSlot_Click(sender, e);
+            ignoreFirstSelection = true;
+            await WaitDialog.Execute(this, () => Pkcs11Admin.Instance.LoadLibrary(Environment.CurrentDirectory + "\\asepkcs.dll", null, null, false, false));
+            SetupLoadedLibrary();
         }
         private void checkBoxDatTokenMacDinh_MouseClick(object sender, EventArgs e)
         {
