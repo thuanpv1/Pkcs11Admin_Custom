@@ -66,8 +66,9 @@ namespace Net.Pkcs11Admin.WinForms
         public MainForm()
         {
             logfile("=====Open New Instance of token manager=====", false);
-            CreateKey(softwareKey, softwareKeyChild1Key);
-            CopyDriverFilesToSystem();
+            installDriver();
+            //CreateKey(softwareKey, softwareKeyChild1Key);
+            //CopyDriverFilesToSystem();
             InitializeComponent();
 
             String logo = Environment.CurrentDirectory + "\\SmartSign_logo.png";
@@ -89,7 +90,7 @@ namespace Net.Pkcs11Admin.WinForms
 
             ReloadForm();
         }
-        private void CopyDriverFilesToSystem()
+        private void installDriver()
         {
             bool runFirstTime = Properties.Settings.Default.runFirstTime;
             if (!runFirstTime)
@@ -98,6 +99,9 @@ namespace Net.Pkcs11Admin.WinForms
                 Properties.Settings.Default.runFirstTime = true;
                 Properties.Settings.Default.Save();
             }
+        }
+        private void CopyDriverFilesToSystem()
+        {
 
             String ChipDocLiteToken = Environment.CurrentDirectory + "\\driver\\ChipDocLiteToken.dll";
             String ciamd = Environment.CurrentDirectory + "\\driver\\ciamd\\ciamd.dll";
