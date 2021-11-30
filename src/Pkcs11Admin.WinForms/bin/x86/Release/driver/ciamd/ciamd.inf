@@ -1,0 +1,235 @@
+;
+;Copyright (c) Athena Smartcard Solutions.  All rights reserved.
+;
+
+[Version]
+Signature="$Windows NT$"
+Class=SmartCard
+ClassGuid={990A2BD7-E738-46c7-B26F-1CF8FB9F1391}
+Provider=%VendorName%
+CatalogFile=ciamd.cat
+DriverVer=08/19/2019,7.2.0.4
+
+[Manufacturer]
+%VendorName%=Athena,NTamd64,NTamd64.6.1,NTx86,NTx86.6.1
+
+[Athena.NTamd64]
+%ASECardDeviceName%=Athena64_Install,SCFILTER\CID_6C15AE3C-1D44-DC4A-96BC-7BB032968C26
+
+[Athena.NTx86]
+%ASECardDeviceName%=Athena32_Install,SCFILTER\CID_6C15AE3C-1D44-DC4A-96BC-7BB032968C26
+
+[Athena.NTamd64.6.1]
+%ASECardDeviceName%=Athena64_61_Install,SCFILTER\CID_6C15AE3C-1D44-DC4A-96BC-7BB032968C26
+
+[Athena.NTx86.6.1]
+%ASECardDeviceName%=Athena32_61_Install,SCFILTER\CID_6C15AE3C-1D44-DC4A-96BC-7BB032968C26
+
+[SourceDisksFiles]
+ciamd64.dll=1
+ciamd.dll=1
+
+[SourceDisksNames]
+1 = %MediaDescription%
+
+[Athena64_Install.NT]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault
+
+[Athena64_61_Install.NT]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault
+Include=umpass.inf
+Needs=UmPass
+AddService=AddService
+
+[Athena32_Install.NT]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+
+[Athena32_61_Install.NT]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+Include=umpass.inf
+Needs=UmPass
+AddService=AddService
+
+
+[Athena64_61_Install.NT.Services]
+
+AddService = UmPass,%SPSVCINST_ASSOCSERVICE%,UMPassService_Install 
+
+[Athena32_61_Install.NT.Services]
+
+AddService = UmPass,%SPSVCINST_ASSOCSERVICE%,UMPassService_Install
+
+[Athena64_Install.NT.Services]
+
+AddService = UmPass,%SPSVCINST_ASSOCSERVICE%,UMPassService_Install
+
+[Athena32_Install.NT.Services]
+
+AddService = UmPass,%SPSVCINST_ASSOCSERVICE%,UMPassService_Install
+ 
+[UMPassService_Install]
+DisplayName    = %umpass.SVCDESC%     ; Friendly Name of the Service
+ServiceType    = 1                    ; SERVICE_KERNEL_DRIVER
+StartType      = 3                    ; SERVICE_DEMAND_START 
+ErrorControl   = 1                    ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\umpass.sys
+LoadOrderGroup = Extended Base
+
+
+[Athena64_61_Install.NT.HW]
+Include=umpass.inf
+Needs=UmPass.HW
+
+[Athena64_61_Install.NT.CoInstallers]
+Include=umpass.inf
+Needs=UmPass.CoInstallers
+
+
+[Athena64_61_Install.NT.Interfaces]
+Include=umpass.inf
+Needs=UmPass.Interfaces
+
+
+[Athena32_61_Install.NT.HW]
+Include=umpass.inf
+Needs=UmPass.HW
+
+[Athena32_61_Install.NT.CoInstallers]
+Include=umpass.inf
+Needs=UmPass.CoInstallers
+
+
+[Athena32_61_Install.NT.Interfaces]
+Include=umpass.inf
+Needs=UmPass.Interfaces
+
+
+[amd64_CopyFiles]
+ciamd.dll,ciamd64.dll
+
+[x86_CopyFiles]
+ciamd.dll
+
+[wow64_CopyFiles]
+ciamd.dll
+
+[AddRegWOW64]
+HKLM, %SmartCardNameWOW64%,"ATR",0x00000001,3b,df,00,ff,81,91,fe,1f,c3,00,31,b8,64,00,00,ec,00,73,94,00,00,82,90,00,00
+HKLM, %SmartCardNameWOW64%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,ff,00,ff,ff,00,00,ff,ff,ff,00
+HKLM, %SmartCardNameWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardNameWOW641%,"ATR",0x00000001,3b,dc,00,ff,81,91,fe,1f,c3,80,73,c8,21,10,66,00,00,00,00,00,00,00
+HKLM, %SmartCardNameWOW641%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,f0,ff,00,00,00,00,00,00,00
+HKLM, %SmartCardNameWOW641%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW641%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW641%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardNameWOW642%,"ATR",0x00000001,3b,d4,95,ff,80,31,fe,45,57,61,72,6d,9d
+HKLM, %SmartCardNameWOW642%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,00,00,00,00,00
+HKLM, %SmartCardNameWOW642%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW642%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW642%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardNameWOW643%,"ATR",0x00000001,3b,ea,00,00,81,31,fe,45,00,31,c1,73,c8,40,00,00,90,00,7a
+HKLM, %SmartCardNameWOW643%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameWOW643%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW643%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW643%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardNameWOW644%,"ATR",0x00000001,3b,da,00,ff,80,b1,fe,00,1f,c3,54,69,63,54,6f,6b,20,33,2e,00,00
+HKLM, %SmartCardNameWOW644%,"ATRMask",0x00000001,ff,ff,00,ff,f0,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00
+HKLM, %SmartCardNameWOW644%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW644%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW644%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardNameWOW645%,"ATR",0x00000001,3b,8a,80,01,54,69,63,54,6f,6b,20,33,2e,30,08
+HKLM, %SmartCardNameWOW645%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameWOW645%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW645%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW645%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardNameWOW646%,"ATR",0x00000001,3b,d8,00,ff,80,91,fe,1f,c3,80,73,c8,21,10,52,00,00,00
+HKLM, %SmartCardNameWOW646%,"ATRMask",0x00000001,ff,ff,00,ff,f0,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00
+HKLM, %SmartCardNameWOW646%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameWOW646%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameWOW646%,"80000001",0x00000000,%SmartCardCardModule%
+
+
+
+
+
+[AddRegDefault]
+HKLM, %SmartCardName%,"ATR",0x00000001,3b,df,00,ff,81,91,fe,1f,c3,00,31,b8,64,00,00,ec,00,73,94,00,00,82,90,00,00
+HKLM, %SmartCardName%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,ff,00,ff,ff,00,00,ff,ff,ff,00
+HKLM, %SmartCardName%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardName1%,"ATR",0x00000001,3b,dc,00,ff,81,91,fe,1f,c3,80,73,c8,21,10,66,00,00,00,00,00,00,00
+HKLM, %SmartCardName1%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,f0,ff,00,00,00,00,00,00,00
+HKLM, %SmartCardName1%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName1%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName1%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardName2%,"ATR",0x00000001,3b,d4,95,ff,80,31,fe,45,57,61,72,6d,9d
+HKLM, %SmartCardName2%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,00,00,00,00,00
+HKLM, %SmartCardName2%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName2%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName2%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardName3%,"ATR",0x00000001,3b,ea,00,00,81,31,fe,45,00,31,c1,73,c8,40,00,00,90,00,7a
+HKLM, %SmartCardName3%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardName3%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName3%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName3%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardName4%,"ATR",0x00000001,3b,da,00,ff,80,b1,fe,00,1f,c3,54,69,63,54,6f,6b,20,33,2e,00,00
+HKLM, %SmartCardName4%,"ATRMask",0x00000001,ff,ff,00,ff,f0,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00
+HKLM, %SmartCardName4%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName4%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName4%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardName5%,"ATR",0x00000001,3b,8a,80,01,54,69,63,54,6f,6b,20,33,2e,30,08
+HKLM, %SmartCardName5%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardName5%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName5%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName5%,"80000001",0x00000000,%SmartCardCardModule%
+HKLM, %SmartCardName6%,"ATR",0x00000001,3b,d8,00,ff,80,91,fe,1f,c3,80,73,c8,21,10,52,00,00,00
+HKLM, %SmartCardName6%,"ATRMask",0x00000001,ff,ff,00,ff,f0,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00
+HKLM, %SmartCardName6%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardName6%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardName6%,"80000001",0x00000000,%SmartCardCardModule%
+
+
+
+
+[DestinationDirs]
+amd64_CopyFiles=10,system32
+x86_CopyFiles=10,system32
+wow64_CopyFiles=10,syswow64
+
+
+; =================== Generic ==================================
+
+[Strings]
+VendorName="Athena Smartcard Solutions"
+MediaDescription="CIA Smart Card Mini Driver Installation Disk"
+ASECardDeviceName="CIA Minidriver"
+SmartCardName="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\CHIPDOC"
+SmartCardNameWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\CHIPDOC"
+SmartCardName1="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\CJCOP3"
+SmartCardNameWOW641="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\CJCOP3"
+SmartCardName2="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\LPKI"
+SmartCardName3="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\LPKI01"
+SmartCardNameWOW642="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\LPKI"
+SmartCardNameWOW643="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\LPKI01"
+SmartCardName4="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\TicTok V3.x"
+SmartCardName5="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\TicTok V3.x CL"
+SmartCardNameWOW644="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\TicTok V3.x"
+SmartCardNameWOW645="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\TicTok V3.x CL"
+SmartCardNameWOW646="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\ChipDoc JCOP4"
+SmartCardName6="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\ChipDoc JCOP4"
+SmartCardCardModule="ciamd.dll"
+
+
+umpass.SVCDESC="Microsoft UMPass Driver"
+SPSVCINST_ASSOCSERVICE = 0x00000002

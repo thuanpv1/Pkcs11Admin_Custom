@@ -1,0 +1,22 @@
+=====Open New Instance of token manager=====
+=====getTokenStatusOnTMS======Started
+1.0
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODI0MjI1OCwiZXhwIjoxNjM4MzI4NjU4fQ.CPaKXtHJUpWpBzAtGzW2ik7PfK7c7EtMG5TMepurmRI
+https://egt.vn:7104
+https://egt.vn:7102
+========Use saved token to authenticate, no need to authenticate again ==========
+=========login request return success code========
+======== the request /tms/token/bySerialForCard return success code ========
+=====getTokenStatusOnTMS======Ended
+=====getTokenStatusOnTMS======Started
+1.0
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODI0MjI1OCwiZXhwIjoxNjM4MzI4NjU4fQ.CPaKXtHJUpWpBzAtGzW2ik7PfK7c7EtMG5TMepurmRI
+https://egt.vn:7104
+https://egt.vn:7102
+========Use saved token to authenticate, no need to authenticate again ==========
+=========login request return success code========
+======== the request /tms/token/bySerialForCard return success code ========
+======== the status of the card return by TMS is========False
+========the token is unlocked by TMS ========
+unlockTokenByInitUserPINCode listCardToUnlock===
+=====getTokenStatusOnTMS======Ended
