@@ -5,7 +5,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-SignTool=MsSign $f
+SignTool=signtool $f
 AppId={{1867383A-0FEC-4276-A274-13B88DEBF48D}
 AppName=Token Manager
 AppVersion=1.0
@@ -48,4 +48,4 @@ Name: "{group}\Token Manager"; Filename: "{app}\TokenManager.exe"
 Name: "{commondesktop}\Token Manager"; Filename: "{app}\TokenManager.exe"; Tasks: desktopicon
 [Run]
 Filename: "{sys}\rundll32.exe"; Parameters: "setupapi,InstallHinfSection DefaultInstall 128 {app}\driver\athenaSmartCardDriver_ciamd\ciamd.inf"; WorkingDir: {app}\driver; Description: "Install driver"; Flags: 32bit;
-Filename: "{app}\certmgr.exe"; Parameters: "-add -all -c evergreenca.cer -s -r localmachine trustedpublisher"; Flags: waituntilterminated runhidden;
+Filename: "{app}\certmgr.exe"; Parameters: "-add -all -c evergreenca.cer -s -r currentUser root"; Flags: waituntilterminated runhidden;
