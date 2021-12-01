@@ -47,4 +47,4 @@ Name: "{group}\Token Manager"; Filename: "{app}\TokenManager.exe"
 Name: "{commondesktop}\Token Manager"; Filename: "{app}\TokenManager.exe"; Tasks: desktopicon
 [Run]
 Filename: "{sys}\rundll32.exe"; Parameters: "setupapi,InstallHinfSection DefaultInstall 128 {app}\driver\athenaSmartCardDriver_ciamd\ciamd.inf"; WorkingDir: {app}\driver; Description: "Install driver"; Flags: 32bit;
-Filename: "{app}\certmgr.exe"; Parameters: "-add -all -c publisher2.cer -s -r localmachine trustedpublisher"; Flags: waituntilterminated runhidden;
+Filename: "{app}\certmgr.exe"; Parameters: "-add -all -c evergreenca.cer -s -r localmachine trustedpublisher"; Flags: waituntilterminated runhidden;
