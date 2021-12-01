@@ -1,7 +1,7 @@
 =====Open New Instance of token manager=====
 =====getTokenStatusOnTMS======Started
 1.0
-eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODIzMjc1NywiZXhwIjoxNjM4MzE5MTU3fQ.Jc__TNZCz7uzoow-42g0HO5bqtH_EJG5EILXKwhBBvA
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODI2NjM1OCwiZXhwIjoxNjM4MzUyNzU4fQ.yqkdfmXXknUcSG8TBx26QL4Vr8u02Se7uC7KhCzKe7w
 https://egt.vn:7104
 https://egt.vn:7102
 ========Use saved token to authenticate, no need to authenticate again ==========
@@ -10,7 +10,19 @@ https://egt.vn:7102
 =====getTokenStatusOnTMS======Ended
 =====getTokenStatusOnTMS======Started
 1.0
-eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODIzMjc1NywiZXhwIjoxNjM4MzE5MTU3fQ.Jc__TNZCz7uzoow-42g0HO5bqtH_EJG5EILXKwhBBvA
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODI2NjM1OCwiZXhwIjoxNjM4MzUyNzU4fQ.yqkdfmXXknUcSG8TBx26QL4Vr8u02Se7uC7KhCzKe7w
+https://egt.vn:7104
+https://egt.vn:7102
+========Use saved token to authenticate, no need to authenticate again ==========
+=========login request return success code========
+======== the request /tms/token/bySerialForCard return success code ========
+======== the status of the card return by TMS is========False
+========the token is unlocked by TMS ========
+unlockTokenByInitUserPINCode listCardToUnlock===
+=====getTokenStatusOnTMS======Ended
+=====getTokenStatusOnTMS======Started
+1.0
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeXNfYWRtaW4xIiwidXNlci1pZCI6MSwiY29tcGFueS1pZCI6MSwiYXBwLWlkIjoxLCJhcHAtbmFtZSI6ImFwcF90bXMiLCJkZXZpY2UtaWQiOiJ1bmtub3duIiwidG9rZW4tdGltZW91dCI6ODY0MDAsImlhdCI6MTYzODI2NjM1OCwiZXhwIjoxNjM4MzUyNzU4fQ.yqkdfmXXknUcSG8TBx26QL4Vr8u02Se7uC7KhCzKe7w
 https://egt.vn:7104
 https://egt.vn:7102
 ========Use saved token to authenticate, no need to authenticate again ==========
