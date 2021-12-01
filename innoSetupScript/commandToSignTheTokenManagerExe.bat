@@ -1,0 +1,1 @@
+D:\TokenManagerTemp\publish\sign\signtool.exe sign /f "D:\TokenManagerTemp\publish\sign\evergreencert.pfx" /p 12345678 /td sha256 /fd sha256 /v "D:\TokenManagerTemp\Quynh_Pkcs11Admin-0.5.0\Pkcs11Admin-0.5.0\src\Pkcs11Admin.WinForms\bin\x86\Release\TokenManager.exe"
